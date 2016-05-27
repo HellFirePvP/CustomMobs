@@ -2,18 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="49bb8adc-70e4-4c1f-9545-c8e37c50d07b" name="Default" comment="">
-      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\.idea\.name" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\.idea\compiler.xml" afterPath="" />
       <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\.idea\copyright\profiles_settings.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\.idea\encodings.xml" afterPath="" />
       <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\.idea\libraries\Maven__org_mcstats_bukkit_metrics_R8_SNAPSHOT.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\.idea\misc.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\.idea\modules.xml" afterPath="" />
       <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\.idea\scopes\scope_settings.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\.idea\uiDesigner.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\.idea\vcs.xml" afterPath="" />
       <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\.idea\workspace.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\CustomMobs_v4.iml" afterPath="" />
     </list>
     <ignored path="CustomMobs_v4.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -513,7 +505,11 @@
       <created>1464313698765</created>
       <updated>1464313698765</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Cleanup...">
+      <created>1464313745873</created>
+      <updated>1464313745873</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -586,7 +582,8 @@
     <MESSAGE value="removing stuff once again -_-" />
     <MESSAGE value="Ugh.." />
     <MESSAGE value="Let's try this again -_-" />
-    <option name="LAST_COMMIT_MESSAGE" value="Let's try this again -_-" />
+    <MESSAGE value="Cleanup..." />
+    <option name="LAST_COMMIT_MESSAGE" value="Cleanup..." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
