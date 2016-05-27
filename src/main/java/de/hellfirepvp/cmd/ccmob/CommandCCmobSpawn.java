@@ -6,6 +6,7 @@ import de.hellfirepvp.cmd.AbstractCmobCommand;
 import de.hellfirepvp.cmd.BaseCommand;
 import de.hellfirepvp.cmd.MessageAssist;
 import de.hellfirepvp.data.mob.CustomMob;
+import de.hellfirepvp.lang.LanguageHandler;
 import de.hellfirepvp.spawning.SpawnLimitException;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -86,7 +87,7 @@ public class CommandCCmobSpawn extends AbstractCmobCommand {
             w = Bukkit.getWorld(worldName);
             w.getName();
         } catch (Exception exc) {
-            cs.sendMessage("World called '" + worldName + "' not found!");
+            cs.sendMessage(String.format(LanguageHandler.translate("command.ccmob.spawn.noworld"), worldName));
             BaseCommand.sendPlayerDescription(cs, this, false);
             return;
         }
@@ -100,8 +101,8 @@ public class CommandCCmobSpawn extends AbstractCmobCommand {
         int spawned = 0;
         for (int i = 0; i < amount; i++) {
             if(!CustomMobs.instance.getSpawnLimiter().canSpawn(mob)) {
-                cs.sendMessage("Spawnlimit for " + mob.getMobFileName() + " reached!");
-                cs.sendMessage("Spawned " + spawned + "/" + amount + " of " + mob.getMobFileName() + ".");
+                cs.sendMessage(String.format(LanguageHandler.translate("command.cmob.spawn.limitreached"), mob.getMobFileName()));
+                cs.sendMessage(String.format(LanguageHandler.translate("command.cmob.spawn.amount"), String.valueOf(spawned), String.valueOf(amount), mob.getMobFileName()));
                 return;
             }
 
@@ -110,8 +111,8 @@ public class CommandCCmobSpawn extends AbstractCmobCommand {
             try {
                 entity = mob.spawnAt(spawnAt);
             } catch (SpawnLimitException ignored) {
-                cs.sendMessage("Spawnlimit for " + mob.getMobFileName() + " reached!");
-                cs.sendMessage("Spawned " + spawned + "/" + amount + " of " + mob.getMobFileName() + ".");
+                cs.sendMessage(String.format(LanguageHandler.translate("command.cmob.spawn.limitreached"), mob.getMobFileName()));
+                cs.sendMessage(String.format(LanguageHandler.translate("command.cmob.spawn.amount"), String.valueOf(spawned), String.valueOf(amount), mob.getMobFileName()));
                 return;
             }
 
@@ -120,12 +121,12 @@ public class CommandCCmobSpawn extends AbstractCmobCommand {
 
             if(event.isCancelled()) {
                 entity.remove();
-                cs.sendMessage("Spawning was cancelled. Nothing will be spawned.");
+                cs.sendMessage(LanguageHandler.translate("command.cmob.spawn.cancelled"));
                 CustomMobs.instance.getSpawnLimiter().decrement(mob, entity);
                 return;
             }
         }
-        cs.sendMessage("Spawned " + spawned + "/" + amount + " of " + mob.getMobFileName() + ".");
+        cs.sendMessage(String.format(LanguageHandler.translate("command.cmob.spawn.amount"), String.valueOf(spawned), String.valueOf(amount), mob.getMobFileName()));
     }
 
     private int parseInt(CommandSender cs, String str, int what) throws Exception {

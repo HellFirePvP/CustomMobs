@@ -4,6 +4,7 @@ import de.hellfirepvp.CustomMobs;
 import de.hellfirepvp.cmd.BaseCommand;
 import de.hellfirepvp.cmd.MessageAssist;
 import de.hellfirepvp.cmd.PlayerCmobCommand;
+import de.hellfirepvp.lang.LanguageHandler;
 import de.hellfirepvp.leash.LeashManager;
 import de.hellfirepvp.lib.LibLanguageOutput;
 import org.bukkit.ChatColor;
@@ -25,10 +26,10 @@ public class CommandCaiLeash extends PlayerCmobCommand {
 
         if(range.equalsIgnoreCase("remove")) {
             if(LeashManager.removeLeashSetting(name)) {
-                p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.GREEN + "Leash-settings for mob \"" + name + "\" removed.");
-                p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.GREEN + "Existing leashes are NOT removed!");
+                p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.GREEN + String.format(LanguageHandler.translate("command.cai.leash.success"), name));
+                p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.GREEN + LanguageHandler.translate("command.cai.leash.remove.info"));
             } else {
-                p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.RED + "The mob \"" + name + "\" does not have any leash-settings.");
+                p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.RED + String.format(LanguageHandler.translate("command.cai.leash.noleash"), name));
             }
             return;
         }
@@ -48,12 +49,12 @@ public class CommandCaiLeash extends PlayerCmobCommand {
         }
 
         if(LeashManager.shouldBeLeashed(name)) {
-            p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.RED + "The mob \"" + name + "\" does already have a leash-setting.");
+            p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.RED + String.format(LanguageHandler.translate("command.cai.leash.exists"), name));
             return;
         }
 
         LeashManager.addNewLeashSetting(name, maxRange);
-        p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.GREEN + "The mob \"" + name + "\" will no longer leave its spawnpoint further than " + maxRange + ".");
+        p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.GREEN + String.format(LanguageHandler.translate("command.cai.leash.success"), name, String.valueOf(maxRange)));
     }
 
     @Override

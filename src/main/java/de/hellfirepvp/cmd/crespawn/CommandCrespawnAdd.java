@@ -5,6 +5,7 @@ import de.hellfirepvp.cmd.MessageAssist;
 import de.hellfirepvp.cmd.PlayerCmobCommand;
 import de.hellfirepvp.data.RespawnDataHolder;
 import de.hellfirepvp.file.write.RespawnDataWriter;
+import de.hellfirepvp.lang.LanguageHandler;
 import de.hellfirepvp.lib.LibLanguageOutput;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -37,13 +38,13 @@ public class CommandCrespawnAdd extends PlayerCmobCommand {
 
         switch (RespawnDataWriter.setRespawnSettings(name, new RespawnDataHolder.RespawnSettings(p.getLocation(), time))) {
             case MOB_ALREADY_EXISTS:
-                p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.RED + name + " is already set to respawn somewhere.");
+                p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.RED + String.format(LanguageHandler.translate("command.crespawn.add.exists"), name));
                 break;
             case IO_EXCEPTION:
                 MessageAssist.msgIOException(p);
                 break;
             case SUCCESS:
-                p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.GREEN + name + " is set to respawn at your location.");
+                p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.GREEN + String.format(LanguageHandler.translate("command.crespawn.add.success"), name));
                 break;
         }
     }

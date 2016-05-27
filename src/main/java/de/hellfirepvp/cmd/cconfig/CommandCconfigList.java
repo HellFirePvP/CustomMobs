@@ -31,7 +31,7 @@ public class CommandCconfigList extends PlayerCmobCommand {
         }
         String mobsAsString = builder.toString();
 
-        p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.AQUA + "Mobs that spawn randomly:");
+        p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.AQUA + LanguageHandler.translate("command.cconfig.list"));
         if(mobsAsString.isEmpty()) {
             p.sendMessage(ChatColor.GREEN + LanguageHandler.translate("command.error.none"));
         } else {

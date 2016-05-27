@@ -121,16 +121,16 @@ public class CommandCconfigAdd extends PlayerCmobCommand {
 
         switch (SpawnSettingsWriter.setSpawnSettings(name, settings)) {
             case MOB_ALREADY_EXISTS:
-                p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.RED + name + " is already set to spawn randomly");
+                p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.RED + String.format(LanguageHandler.translate("command.cconfig.add.exists"), name));
                 break;
             case IO_EXCEPTION:
                 MessageAssist.msgIOException(p);
                 break;
             case SUCCESS:
-                p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.GREEN + name + " is successfully set to spawn randomly.");
-                p.sendMessage(ChatColor.GOLD + "Properties:");
-                p.sendMessage(ChatColor.GREEN + "SpawnRate: " + spawnRate);
-                p.sendMessage(ChatColor.GREEN + "GroupSawning: " + grpSpawn + ", GroupSpawnAmount: " + grpSpawnAmt);
+                p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.GREEN + String.format(LanguageHandler.translate("command.cconfig.add.success"), name));
+                p.sendMessage(ChatColor.GOLD + LanguageHandler.translate("command.cconfig.add.info.properties"));
+                p.sendMessage(ChatColor.GREEN + String.format(LanguageHandler.translate("command.cconfig.add.info.spawnrate"), String.valueOf(spawnRate)));
+                p.sendMessage(ChatColor.GREEN + String.format(LanguageHandler.translate("command.cconfig.add.info.group"), String.valueOf(grpSpawn), String.valueOf(grpSpawnAmt)));
                 if(!biomes.isEmpty()) {
                     StringBuilder builder = new StringBuilder();
                     boolean first = true;
@@ -141,7 +141,7 @@ public class CommandCconfigAdd extends PlayerCmobCommand {
                         builder.append(b.name());
                         first = false;
                     }
-                    p.sendMessage(ChatColor.GREEN + "Biomes: " + builder.toString());
+                    p.sendMessage(ChatColor.GREEN + String.format(LanguageHandler.translate("command.cconfig.add.info.biomes"), builder.toString()));
                 }
                 if(!worlds.isEmpty()) {
                     StringBuilder builder = new StringBuilder();
@@ -153,7 +153,7 @@ public class CommandCconfigAdd extends PlayerCmobCommand {
                         builder.append(world);
                         first = false;
                     }
-                    p.sendMessage(ChatColor.GREEN + "Worlds: " + builder.toString());
+                    p.sendMessage(ChatColor.GREEN + String.format(LanguageHandler.translate("command.cconfig.add.info.worlds"), builder.toString()));
                 }
                 if(!regions.isEmpty()) {
                     StringBuilder builder = new StringBuilder();
@@ -165,7 +165,7 @@ public class CommandCconfigAdd extends PlayerCmobCommand {
                         builder.append(region);
                         first = false;
                     }
-                    p.sendMessage(ChatColor.GREEN + "Regions: " + builder.toString());
+                    p.sendMessage(ChatColor.GREEN + String.format(LanguageHandler.translate("command.cconfig.add.info.regions"), builder.toString()));
                 }
                 break;
         }
