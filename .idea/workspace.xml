@@ -1,9 +1,172 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="49bb8adc-70e4-4c1f-9545-c8e37c50d07b" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+    <list default="true" id="49bb8adc-70e4-4c1f-9545-c8e37c50d07b" name="Default" comment="gitignore please... do your job.">
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\.idea\.name" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\.idea\compiler.xml" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\.idea\copyright\profiles_settings.xml" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\.idea\encodings.xml" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\.idea\libraries\Maven__org_mcstats_bukkit_metrics_R8_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\.idea\misc.xml" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\.idea\modules.xml" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\.idea\scopes\scope_settings.xml" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\.idea\uiDesigner.xml" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\.idea\vcs.xml" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\.idea\workspace.xml" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\lib\Factions-2.8.14.jar" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\lib\MassiveCore-2.8.14.jar" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\lib\spigot-1.9.4.jar" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\lib\worldedit-bukkit-6.1.2.jar" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\lib\worldguard-6.1.jar" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\CustomMobs-4.0-INDEV.jar" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\CustomMobs$1.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\CustomMobs.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\api\CustomMobsAPI.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\api\data\EquipmentSlot$1.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\api\data\EquipmentSlot.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\api\event\CustomMobDeathEvent.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\api\event\CustomMobEvent.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\api\event\CustomMobSpawnEvent$SpawnReason.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\api\event\CustomMobSpawnEvent.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\api\internal\ApiHandler.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\api\internal\DummyApiHandler.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\cmd\AbstractCmobCommand.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\cmd\BaseCommand.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\cmd\CommandRegistry$CommandCategory.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\cmd\CommandRegistry.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\cmd\MessageAssist.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\cmd\PlayerCmobCommand.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\cmd\cai\CommandCaiLeash.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\cmd\ccmob\CommandCCmobRemove.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\cmd\ccmob\CommandCCmobSpawn.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\cmd\cconfig\CommandCconfigAdd$1.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\cmd\cconfig\CommandCconfigAdd.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\cmd\cconfig\CommandCconfigList.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\cmd\cconfig\CommandCconfigRemove$1.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\cmd\cconfig\CommandCconfigRemove.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\cmd\cconfig\Cout.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\cmd\ccontrol\CommandCcontrolList.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\cmd\cmob\CommandCmobBurn.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\cmd\cmob\CommandCmobCmd.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\cmd\cmob\CommandCmobCreate.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\cmd\cmob\CommandCmobDelete.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\cmd\cmob\CommandCmobDrop.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\cmd\cmob\CommandCmobEquip.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\cmd\cmob\CommandCmobExp.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\cmd\cmob\CommandCmobFireProof.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\cmd\cmob\CommandCmobHealth.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\cmd\cmob\CommandCmobLimit.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\cmd\cmob\CommandCmobList.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\cmd\cmob\CommandCmobName.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\cmd\cmob\CommandCmobRemove.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\cmd\cmob\CommandCmobResetPotion$1.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\cmd\cmob\CommandCmobResetPotion.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\cmd\cmob\CommandCmobSetBaby.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\cmd\cmob\CommandCmobSetPotion$1.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\cmd\cmob\CommandCmobSetPotion.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\cmd\cmob\CommandCmobSpawn.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\cmd\cmob\CommandCmobSpawner$1.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\cmd\cmob\CommandCmobSpawner.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\cmd\cmob\CommandCmobTool.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\cmd\crespawn\CommandCrespawnAdd$1.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\cmd\crespawn\CommandCrespawnAdd.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\cmd\crespawn\CommandCrespawnAddLoc$1.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\cmd\crespawn\CommandCrespawnAddLoc.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\cmd\crespawn\CommandCrespawnRemove$1.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\cmd\crespawn\CommandCrespawnRemove.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\config\ConfigHandler.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\config\ConfigReader.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\data\FullControlHandler.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\data\RespawnDataHolder$RespawnSettings.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\data\RespawnDataHolder.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\data\SpawnSettingsHolder$SpawnSettings.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\data\SpawnSettingsHolder.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\data\SpawnerDataHolder$Spawner.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\data\SpawnerDataHolder.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\data\callback\RespawnDataCallback.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\data\callback\SpawnSettingsCallback.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\data\callback\SpawnerDataCallback.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\data\mob\CustomMob.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\data\mob\DataAdapter.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\data\mob\EntityAdapter$1.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\data\mob\EntityAdapter.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\data\mob\MobDataHolder.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\data\mob\MobFactory.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\data\nbt\NBTProvider.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\data\nbt\NBTTagType.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\data\nbt\NBTWrapper.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\data\nbt\WrappedNBTTagCompound$UnsupportedNBTTypeException.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\data\nbt\WrappedNBTTagCompound.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\data\nbt\WrappedNBTTagList.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\event\GeneralEventListener.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\event\ToolEventListener.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\event\WorldEventListener.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\file\read\FullControlBiomesReader.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\file\read\LeashDataReader.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\file\read\MobDataReader.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\file\read\RespawnDataReader.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\file\read\SpawnSettingsReader.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\file\read\SpawnerDataReader.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\file\write\LeashDataWriter.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\file\write\MobDataWriter.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\file\write\RespawnDataWriter.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\file\write\SpawnSettingsWriter.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\file\write\SpawnerDataWriter.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\integration\IntegrationFactions.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\integration\IntegrationHandler.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\integration\IntegrationWorldGuard.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\integration\impl\ImplIntegrationFactions.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\integration\impl\ImplIntegrationWorldGuard.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\lang\LanguageHandler.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\leash\LeashExecutor.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\leash\LeashManager$ActiveLeashInfo.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\leash\LeashManager$LeashInfo.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\leash\LeashManager.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\lib\LibConfiguration$1.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\lib\LibConfiguration$2.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\lib\LibConfiguration.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\lib\LibConstantKeys.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\lib\LibLanguageOutput.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\lib\LibMisc$1.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\lib\LibMisc.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\nms\BiomeMetaProvider$NMSBiomeMetaLink.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\nms\BiomeMetaProvider.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\nms\MobTypeProvider.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\nms\NMSReflector.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\nms\NMSUtils.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\nms\v1_9_R2\BiomeMetaProviderImpl.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\nms\v1_9_R2\NBTProviderImpl$1.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\nms\v1_9_R2\NBTProviderImpl$ForIntIterator.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\nms\v1_9_R2\NBTProviderImpl$TagCompoundImpl.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\nms\v1_9_R2\NBTProviderImpl$TagListImpl.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\nms\v1_9_R2\NBTProviderImpl.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\nms\v1_9_R2\NMSUtilImpl$1.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\nms\v1_9_R2\NMSUtilImpl.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\nms\v1_9_R2\TypeProviderImpl.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\spawning\Respawner.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\spawning\SpawnLimit.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\spawning\SpawnLimitException.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\spawning\SpawnSettingsResolver.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\spawning\SpawnerHandler.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\spawning\worldSpawning\RandomWorldSpawnExecutor.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\spawning\worldSpawning\WorldSpawner$1.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\spawning\worldSpawning\WorldSpawner$ChunkCoordPair.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\spawning\worldSpawning\WorldSpawner$CreatureType.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\spawning\worldSpawning\WorldSpawner.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\tool\CustomMobsTool.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\tool\ToolController.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\util\EntityUtils.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\util\LocationUtils.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\util\StringUtils$1.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\util\StringUtils$ToStringRunnable.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\util\StringUtils.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\util\WeightedRandom.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\util\WorldBorderUtil.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\de\hellfirepvp\util\WrappedPrefixLogger.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\en_US.lang" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\classes\plugin.yml" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\maven-archiver\pom.properties" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Admin\IdeaProjects\CustomMobs_v4\target\original-CustomMobs-4.0-INDEV.jar" afterPath="" />
     </list>
     <ignored path="CustomMobs_v4.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -29,8 +192,8 @@
       <file leaf-file-name="CustomMob.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/de/hellfirepvp/data/mob/CustomMob.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.43109152" vertical-offset="85" max-vertical-offset="2193">
-              <caret line="49" column="0" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.33737597" vertical-offset="85" max-vertical-offset="2193">
+              <caret line="42" column="18" selection-start-line="42" selection-start-column="18" selection-end-line="42" selection-end-column="18" />
               <folding />
             </state>
           </provider>
@@ -523,7 +686,11 @@
       <created>1464312808911</created>
       <updated>1464312808911</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="init 4.0 (some moar)">
+      <created>1464312867491</created>
+      <updated>1464312867491</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -591,7 +758,8 @@
       <TodoPanelSettings />
     </option>
     <MESSAGE value="init 4.0" />
-    <option name="LAST_COMMIT_MESSAGE" value="init 4.0" />
+    <MESSAGE value="init 4.0 (some moar)" />
+    <option name="LAST_COMMIT_MESSAGE" value="init 4.0 (some moar)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -603,27 +771,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_45/src.zip!/java/util/Arrays.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3325792" vertical-offset="75730" max-vertical-offset="85442">
-          <caret line="4559" column="25" selection-start-line="4559" selection-start-column="25" selection-end-line="4559" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/de/hellfirepvp/nms/v1_9_R2/TypeProviderImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.21168688" vertical-offset="386" max-vertical-offset="1700">
-          <caret line="58" column="5" selection-start-line="58" selection-start-column="5" selection-end-line="58" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/de/hellfirepvp/file/write/SpawnSettingsWriter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.22491731" vertical-offset="0" max-vertical-offset="1360">
-          <caret line="24" column="40" selection-start-line="24" selection-start-column="40" selection-end-line="24" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/de/hellfirepvp/file/write/RespawnDataWriter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.22491731" vertical-offset="0" max-vertical-offset="1122">
@@ -670,20 +817,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.6714443" vertical-offset="190" max-vertical-offset="1377">
           <caret line="54" column="16" selection-start-line="54" selection-start-column="16" selection-end-line="54" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/lib/spigot-1.9.4.jar!/org/bukkit/event/player/PlayerInteractEntityEvent.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.4" vertical-offset="0" max-vertical-offset="544">
-          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/lib/spigot-1.9.4.jar!/org/bukkit/event/player/PlayerInteractEvent.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.09781358" vertical-offset="0" max-vertical-offset="986">
-          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -758,13 +891,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://$PROJECT_DIR$/lib/spigot-1.9.4.jar!/org/bukkit/inventory/EquipmentSlot.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.09895227" vertical-offset="0" max-vertical-offset="859">
-          <caret line="6" column="12" selection-start-line="6" selection-start-column="12" selection-end-line="6" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/de/hellfirepvp/cmd/cmob/CommandCmobBurn.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.012127894" vertical-offset="181" max-vertical-offset="1224">
@@ -803,13 +929,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1037">
           <caret line="33" column="86" selection-start-line="33" selection-start-column="86" selection-end-line="33" selection-end-column="86" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/lib/spigot-1.9.4.jar!/org/bukkit/entity/LivingEntity.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.34225845" vertical-offset="1032" max-vertical-offset="1989">
-          <caret line="79" column="9" selection-start-line="79" selection-start-column="9" selection-end-line="79" selection-end-column="9" />
         </state>
       </provider>
     </entry>
@@ -966,10 +1085,42 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/dependency-reduced-pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1615">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CustomMobs_v4.iml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.27453142" vertical-offset="249" max-vertical-offset="1156">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.3241456" vertical-offset="1201" max-vertical-offset="2108">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.36394557" vertical-offset="104" max-vertical-offset="986">
+          <caret line="25" column="8" selection-start-line="25" selection-start-column="8" selection-end-line="25" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/de/hellfirepvp/data/mob/CustomMob.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.43109152" vertical-offset="85" max-vertical-offset="2193">
-          <caret line="49" column="0" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.33737597" vertical-offset="85" max-vertical-offset="2193">
+          <caret line="42" column="18" selection-start-line="42" selection-start-column="18" selection-end-line="42" selection-end-column="18" />
           <folding />
         </state>
       </provider>
