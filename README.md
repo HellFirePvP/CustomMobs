@@ -1,2 +1,1 @@
-# CustomMobs
-Issue Tracker for CustomMobs
+# Project CustomMobs 4.0

@@ -1,6 +1,5 @@
 package de.hellfirepvp;
 
-import de.hellfirepvp.cmd.BaseCommand;
 import de.hellfirepvp.cmd.CommandRegistry;
 import de.hellfirepvp.config.ConfigHandler;
 import de.hellfirepvp.data.FullControlHandler;
