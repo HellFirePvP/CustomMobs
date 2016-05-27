@@ -16,10 +16,11 @@ import org.bukkit.potion.PotionEffectType;
 import java.util.Arrays;
 
 /**
- * HellFirePvP@Admin
- * Date: 15.05.2015 / 19:43
- * on Project CustomMobs
- * CommandCmobSetPotion
+ * This class is part of the CustomMobs Plugin
+ * The plugin can be found at: https://www.spigotmc.org/resources/custommobs.7339
+ * Class: CommandCmobSetPotion
+ * Created by HellFirePvP
+ * Date: (Header change) 27.05.2016 / 4:07
  */
 public class CommandCmobSetPotion extends PlayerCmobCommand {
     @Override
@@ -101,7 +102,6 @@ public class CommandCmobSetPotion extends PlayerCmobCommand {
         }
 
         cmob.getEntityAdapter().addPotionEffect(new PotionEffect(type, duration, amplifier, false, false));
-        p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.GREEN + "PotionEffect (type: " + type.getName() + ", " +
-                "duration: " + duration + ", amplifier: " + amplifier + ") got successfully set.");
+        p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.GREEN + String.format(LanguageHandler.translate("command.cmob.setpotion.success"), type.getName(), duration, amplifier));
     }
 }

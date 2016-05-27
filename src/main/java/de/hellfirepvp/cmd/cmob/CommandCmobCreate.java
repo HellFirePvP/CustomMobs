@@ -16,10 +16,11 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * HellFirePvP@Admin
- * Date: 13.05.2015 / 23:06
- * on Project CustomMobs
- * CommandCmobCreate
+ * This class is part of the CustomMobs Plugin
+ * The plugin can be found at: https://www.spigotmc.org/resources/custommobs.7339
+ * Class: CommandCmobCreate
+ * Created by HellFirePvP
+ * Date: (Header change) 27.05.2016 / 4:06
  */
 public class CommandCmobCreate extends PlayerCmobCommand {
 
@@ -69,9 +70,9 @@ public class CommandCmobCreate extends PlayerCmobCommand {
         }
         LivingEntity created = NMSReflector.mobTypeProvider.getEntityForName(p.getWorld(), typeStr);
         if(MobFactory.tryCreateCustomMobFromEntity(created, name)) {
-            p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.GREEN + "The Mob " + name + " was successfully saved!");
+            p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.GREEN + String.format(LanguageHandler.translate("command.cmob.create.success"), name));
         } else {
-            p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.RED + "Saving " + name + " failed for unknown reasons.");
+            p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.GREEN + String.format(LanguageHandler.translate("command.cmob.create.failed"), name));
         }
     }
 }

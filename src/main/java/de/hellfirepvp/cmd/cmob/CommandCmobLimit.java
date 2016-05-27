@@ -5,15 +5,17 @@ import de.hellfirepvp.cmd.BaseCommand;
 import de.hellfirepvp.cmd.MessageAssist;
 import de.hellfirepvp.cmd.PlayerCmobCommand;
 import de.hellfirepvp.data.mob.CustomMob;
+import de.hellfirepvp.lang.LanguageHandler;
 import de.hellfirepvp.lib.LibLanguageOutput;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 /**
- * HellFirePvP@Admin
- * Date: 15.05.2015 / 19:24
- * on Project CustomMobs
- * CommandCmobLimit
+ * This class is part of the CustomMobs Plugin
+ * The plugin can be found at: https://www.spigotmc.org/resources/custommobs.7339
+ * Class: CommandCmobLimit
+ * Created by HellFirePvP
+ * Date: (Header change) 27.05.2016 / 4:06
  */
 public class CommandCmobLimit extends PlayerCmobCommand {
 
@@ -58,7 +60,10 @@ public class CommandCmobLimit extends PlayerCmobCommand {
             return;
         }
         cmob.getDataAdapter().setSpawnLimit(limit);
-        p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.GREEN + "The limit of " + name + " was successfully set to " +
-                limit + (limit <= -1 ? " (-1 = infinite)" : ""));
+        if(limit < 0) {
+            p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.GREEN + String.format(LanguageHandler.translate("command.cmob.limit.set.infinite"), name, String.valueOf(limit)));
+        } else {
+            p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.GREEN + String.format(LanguageHandler.translate("command.cmob.limit.set"), name, String.valueOf(limit)));
+        }
     }
 }

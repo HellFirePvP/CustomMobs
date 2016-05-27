@@ -6,10 +6,11 @@ import de.hellfirepvp.data.mob.CustomMob;
 import org.bukkit.command.CommandSender;
 
 /**
- * HellFirePvP@Admin
- * Date: 06.03.2016 / 22:10
- * on Project CustomMobs
- * CommandCCmobRemove
+ * This class is part of the CustomMobs Plugin
+ * The plugin can be found at: https://www.spigotmc.org/resources/custommobs.7339
+ * Class: CommandCCmobRemove
+ * Created by HellFirePvP
+ * Date: (Header change) 27.05.2016 / 4:05
  */
 public class CommandCCmobRemove extends AbstractCmobCommand {
 

@@ -15,10 +15,11 @@ import java.util.List;
 import static de.hellfirepvp.lib.LibConstantKeys.*;
 
 /**
- * HellFirePvP@Admin
- * Date: 10.05.2015 / 09:21
- * on Project CustomMobs
- * SpawnSettingsWriter
+ * This class is part of the CustomMobs Plugin
+ * The plugin can be found at: https://www.spigotmc.org/resources/custommobs.7339
+ * Class: SpawnSettingsWriter
+ * Created by HellFirePvP
+ * Date: (Header change) 27.05.2016 / 4:03
  */
 public class SpawnSettingsWriter {
 

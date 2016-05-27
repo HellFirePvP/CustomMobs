@@ -5,6 +5,7 @@ import de.hellfirepvp.cmd.BaseCommand;
 import de.hellfirepvp.cmd.MessageAssist;
 import de.hellfirepvp.cmd.PlayerCmobCommand;
 import de.hellfirepvp.data.mob.CustomMob;
+import de.hellfirepvp.lang.LanguageHandler;
 import de.hellfirepvp.lib.LibLanguageOutput;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -12,10 +13,11 @@ import org.bukkit.entity.Player;
 import java.util.List;
 
 /**
- * HellFirePvP@Admin
- * Date: 14.05.2015 / 15:25
- * on Project CustomMobs
- * CommandCmobBurn
+ * This class is part of the CustomMobs Plugin
+ * The plugin can be found at: https://www.spigotmc.org/resources/custommobs.7339
+ * Class: CommandCmobBurn
+ * Created by HellFirePvP
+ * Date: (Header change) 27.05.2016 / 4:06
  */
 public class CommandCmobBurn extends PlayerCmobCommand {
 
@@ -60,7 +62,7 @@ public class CommandCmobBurn extends PlayerCmobCommand {
 
         if(!setBurn) {
             cmob.getEntityAdapter().setFireTicks(0);
-            p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.GREEN + "The burntime of " + args[1] + " was successfully resetted");
+            p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.GREEN + String.format(LanguageHandler.translate("command.cmob.burn.reset"), args[1]));
             return;
         }
 
@@ -77,7 +79,10 @@ public class CommandCmobBurn extends PlayerCmobCommand {
         if(time < 0) time = Integer.MAX_VALUE;
 
         cmob.getEntityAdapter().setFireTicks(time);
-        p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.GREEN + "The burntime of " + args[1] + " was successfully set to " +
-                time + (time <= -1 ? " (-1 = infinite)" : ""));
+        if(time < 0) {
+            p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.GREEN + String.format(LanguageHandler.translate("command.cmob.burn.success.infinite"), args[1], String.valueOf(time)));
+        } else {
+            p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.GREEN + String.format(LanguageHandler.translate("command.cmob.burn.success"), args[1], String.valueOf(time)));
+        }
     }
 }

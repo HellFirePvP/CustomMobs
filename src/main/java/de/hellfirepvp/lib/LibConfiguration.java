@@ -10,10 +10,11 @@ import java.util.ArrayList;
 import static de.hellfirepvp.lib.LibMisc.*;
 
 /**
- * HellFirePvP@Admin
- * Date: 19.04.2015 / 00:25
- * on Project CustomMobs
- * LibConfiguration
+ * This class is part of the CustomMobs Plugin
+ * The plugin can be found at: https://www.spigotmc.org/resources/custommobs.7339
+ * Class: LibConfiguration
+ * Created by HellFirePvP
+ * Date: (Header change) 27.05.2016 / 4:02
  */
 public class LibConfiguration {
 

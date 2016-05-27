@@ -5,15 +5,17 @@ import de.hellfirepvp.cmd.BaseCommand;
 import de.hellfirepvp.cmd.MessageAssist;
 import de.hellfirepvp.cmd.PlayerCmobCommand;
 import de.hellfirepvp.data.mob.CustomMob;
+import de.hellfirepvp.lang.LanguageHandler;
 import de.hellfirepvp.lib.LibLanguageOutput;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 /**
- * HellFirePvP@Admin
- * Date: 15.05.2015 / 19:30
- * on Project CustomMobs
- * CommandCmobName
+ * This class is part of the CustomMobs Plugin
+ * The plugin can be found at: https://www.spigotmc.org/resources/custommobs.7339
+ * Class: CommandCmobName
+ * Created by HellFirePvP
+ * Date: (Header change) 27.05.2016 / 4:07
  */
 public class CommandCmobName extends PlayerCmobCommand {
     @Override
@@ -51,7 +53,7 @@ public class CommandCmobName extends PlayerCmobCommand {
         cmob.getEntityAdapter().setCustomName(customName);
         String out = ChatColor.translateAlternateColorCodes('&', customName);
 
-        p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.GREEN + "Customname of " + name + " was set to " + out);
+        p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.GREEN + String.format(LanguageHandler.translate("command.cmob.name.set"), name, out));
 
     }
 }

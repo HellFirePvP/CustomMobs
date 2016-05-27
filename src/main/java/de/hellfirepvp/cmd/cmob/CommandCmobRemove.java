@@ -5,15 +5,17 @@ import de.hellfirepvp.cmd.BaseCommand;
 import de.hellfirepvp.cmd.MessageAssist;
 import de.hellfirepvp.cmd.PlayerCmobCommand;
 import de.hellfirepvp.data.mob.CustomMob;
+import de.hellfirepvp.lang.LanguageHandler;
 import de.hellfirepvp.lib.LibLanguageOutput;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 /**
- * HellFirePvP@Admin
- * Date: 06.03.2016 / 22:05
- * on Project CustomMobs
- * CommandCmobRemove
+ * This class is part of the CustomMobs Plugin
+ * The plugin can be found at: https://www.spigotmc.org/resources/custommobs.7339
+ * Class: CommandCmobRemove
+ * Created by HellFirePvP
+ * Date: (Header change) 27.05.2016 / 4:07
  */
 public class CommandCmobRemove extends PlayerCmobCommand {
 
@@ -29,7 +31,7 @@ public class CommandCmobRemove extends PlayerCmobCommand {
         }
 
         int killed = CustomMob.killAll(cmob.getMobFileName());
-        p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.GREEN + "Killed " + killed + "x " + args[1] + " on the server.");
+        p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.GREEN + String.format(LanguageHandler.translate("command.cmob.remove.killed"), String.valueOf(killed), args[1]));
     }
 
     @Override

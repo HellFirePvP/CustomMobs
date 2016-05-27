@@ -5,18 +5,21 @@ import de.hellfirepvp.cmd.BaseCommand;
 import de.hellfirepvp.cmd.MessageAssist;
 import de.hellfirepvp.cmd.PlayerCmobCommand;
 import de.hellfirepvp.data.mob.CustomMob;
+import de.hellfirepvp.lang.LanguageHandler;
 import de.hellfirepvp.lib.LibLanguageOutput;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
 /**
- * HellFirePvP@Admin
- * Date: 15.05.2015 / 14:31
- * on Project CustomMobs
- * CommandCmobCmd
+ * This class is part of the CustomMobs Plugin
+ * The plugin can be found at: https://www.spigotmc.org/resources/custommobs.7339
+ * Class: CommandCmobCmd
+ * Created by HellFirePvP
+ * Date: (Header change) 27.05.2016 / 4:06
  */
 public class CommandCmobCmd extends PlayerCmobCommand {
 
@@ -46,9 +49,7 @@ public class CommandCmobCmd extends PlayerCmobCommand {
         List<String> cmdArguments = new LinkedList<>();
         int cmdLength = args.length - 2;
         if(cmdLength > 0) {
-            for (int i = 0; i < cmdLength; i++) {
-                cmdArguments.add(args[i + 2]);
-            }
+            cmdArguments.addAll(Arrays.asList(args).subList(2, cmdLength));
         }
         StringBuilder builder = new StringBuilder();
         boolean b = true;
@@ -66,7 +67,10 @@ public class CommandCmobCmd extends PlayerCmobCommand {
         CustomMob cmob = CustomMobs.instance.getMobDataHolder().getCustomMob(name);
         cmob.getDataAdapter().setCommandToExecute(cmdLine.isEmpty() ? null : cmdLine);
 
-        p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.GREEN + "The commandLine of " + name + " has been " +
-                (cmdLine.isEmpty() ? "resetted!" : "set to '" + cmdLine + "'"));
+        if(cmdLine.isEmpty()) {
+            p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.GREEN + String.format(LanguageHandler.translate("command.cmob.cmd.reset"), name));
+        } else {
+            p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.GREEN + String.format(LanguageHandler.translate("command.cmob.cmd.success"), name, cmdLine));
+        }
     }
 }

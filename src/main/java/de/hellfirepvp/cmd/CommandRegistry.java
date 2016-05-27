@@ -36,10 +36,11 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * HellFirePvP@Admin
- * Date: 24.03.2015 / 12:23
- * on Project CustomMobs
- * CommandRegistry
+ * This class is part of the CustomMobs Plugin
+ * The plugin can be found at: https://www.spigotmc.org/resources/custommobs.7339
+ * Class: CommandRegistry
+ * Created by HellFirePvP
+ * Date: (Header change) 27.05.2016 / 3:59
  */
 public class CommandRegistry {
 

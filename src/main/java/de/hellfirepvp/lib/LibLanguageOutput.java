@@ -3,10 +3,11 @@ package de.hellfirepvp.lib;
 import org.bukkit.ChatColor;
 
 /**
- * HellFirePvP@Admin
- * Date: 10.05.2015 / 09:44
- * on Project CustomMobs
- * LibLanguageOutput
+ * This class is part of the CustomMobs Plugin
+ * The plugin can be found at: https://www.spigotmc.org/resources/custommobs.7339
+ * Class: LibLanguageOutput
+ * Created by HellFirePvP
+ * Date: (Header change) 27.05.2016 / 4:02
  */
 public class LibLanguageOutput {
 

@@ -17,8 +17,8 @@ import java.util.Map;
 import java.util.UUID;
 
 /**
- * This class is part of the Astral Sorcery Mod
- * The complete source code for this mod can be found on github.
+ * This class is part of the CustomMobs Plugin
+ * The plugin can be found at: https://www.spigotmc.org/resources/custommobs.7339
  * Class: LeashManager
  * Created by HellFirePvP
  * Date: 26.05.2016 / 16:41

@@ -1,10 +1,11 @@
 package de.hellfirepvp.cmd.ccontrol;
 
 /**
- * HellFirePvP@Admin
- * Date: 05.06.2015 / 13:15
- * on Project CustomMobs
- * CommandCcontrolList
+ * This class is part of the CustomMobs Plugin
+ * The plugin can be found at: https://www.spigotmc.org/resources/custommobs.7339
+ * Class: CommandCcontrolList
+ * Created by HellFirePvP
+ * Date: (Header change) 27.05.2016 / 4:05
  */
 public class CommandCcontrolList /*extends AbstractCmobCommand*/ {
 

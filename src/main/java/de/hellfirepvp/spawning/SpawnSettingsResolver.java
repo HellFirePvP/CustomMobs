@@ -12,10 +12,11 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * HellFirePvP@Admin
- * Date: 30.04.2015 / 22:38
- * on Project CustomMobs
- * SpawnSettingsResolver
+ * This class is part of the CustomMobs Plugin
+ * The plugin can be found at: https://www.spigotmc.org/resources/custommobs.7339
+ * Class: SpawnSettingsResolver
+ * Created by HellFirePvP
+ * Date: (Header change) 27.05.2016 / 4:02
  */
 public final class SpawnSettingsResolver {
 

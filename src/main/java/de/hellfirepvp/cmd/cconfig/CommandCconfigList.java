@@ -10,10 +10,11 @@ import org.bukkit.entity.Player;
 import java.util.Collection;
 
 /**
- * HellFirePvP@Admin
- * Date: 16.05.2015 / 01:13
- * on Project CustomMobs
- * CommandCconfigList
+ * This class is part of the CustomMobs Plugin
+ * The plugin can be found at: https://www.spigotmc.org/resources/custommobs.7339
+ * Class: CommandCconfigList
+ * Created by HellFirePvP
+ * Date: (Header change) 27.05.2016 / 4:05
  */
 public class CommandCconfigList extends PlayerCmobCommand {
     @Override

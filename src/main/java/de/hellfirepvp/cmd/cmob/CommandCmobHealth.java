@@ -5,16 +5,18 @@ import de.hellfirepvp.cmd.BaseCommand;
 import de.hellfirepvp.cmd.MessageAssist;
 import de.hellfirepvp.cmd.PlayerCmobCommand;
 import de.hellfirepvp.data.mob.CustomMob;
+import de.hellfirepvp.lang.LanguageHandler;
 import de.hellfirepvp.lib.LibLanguageOutput;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.spigotmc.SpigotConfig;
 
 /**
- * HellFirePvP@Admin
- * Date: 15.05.2015 / 18:34
- * on Project CustomMobs
- * CommandCmobHealth
+ * This class is part of the CustomMobs Plugin
+ * The plugin can be found at: https://www.spigotmc.org/resources/custommobs.7339
+ * Class: CommandCmobHealth
+ * Created by HellFirePvP
+ * Date: (Header change) 27.05.2016 / 4:06
  */
 public class CommandCmobHealth extends PlayerCmobCommand {
     @Override
@@ -58,9 +60,9 @@ public class CommandCmobHealth extends PlayerCmobCommand {
             return;
         }
         if(cmob.getEntityAdapter().setHealth(health)) {
-            p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.GREEN + "Health of " + name + " is set to " + health);
+            p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.GREEN + String.format(LanguageHandler.translate("command.cmob.health.set"), name, String.valueOf(health)));
         } else {
-            p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.RED + "Your spigot configuration caps the health at " + SpigotConfig.maxHealth + " - adjust the SpigotConfig to go higher.");
+            p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.RED + String.format(LanguageHandler.translate("command.cmob.health.failed"), String.valueOf(SpigotConfig.maxHealth)));
         }
     }
 }

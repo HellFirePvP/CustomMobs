@@ -7,10 +7,11 @@ import org.bukkit.Material;
 import java.util.Random;
 
 /**
- * HellFirePvP@Admin
- * Date: 08.05.2015 / 00:24
- * on Project CustomMobs
- * LocationUtils
+ * This class is part of the CustomMobs Plugin
+ * The plugin can be found at: https://www.spigotmc.org/resources/custommobs.7339
+ * Class: LocationUtils
+ * Created by HellFirePvP
+ * Date: (Header change) 27.05.2016 / 4:00
  */
 public class LocationUtils {
 

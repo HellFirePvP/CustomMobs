@@ -1,6 +1,5 @@
 package de.hellfirepvp.tool;
 
-import de.hellfirepvp.CustomMobs;
 import de.hellfirepvp.lang.LanguageHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -14,10 +13,11 @@ import java.util.List;
 import static de.hellfirepvp.lib.LibLanguageOutput.*;
 
 /**
- * HellFirePvP@Admin
- * Date: 13.05.2015 / 09:11
- * on Project CustomMobs
- * CustomMobsTool
+ * This class is part of the CustomMobs Plugin
+ * The plugin can be found at: https://www.spigotmc.org/resources/custommobs.7339
+ * Class: CustomMobsTool
+ * Created by HellFirePvP
+ * Date: (Header change) 27.05.2016 / 4:00
  */
 public class CustomMobsTool {
 

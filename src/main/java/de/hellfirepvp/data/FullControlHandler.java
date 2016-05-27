@@ -14,10 +14,11 @@ import java.util.Map;
 import static de.hellfirepvp.lib.LibConstantKeys.*;
 
 /**
- * HellFirePvP@Admin
- * Date: 31.05.2015 / 23:21
- * on Project CustomMobs
- * FullControlHandler
+ * This class is part of the CustomMobs Plugin
+ * The plugin can be found at: https://www.spigotmc.org/resources/custommobs.7339
+ * Class: FullControlHandler
+ * Created by HellFirePvP
+ * Date: (Header change) 27.05.2016 / 4:04
  */
 public final class FullControlHandler {
 

@@ -10,10 +10,11 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 /**
- * HellFirePvP@Admin
- * Date: 14.03.2016 / 17:49
- * on Project CustomMobs
- * CommandCaiLeash
+ * This class is part of the CustomMobs Plugin
+ * The plugin can be found at: https://www.spigotmc.org/resources/custommobs.7339
+ * Class: CommandCaiLeash
+ * Created by HellFirePvP
+ * Date: (Header change) 27.05.2016 / 4:00
  */
 public class CommandCaiLeash extends PlayerCmobCommand {
 

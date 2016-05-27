@@ -15,10 +15,11 @@ import java.util.Set;
 import static de.hellfirepvp.lib.LibConstantKeys.*;
 
 /**
- * HellFirePvP@Admin
- * Date: 19.04.2015 / 15:13
- * on Project CustomMobs
- * SpawnSettingsReader
+ * This class is part of the CustomMobs Plugin
+ * The plugin can be found at: https://www.spigotmc.org/resources/custommobs.7339
+ * Class: SpawnSettingsReader
+ * Created by HellFirePvP
+ * Date: (Header change) 27.05.2016 / 4:03
  */
 public class SpawnSettingsReader {
 

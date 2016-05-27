@@ -5,10 +5,11 @@ import org.bukkit.command.CommandSender;
 import java.util.List;
 
 /**
- * HellFirePvP@Admin
- * Date: 15.05.2015 / 22:49
- * on Project CustomMobs
- * BaseCmobCommand
+ * This class is part of the CustomMobs Plugin
+ * The plugin can be found at: https://www.spigotmc.org/resources/custommobs.7339
+ * Class: AbstractCmobCommand
+ * Created by HellFirePvP
+ * Date: (Header change) 27.05.2016 / 3:59
  */
 public abstract class AbstractCmobCommand {
 

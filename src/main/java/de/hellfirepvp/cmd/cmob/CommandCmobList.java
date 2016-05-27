@@ -3,15 +3,17 @@ package de.hellfirepvp.cmd.cmob;
 import de.hellfirepvp.CustomMobs;
 import de.hellfirepvp.cmd.PlayerCmobCommand;
 import de.hellfirepvp.data.mob.CustomMob;
+import de.hellfirepvp.lang.LanguageHandler;
 import de.hellfirepvp.lib.LibLanguageOutput;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 /**
- * HellFirePvP@Admin
- * Date: 05.03.2016 / 14:56
- * on Project CustomMobs
- * CommandCmobList
+ * This class is part of the CustomMobs Plugin
+ * The plugin can be found at: https://www.spigotmc.org/resources/custommobs.7339
+ * Class: CommandCmobList
+ * Created by HellFirePvP
+ * Date: (Header change) 27.05.2016 / 4:06
  */
 public class CommandCmobList extends PlayerCmobCommand {
 
@@ -22,7 +24,7 @@ public class CommandCmobList extends PlayerCmobCommand {
             if(sb.length() > 0) sb.append(", ");
             sb.append("(").append(c.getMobFileName()).append(" - ").append(c.getEntityAdapter().getEntityType().getName()).append(")");
         }
-        p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.AQUA + "Available CustomMobs:");
+        p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.AQUA + LanguageHandler.translate("command.cmob.list"));
         p.sendMessage(ChatColor.GREEN + sb.toString());
     }
 

@@ -14,10 +14,11 @@ import java.util.List;
 import static de.hellfirepvp.lib.LibLanguageOutput.*;
 
 /**
- * HellFirePvP@Admin
- * Date: 24.03.2015 / 12:24
- * on Project CustomMobs
- * BaseCommand
+ * This class is part of the CustomMobs Plugin
+ * The plugin can be found at: https://www.spigotmc.org/resources/custommobs.7339
+ * Class: BaseCommand
+ * Created by HellFirePvP
+ * Date: (Header change) 27.05.2016 / 3:59
  */
 public class BaseCommand implements CommandExecutor {
 

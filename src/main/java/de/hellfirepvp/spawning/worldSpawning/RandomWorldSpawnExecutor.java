@@ -25,10 +25,11 @@ import java.util.Random;
 import java.util.stream.Collectors;
 
 /**
- * HellFirePvP@Admin
- * Date: 08.05.2015 / 17:55
- * on Project CustomMobs
- * RandomWorldSpawner
+ * This class is part of the CustomMobs Plugin
+ * The plugin can be found at: https://www.spigotmc.org/resources/custommobs.7339
+ * Class: RandomWorldSpawnExecutor
+ * Created by HellFirePvP
+ * Date: (Header change) 27.05.2016 / 4:01
  */
 public final class RandomWorldSpawnExecutor {
 

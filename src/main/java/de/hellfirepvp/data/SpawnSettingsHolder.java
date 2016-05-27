@@ -10,10 +10,11 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * HellFirePvP@Admin
- * Date: 19.04.2015 / 15:01
- * on Project CustomMobs
- * SpawnSettingsHolder
+ * This class is part of the CustomMobs Plugin
+ * The plugin can be found at: https://www.spigotmc.org/resources/custommobs.7339
+ * Class: SpawnSettingsHolder
+ * Created by HellFirePvP
+ * Date: (Header change) 27.05.2016 / 4:04
  */
 public final class SpawnSettingsHolder {
 

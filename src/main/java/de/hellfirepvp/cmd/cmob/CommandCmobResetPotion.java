@@ -19,10 +19,11 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * HellFirePvP@Admin
- * Date: 15.05.2015 / 20:10
- * on Project CustomMobs
- * CommandCmobResetPotion
+ * This class is part of the CustomMobs Plugin
+ * The plugin can be found at: https://www.spigotmc.org/resources/custommobs.7339
+ * Class: CommandCmobResetPotion
+ * Created by HellFirePvP
+ * Date: (Header change) 27.05.2016 / 4:07
  */
 public class CommandCmobResetPotion extends PlayerCmobCommand {
     @Override
@@ -86,10 +87,10 @@ public class CommandCmobResetPotion extends PlayerCmobCommand {
             }
         }
         if(!found) {
-            p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.RED + name + " doesn't have a potioneffect of type " + effectStr);
+            p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.RED + String.format(LanguageHandler.translate("command.cmob.resetpotion.noeffect"), name, effectStr));
             return;
         }
         adapter.removePotionEffect(type);
-        p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.GREEN + type.getName() + " from " + name + " removed!");
+        p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.GREEN + String.format(LanguageHandler.translate("command.cmob.resetpotion.success"), type.getName(), name));
     }
 }

@@ -7,6 +7,7 @@ import de.hellfirepvp.cmd.PlayerCmobCommand;
 import de.hellfirepvp.data.SpawnerDataHolder;
 import de.hellfirepvp.data.mob.CustomMob;
 import de.hellfirepvp.file.write.SpawnerDataWriter;
+import de.hellfirepvp.lang.LanguageHandler;
 import de.hellfirepvp.lib.LibLanguageOutput;
 import de.hellfirepvp.lib.LibMisc;
 import org.bukkit.ChatColor;
@@ -17,10 +18,11 @@ import java.util.HashSet;
 import java.util.Random;
 
 /**
- * HellFirePvP@Admin
- * Date: 15.05.2015 / 22:07
- * on Project CustomMobs
- * CommandCmobSpawner
+ * This class is part of the CustomMobs Plugin
+ * The plugin can be found at: https://www.spigotmc.org/resources/custommobs.7339
+ * Class: CommandCmobSpawner
+ * Created by HellFirePvP
+ * Date: (Header change) 27.05.2016 / 4:07
  */
 public class CommandCmobSpawner extends PlayerCmobCommand {
 
@@ -56,7 +58,7 @@ public class CommandCmobSpawner extends PlayerCmobCommand {
                 delay = Integer.parseInt(delayStr);
                 if(delay < 0) delay = 1;
             } catch (Exception exc) {
-                p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.RED + delayStr + " should be a number!");
+                MessageAssist.msgShouldBeAIntNumber(p, delayStr);
                 BaseCommand.sendPlayerDescription(p, this, true);
                 return;
             }
@@ -66,7 +68,7 @@ public class CommandCmobSpawner extends PlayerCmobCommand {
 
         Block blockSpawnAt = getTargetBlock(p);
         if(blockSpawnAt == null) {
-            p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.RED + "Can't find solid block in view to set as spawner.");
+            p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.RED + LanguageHandler.translate("command.cmob.spawner.noblock"));
             return;
         }
 
@@ -78,15 +80,17 @@ public class CommandCmobSpawner extends PlayerCmobCommand {
 
         switch (SpawnerDataWriter.setSpawner(blockSpawnAt.getLocation(), new SpawnerDataHolder.Spawner(mob, delay, args.length > 2))) {
             case LOCATION_OCCUPIED:
-                p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.RED + "At the location you're looking at is already a spawner.");
+                p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.RED + LanguageHandler.translate("command.cmob.spawner.alreadyset"));
                 break;
             case IO_EXCEPTION:
                 MessageAssist.msgIOException(p);
                 break;
             case SUCCESS:
-                p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.GREEN + "New spawner set! The spawner will spawn " + name +
-                        (args.length > 2 ? " in an interval of " + delay + " seconds!" :
-                                " randomly in an interval of 20-29 seconds."));
+                if(args.length > 2) {
+                    p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.GREEN + String.format(LanguageHandler.translate("command.cmob.spawner.delay"), name, String.valueOf(delay)));
+                } else {
+                    p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.GREEN + String.format(LanguageHandler.translate("command.cmob.spawner.random"), name));
+                }
                 break;
         }
     }

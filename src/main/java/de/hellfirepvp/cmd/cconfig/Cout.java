@@ -1,10 +1,11 @@
 package de.hellfirepvp.cmd.cconfig;
 
 /**
- * HellFirePvP@Admin
- * Date: 10.06.2015 / 14:48
- * on Project CustomMobs
- * Cout
+ * This class is part of the CustomMobs Plugin
+ * The plugin can be found at: https://www.spigotmc.org/resources/custommobs.7339
+ * Class: Cout
+ * Created by HellFirePvP
+ * Date: (Header change) 27.05.2016 / 4:05
  */
 public class Cout /*extends CmobCommand*/ {
 

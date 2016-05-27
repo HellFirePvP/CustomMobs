@@ -6,6 +6,7 @@ import de.hellfirepvp.cmd.MessageAssist;
 import de.hellfirepvp.cmd.PlayerCmobCommand;
 import de.hellfirepvp.data.mob.CustomMob;
 import de.hellfirepvp.data.mob.DataAdapter;
+import de.hellfirepvp.lang.LanguageHandler;
 import de.hellfirepvp.lib.LibLanguageOutput;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -14,10 +15,11 @@ import org.bukkit.inventory.ItemStack;
 import java.util.Map;
 
 /**
- * HellFirePvP@Admin
- * Date: 15.05.2015 / 14:54
- * on Project CustomMobs
- * CommandCmobDrop
+ * This class is part of the CustomMobs Plugin
+ * The plugin can be found at: https://www.spigotmc.org/resources/custommobs.7339
+ * Class: CommandCmobDrop
+ * Created by HellFirePvP
+ * Date: (Header change) 27.05.2016 / 4:06
  */
 public class CommandCmobDrop extends PlayerCmobCommand {
 
@@ -67,20 +69,20 @@ public class CommandCmobDrop extends PlayerCmobCommand {
         Map<ItemStack, Double> drops = adapter.getItemDrops();
         ItemStack stack = p.getInventory().getItemInMainHand();
         if(stack == null) {
-            p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.RED + "You have to hold the item you want to set as drop in your hand.");
+            p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.RED + LanguageHandler.translate("command.cmob.drop.noitem"));
             BaseCommand.sendPlayerDescription(p, this, true);
         } else {
             for (ItemStack st : drops.keySet()) {
                 if(st.getType().equals(stack.getType())) {
                     drops.remove(st);
                     drops.put(stack, (double) chance);
-                    p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.GREEN + "Drop successfully added. Old drop of type " + stack.getType().name() + " overwritten!");
+                    p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.GREEN + String.format(LanguageHandler.translate("command.cmob.drop.success.overwritten"), stack.getType().name()));
                     return;
                 }
             }
             drops.put(stack, (double) chance);
             adapter.setDrops(drops);
-            p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.GREEN + "Drop of type " + stack.getType().name() + " with chance " + chance + " successfully added");
+            p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.GREEN + String.format(LanguageHandler.translate("command.cmob.drop.success"), stack.getType().name(), String.valueOf(chance)));
         }
     }
 }

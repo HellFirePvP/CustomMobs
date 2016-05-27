@@ -1,6 +1,7 @@
 package de.hellfirepvp.cmd.cmob;
 
 import de.hellfirepvp.cmd.PlayerCmobCommand;
+import de.hellfirepvp.lang.LanguageHandler;
 import de.hellfirepvp.lib.LibLanguageOutput;
 import de.hellfirepvp.tool.CustomMobsTool;
 import org.bukkit.ChatColor;
@@ -9,10 +10,11 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 /**
- * HellFirePvP@Admin
- * Date: 15.05.2015 / 21:17
- * on Project CustomMobs
- * CommandCmobTool
+ * This class is part of the CustomMobs Plugin
+ * The plugin can be found at: https://www.spigotmc.org/resources/custommobs.7339
+ * Class: CommandCmobTool
+ * Created by HellFirePvP
+ * Date: (Header change) 27.05.2016 / 4:07
  */
 public class CommandCmobTool extends PlayerCmobCommand {
     @Override
@@ -43,12 +45,12 @@ public class CommandCmobTool extends PlayerCmobCommand {
         ItemStack[] contents = inv.getContents();
         for(ItemStack stack : contents) {
             if(tool.isSimilar(stack)) {
-                p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.RED + "You already have the CustomMobs-Tool in your inventory!");
+                p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.RED + LanguageHandler.translate("command.cmob.tool.failed"));
                 return;
             }
         }
 
         p.getInventory().addItem(tool);
-        p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.GREEN + "The CustomMobs-Tool has been added to your inventory!");
+        p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.GREEN + LanguageHandler.translate("command.cmob.tool.success"));
     }
 }

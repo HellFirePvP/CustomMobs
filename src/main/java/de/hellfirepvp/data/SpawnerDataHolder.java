@@ -9,10 +9,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * HellFirePvP@Admin
- * Date: 08.05.2015 / 00:06
- * on Project CustomMobs
- * SpawnerDataHolder
+ * This class is part of the CustomMobs Plugin
+ * The plugin can be found at: https://www.spigotmc.org/resources/custommobs.7339
+ * Class: SpawnerDataHolder
+ * Created by HellFirePvP
+ * Date: (Header change) 27.05.2016 / 4:04
  */
 public final class SpawnerDataHolder {
 

@@ -13,10 +13,11 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * HellFirePvP@Admin
- * Date: 08.05.2015 / 00:36
- * on Project CustomMobs
- * SpawnLimit
+ * This class is part of the CustomMobs Plugin
+ * The plugin can be found at: https://www.spigotmc.org/resources/custommobs.7339
+ * Class: SpawnLimit
+ * Created by HellFirePvP
+ * Date: (Header change) 27.05.2016 / 4:02
  */
 public final class SpawnLimit {
 

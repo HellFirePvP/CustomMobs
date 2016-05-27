@@ -5,16 +5,18 @@ import de.hellfirepvp.cmd.BaseCommand;
 import de.hellfirepvp.cmd.MessageAssist;
 import de.hellfirepvp.cmd.PlayerCmobCommand;
 import de.hellfirepvp.data.mob.CustomMob;
+import de.hellfirepvp.lang.LanguageHandler;
 import de.hellfirepvp.lib.LibLanguageOutput;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Ageable;
 import org.bukkit.entity.Player;
 
 /**
- * HellFirePvP@Admin
- * Date: 06.03.2016 / 13:13
- * on Project CustomMobs
- * CommandCmobSetBaby
+ * This class is part of the CustomMobs Plugin
+ * The plugin can be found at: https://www.spigotmc.org/resources/custommobs.7339
+ * Class: CommandCmobSetBaby
+ * Created by HellFirePvP
+ * Date: (Header change) 27.05.2016 / 4:07
  */
 public class CommandCmobSetBaby extends PlayerCmobCommand {
 
@@ -46,16 +48,16 @@ public class CommandCmobSetBaby extends PlayerCmobCommand {
         }
 
         if(!(cmob.getEntityAdapter().getAdapterEntity().get() instanceof Ageable)) {
-            p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.RED + "You can't set the age of a '" + cmob.getEntityAdapter().getEntityType().getName() + "'-type mob.");
+            p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.RED + String.format(LanguageHandler.translate("command.cmob.setbaby.type"), cmob.getEntityAdapter().getEntityType().getName()));
             return;
         }
 
         if(baby) {
             cmob.getEntityAdapter().setBaby();
-            p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.GREEN + name + " is now a baby-mob.");
+            p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.GREEN + String.format(LanguageHandler.translate("command.cmob.setbaby.baby"), name));
         } else {
             cmob.getEntityAdapter().setAdult();
-            p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.GREEN + name + " is now an adult mob.");
+            p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.GREEN + String.format(LanguageHandler.translate("command.cmob.setbaby.adult"), name));
         }
     }
 

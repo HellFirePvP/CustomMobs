@@ -17,10 +17,11 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * HellFirePvP@Admin
- * Date: 16.05.2015 / 00:08
- * on Project CustomMobs
- * CommandCconfigAdd
+ * This class is part of the CustomMobs Plugin
+ * The plugin can be found at: https://www.spigotmc.org/resources/custommobs.7339
+ * Class: CommandCconfigAdd
+ * Created by HellFirePvP
+ * Date: (Header change) 27.05.2016 / 4:05
  */
 public class CommandCconfigAdd extends PlayerCmobCommand {
 

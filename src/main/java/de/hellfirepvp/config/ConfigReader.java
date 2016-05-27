@@ -9,10 +9,11 @@ import java.util.stream.Collectors;
 import static de.hellfirepvp.lib.LibConstantKeys.*;
 
 /**
- * HellFirePvP@Admin
- * Date: 05.04.2015 / 18:25
- * on Project CustomMobs
- * ConfigReader
+ * This class is part of the CustomMobs Plugin
+ * The plugin can be found at: https://www.spigotmc.org/resources/custommobs.7339
+ * Class: ConfigReader
+ * Created by HellFirePvP
+ * Date: (Header change) 27.05.2016 / 4:05
  */
 public class ConfigReader {
 

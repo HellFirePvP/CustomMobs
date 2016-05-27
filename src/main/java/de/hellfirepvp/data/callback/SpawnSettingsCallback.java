@@ -1,10 +1,11 @@
 package de.hellfirepvp.data.callback;
 
 /**
- * HellFirePvP@Admin
- * Date: 10.05.2015 / 09:22
- * on Project CustomMobs
- * SpawnSettingsCallback
+ * This class is part of the CustomMobs Plugin
+ * The plugin can be found at: https://www.spigotmc.org/resources/custommobs.7339
+ * Class: SpawnSettingsCallback
+ * Created by HellFirePvP
+ * Date: (Header change) 27.05.2016 / 4:03
  */
 public enum SpawnSettingsCallback {
 

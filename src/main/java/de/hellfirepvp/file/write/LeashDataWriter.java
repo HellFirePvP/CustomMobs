@@ -13,10 +13,11 @@ import java.util.Map;
 import java.util.UUID;
 
 /**
- * HellFirePvP@Admin
- * Date: 14.03.2016 / 09:41
- * on Project CustomMobs
- * LeashDataWriter
+ * This class is part of the CustomMobs Plugin
+ * The plugin can be found at: https://www.spigotmc.org/resources/custommobs.7339
+ * Class: LeashDataWriter
+ * Created by HellFirePvP
+ * Date: (Header change) 27.05.2016 / 4:03
  */
 public class LeashDataWriter {
 

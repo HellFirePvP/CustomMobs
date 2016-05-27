@@ -7,15 +7,17 @@ import de.hellfirepvp.cmd.PlayerCmobCommand;
 import de.hellfirepvp.data.mob.MobFactory;
 import de.hellfirepvp.file.write.RespawnDataWriter;
 import de.hellfirepvp.file.write.SpawnSettingsWriter;
+import de.hellfirepvp.lang.LanguageHandler;
 import de.hellfirepvp.lib.LibLanguageOutput;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 /**
- * HellFirePvP@Admin
- * Date: 13.05.2015 / 23:42
- * on Project CustomMobs
- * CommandCmobDelete
+ * This class is part of the CustomMobs Plugin
+ * The plugin can be found at: https://www.spigotmc.org/resources/custommobs.7339
+ * Class: CommandCmobDelete
+ * Created by HellFirePvP
+ * Date: (Header change) 27.05.2016 / 4:06
  */
 public class CommandCmobDelete extends PlayerCmobCommand {
 
@@ -50,9 +52,9 @@ public class CommandCmobDelete extends PlayerCmobCommand {
             return;
         }
         if(MobFactory.tryDeleteMobFile(args[1])) {
-            p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.GREEN + args[1] + " successfully deleted!");
+            p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.GREEN + String.format(LanguageHandler.translate("command.cmob.delete.failed"), args[1]));
         } else {
-            p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.RED + "Failed to delete the file! Report this issue to an admin!");
+            p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.RED + LanguageHandler.translate("command.cmob.delete.failed"));
         }
     }
 }

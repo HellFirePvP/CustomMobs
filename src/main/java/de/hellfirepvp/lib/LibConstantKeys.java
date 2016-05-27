@@ -1,10 +1,11 @@
 package de.hellfirepvp.lib;
 
 /**
- * HellFirePvP@Admin
- * Date: 24.03.2015 / 12:00
- * on Project CustomMobs
- * LibConstantKeys
+ * This class is part of the CustomMobs Plugin
+ * The plugin can be found at: https://www.spigotmc.org/resources/custommobs.7339
+ * Class: LibConstantKeys
+ * Created by HellFirePvP
+ * Date: (Header change) 27.05.2016 / 4:02
  */
 public class LibConstantKeys {
 

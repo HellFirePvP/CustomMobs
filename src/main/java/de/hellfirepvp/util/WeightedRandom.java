@@ -3,10 +3,11 @@ package de.hellfirepvp.util;
 import java.util.Map;
 
 /**
- * HellFirePvP@Admin
- * Date: 08.05.2015 / 19:47
- * on Project CustomMobs
- * WeightedRandom
+ * This class is part of the CustomMobs Plugin
+ * The plugin can be found at: https://www.spigotmc.org/resources/custommobs.7339
+ * Class: WeightedRandom
+ * Created by HellFirePvP
+ * Date: (Header change) 27.05.2016 / 4:00
  */
 public final class WeightedRandom {
 

@@ -7,10 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * HellFirePvP@Admin
- * Date: 24.03.2015 / 12:24
- * on Project CustomMobs
- * CmobCommand
+ * This class is part of the CustomMobs Plugin
+ * The plugin can be found at: https://www.spigotmc.org/resources/custommobs.7339
+ * Class: PlayerCmobCommand
+ * Created by HellFirePvP
+ * Date: (Header change) 27.05.2016 / 4:00
  */
 public abstract class PlayerCmobCommand extends AbstractCmobCommand {
 

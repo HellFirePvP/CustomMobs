@@ -8,10 +8,11 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 /**
- * HellFirePvP@Admin
- * Date: 16.05.2015 / 00:04
- * on Project CustomMobs
- * CommandCrespawnRemove
+ * This class is part of the CustomMobs Plugin
+ * The plugin can be found at: https://www.spigotmc.org/resources/custommobs.7339
+ * Class: CommandCrespawnRemove
+ * Created by HellFirePvP
+ * Date: (Header change) 27.05.2016 / 4:05
  */
 public class CommandCrespawnRemove extends PlayerCmobCommand {
     @Override

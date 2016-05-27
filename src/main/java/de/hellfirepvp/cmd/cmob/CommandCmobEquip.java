@@ -15,10 +15,11 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
 /**
- * HellFirePvP@Admin
- * Date: 15.05.2015 / 15:08
- * on Project CustomMobs
- * CommandCmobEquip
+ * This class is part of the CustomMobs Plugin
+ * The plugin can be found at: https://www.spigotmc.org/resources/custommobs.7339
+ * Class: CommandCmobEquip
+ * Created by HellFirePvP
+ * Date: (Header change) 27.05.2016 / 4:06
  */
 public class CommandCmobEquip extends PlayerCmobCommand {
     @Override
@@ -68,16 +69,15 @@ public class CommandCmobEquip extends PlayerCmobCommand {
         adapter.setEquipment(eq, fromPl);
         if(fromPl == null) {
             if(fromE == null) {
-                p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.RED + name + " doesn't have an item in " + eq.getLocalizedName() + " and you" +
-                        " currently don't wear an item in that slot. Nothing happens.");
+                p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.RED + String.format(LanguageHandler.translate("command.cmob.equip.nothing"), name, eq.getLocalizedName()));
             } else {
-                p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.GREEN + eq.getLocalizedName() + " of " + name + " resetted!");
+                p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.GREEN + String.format(LanguageHandler.translate("command.cmob.equip.reset"), eq.getLocalizedName(), name));
             }
         } else {
             if(fromE == null) {
-                p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.GREEN + eq.getLocalizedName() + " of " + name + " set!");
+                p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.GREEN + String.format(LanguageHandler.translate("command.cmob.equip.success"), eq.getLocalizedName(), name));
             } else {
-                p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.GREEN + eq.getLocalizedName() + " of " + name + " overwritten!");
+                p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.GREEN + String.format(LanguageHandler.translate("command.cmob.equip.success.overwritten"), eq.getLocalizedName(), name));
             }
         }
     }

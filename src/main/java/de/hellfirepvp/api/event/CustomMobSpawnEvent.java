@@ -7,10 +7,11 @@ import org.bukkit.event.Cancellable;
 import org.bukkit.event.HandlerList;
 
 /**
- * HellFirePvP@Admin
- * Date: 13.05.2015 / 13:12
- * on Project CustomMobs
- * CustomMobSpawnEvent
+ * This class is part of the CustomMobs Plugin
+ * The plugin can be found at: https://www.spigotmc.org/resources/custommobs.7339
+ * Class: CustomMobSpawnEvent
+ * Created by HellFirePvP
+ * Date: (Header change) 27.05.2016 / 3:59
  */
 public class CustomMobSpawnEvent extends CustomMobEvent implements Cancellable {
 

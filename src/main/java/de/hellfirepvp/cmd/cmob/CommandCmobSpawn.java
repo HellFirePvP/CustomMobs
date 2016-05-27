@@ -5,6 +5,7 @@ import de.hellfirepvp.api.event.CustomMobSpawnEvent;
 import de.hellfirepvp.cmd.MessageAssist;
 import de.hellfirepvp.cmd.PlayerCmobCommand;
 import de.hellfirepvp.data.mob.CustomMob;
+import de.hellfirepvp.lang.LanguageHandler;
 import de.hellfirepvp.lib.LibLanguageOutput;
 import de.hellfirepvp.lib.LibMisc;
 import de.hellfirepvp.spawning.SpawnLimitException;
@@ -18,10 +19,11 @@ import org.bukkit.entity.Player;
 import java.util.HashSet;
 
 /**
- * HellFirePvP@Admin
- * Date: 15.05.2015 / 20:57
- * on Project CustomMobs
- * CommandCmobSpawn
+ * This class is part of the CustomMobs Plugin
+ * The plugin can be found at: https://www.spigotmc.org/resources/custommobs.7339
+ * Class: CommandCmobSpawn
+ * Created by HellFirePvP
+ * Date: (Header change) 27.05.2016 / 4:07
  */
 public class CommandCmobSpawn extends PlayerCmobCommand {
 
@@ -57,7 +59,7 @@ public class CommandCmobSpawn extends PlayerCmobCommand {
 
         Block blockSpawnAt = getTargetBlock(p);
         if(blockSpawnAt == null) {
-            p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.RED + "Can't find solid block in your view to spawn the mob on");
+            p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.RED + LanguageHandler.translate("command.cmob.spawn.noblock"));
             return;
         }
 
@@ -69,7 +71,7 @@ public class CommandCmobSpawn extends PlayerCmobCommand {
             try {
                 amount = Integer.parseInt(amtStr);
             } catch (Exception e) {
-                p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.RED + "Can't find solid block in your view to spawn the mob on");
+                MessageAssist.msgShouldBeAIntNumber(p, amtStr);
                 return;
             }
 
@@ -80,8 +82,8 @@ public class CommandCmobSpawn extends PlayerCmobCommand {
                     entity = mob.spawnAt(spawnAt);
                     spawned++;
                 } catch (SpawnLimitException ignored) {
-                    p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.RED + "Spawnlimit for " + mob.getMobFileName() + " reached!");
-                    p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.GREEN + "Spawned " + spawned + "/" + amount + " of " + mob.getMobFileName() + ".");
+                    p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.RED + String.format(LanguageHandler.translate("command.cmob.spawn.limitreached"), mob.getMobFileName()));
+                    p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.GREEN + String.format(LanguageHandler.translate("command.cmob.spawn.amount"), String.valueOf(spawned), String.valueOf(amount), mob.getMobFileName()));
                     return;
                 }
 
@@ -90,18 +92,18 @@ public class CommandCmobSpawn extends PlayerCmobCommand {
 
                 if(event.isCancelled()) {
                     entity.remove();
-                    p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.RED + "Spawning was cancelled. Nothing will be spawned.");
-                    p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.GREEN + "Spawned " + spawned + "/" + amount + " of " + mob.getMobFileName() + ".");
+                    p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.RED + LanguageHandler.translate("command.cmob.spawn.cancelled"));
+                    p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.GREEN + String.format(LanguageHandler.translate("command.cmob.spawn.amount"), String.valueOf(spawned), String.valueOf(amount), mob.getMobFileName()));
                     return;
                 }
             }
-            p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.GREEN + "Spawned " + spawned + "/" + amount + " of " + mob.getMobFileName() + ".");
+            p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.GREEN + String.format(LanguageHandler.translate("command.cmob.spawn.amount"), String.valueOf(spawned), String.valueOf(amount), mob.getMobFileName()));
         } else {
             LivingEntity entity;
             try {
                 entity = mob.spawnAt(spawnAt);
             } catch (SpawnLimitException ignored) {
-                p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.RED + "Spawnlimit for " + mob.getMobFileName() + " reached!");
+                p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.RED + String.format(LanguageHandler.translate("command.cmob.spawn.limitreached"), mob.getMobFileName()));
                 return;
             }
 
@@ -110,11 +112,11 @@ public class CommandCmobSpawn extends PlayerCmobCommand {
 
             if(event.isCancelled()) {
                 entity.remove();
-                p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.RED + "Spawning was cancelled. Nothing will be spawned.");
+                p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.RED + LanguageHandler.translate("command.cmob.spawn.cancelled"));
                 return;
             }
 
-            p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.GREEN + mob.getMobFileName() + " spawned.");
+            p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.GREEN + String.format(LanguageHandler.translate("command.cmob.spawn.spawned"), mob.getMobFileName()));
         }
     }
 

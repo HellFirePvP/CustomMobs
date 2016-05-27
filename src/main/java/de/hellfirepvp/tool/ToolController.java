@@ -7,10 +7,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * HellFirePvP@Admin
- * Date: 13.05.2015 / 14:44
- * on Project CustomMobs
- * ToolController
+ * This class is part of the CustomMobs Plugin
+ * The plugin can be found at: https://www.spigotmc.org/resources/custommobs.7339
+ * Class: ToolController
+ * Created by HellFirePvP
+ * Date: (Header change) 27.05.2016 / 4:00
  */
 public class ToolController {
 

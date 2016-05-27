@@ -16,10 +16,11 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 
 /**
- * HellFirePvP@Admin
- * Date: 15.05.2015 / 22:44
- * on Project CustomMobs
- * CommandCCmobSpawn
+ * This class is part of the CustomMobs Plugin
+ * The plugin can be found at: https://www.spigotmc.org/resources/custommobs.7339
+ * Class: CommandCCmobSpawn
+ * Created by HellFirePvP
+ * Date: (Header change) 27.05.2016 / 4:05
  */
 public class CommandCCmobSpawn extends AbstractCmobCommand {
 
