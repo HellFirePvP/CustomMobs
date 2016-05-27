@@ -34,8 +34,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 /**
- * This class is part of the Astral Sorcery Mod
- * The complete source code for this mod can be found on github.
+ * This class is part of the CustomMobs Plugin
+ * The plugin can be found at: https://www.spigotmc.org/resources/custommobs.7339
  * Class: CustomMobs
  * Created by HellFirePvP
  * Date: 23.05.2016 / 22:05
