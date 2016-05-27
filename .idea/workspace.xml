@@ -509,7 +509,11 @@
       <created>1464313745873</created>
       <updated>1464313745873</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="god damnit .gitignore please.">
+      <created>1464313782820</created>
+      <updated>1464313782820</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -583,7 +587,8 @@
     <MESSAGE value="Ugh.." />
     <MESSAGE value="Let's try this again -_-" />
     <MESSAGE value="Cleanup..." />
-    <option name="LAST_COMMIT_MESSAGE" value="Cleanup..." />
+    <MESSAGE value="god damnit .gitignore please." />
+    <option name="LAST_COMMIT_MESSAGE" value="god damnit .gitignore please." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
