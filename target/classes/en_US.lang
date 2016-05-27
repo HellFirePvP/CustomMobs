@@ -1,0 +1,173 @@
+#RANDOM STUFF
+
+command.spawnlimit.reset=%s mobs with SpawnLimit killed.
+command.mobypes=Existing mobtpyes: %s
+command.potiontypes=Existing PotionEffect-Types: %s
+command.name.invalid=Please choose a name that doesn't contain "##-##" - Thank you.
+
+#COMMAND STUFF
+
+#CMOB Commands
+command.cmob.burn.inputdesc=/cmob burn <Name> <true/false> [duration/-1/infinite]
+command.cmob.burn.usagedesc=Sets the ticks (20 per sec) how long the mob burns.
+command.cmob.burn.additional=If set to false, the duration doesn't matter and may be left out. If set to true, you have to define a duration. '-1' also counts as 'infinite'.
+
+command.cmob.cmd.inputdesc=/cmob cmd <Name> [Command]
+command.cmob.cmd.usagedesc=Sets the command the mob executes if it's killed by a player.
+command.cmob.cmd.additional=The command is only executed if the mob is killed by a player. To get the name of the player that killed the mob, add %player% at the place in the command where you would need the player's name. The / at the beginning of a command is not needed!
+
+command.cmob.create.inputdesc=/cmob create <Type> <Name>
+command.cmob.create.usagedesc=Creates a new CustomMob with given Type and Name
+
+command.cmob.delete.inputdesc=/cmob delete <Name>
+command.cmob.delete.usagedesc=Deletes the named CustomMob
+
+command.cmob.drop.inputdesc=/cmob drop <Name> <Chance (0.0 - 1.0)>
+command.cmob.drop.usagedesc=Sets the currently held item as a drop with given chance.
+
+command.cmob.equip.inputdesc=/cmob equip <Name> <0/1/2/3/4/5>
+command.cmob.equip.usagedesc=Sets the equipment of a CustomMob.
+command.cmob.equip.additional=0 = MainHand, 1 = OffHand, 2 = Helmet, 3 = Chestplate, 4 = Leggings, 5 = Boots
+
+command.cmob.exp.inputdesc=/cmob exp <Name> <ExpAmount>
+command.cmob.exp.usagedesc=Sets the amount of experience the mob drops at death.
+
+command.cmob.fireproof.inputdesc=/cmob fireproof <Name> <true/false>
+command.cmob.fireproof.usagedesc=If set to 'true' the mob can't burn or take damage from fire anymore.
+
+command.cmob.health.inputdesc=/cmob health <Name> <Health>
+command.cmob.health.usagedesc=Sets the health of a mob
+
+command.cmob.limit.inputdesc=/cmob limit <Name> <limit/-1/infinite>
+command.cmob.limit.usagedesc=Sets the Spawnlimit of the mob
+command.cmob.limit.additional=The Spawnlimit counts serverwide not worldwide
+
+command.cmob.list.inputdesc=/cmob list
+command.cmob.list.usagedesc=Lists all custommobs.
+
+command.cmob.name.inputdesc=/cmob name <Name> <CustomName>
+command.cmob.name.usagedesc=Sets the customname of the mob
+command.cmob.name.additional=You can use '&'-Color codes
+
+command.cmob.remove.inputdesc=/cmob remove <Name>
+command.cmob.remove.usagedesc=Removes all custommobs with the given name from the server.
+
+command.cmob.resetpotion.inputdesc=/cmob resetpotion <Name> <Effect>
+command.cmob.resetpotion.usagedesc=Removes the given potioneffect from the mob.
+
+command.cmob.setbaby.inputdesc=/cmob setbaby <Name> <true/false>
+command.cmob.setbaby.usagedesc=Sets the mob's age (baby or adult) if it can be set.
+
+command.cmob.setpotion.inputdesc=/cmob setpotion <Name> <Effect> <Amplifier> <Duration>[s]
+command.cmob.setpotion.usagedesc=Adds a potionEffect to the mob.
+
+command.cmob.spawn.inputdesc=/cmob spawn <Name> [amount]
+command.cmob.spawn.usagedesc=Spawns the custommob with the given name
+
+command.cmob.spawner.inputdesc=/cmob spawner <Name> [delay > 0]
+command.cmob.spawner.usagedesc=Sets the block currently looking at to a spawner
+command.cmob.spawner.additional=If no delay specified, the delay will be something between 20 and 29 seconds.
+
+command.cmob.tool.inputdesc=/cmob tool
+command.cmob.tool.usagedesc=Gives you the custommob tool.
+
+#CCMOB Commands
+command.ccmob.remove.inputdesc=/ccmob remove <Name>
+command.ccmob.remove.usagedesc=Removes all custommobs with the given name from the server.
+
+command.ccmob.spawn.inputdesc=/ccmob spawn <Name> <worldname> <x> <y> <z> [amount]
+command.ccmob.spawn.usagedesc=Console and CommandBlock spawn command
+
+#CCONFIG Commands
+command.cconfig.add.inputdesc=/cconfig add <Name> <groupSpawn> <groupAmount> <spawnRate 0.0 - 1.0> [b:biomes] [w:worlds] [r:regions]
+command.cconfig.add.usagedesc=Sets a mob to spawn randomly
+command.cconfig.add.additional=Since this is a quite difficult command, check the command descriptions on the official project website if you need help.
+
+command.cconfig.list.inputdesc=/cconfig list
+command.cconfig.list.usagedesc=Lists all mobs that are currently spawned randomly
+
+command.cconfig.remove.inputdesc=/cconfig remove <Name>
+command.cconfig.remove.usagedesc=Removes a mob from being spawned randomly
+
+#CRESPAWN Commands
+command.crespawn.add.inputdesc=/crespawn add <Name> <Time In Seconds>
+command.crespawn.add.usagedesc=Sets the mob to respawn at your location.
+
+command.crespawn.addloc.inputdesc=/crespawn add <Name> <Time In Seconds> <x> <y> <z>
+command.crespawn.addloc.usagedesc=Sets the mob to respawn at specified location
+
+command.crespawn.remove.inputdesc=/crespawn remove <Name>
+command.crespawn.remove.usagedesc=Removes a mob from the respawning
+
+#CAI Commands
+command.cai.leash.inputdesc=/cai leash <Name> <maxRange>/"remove"
+command.cai.leash.usagedesc=Leash a mob to its spawn position
+command.cai.leash.additional=Define a maxRange and the mob will never leave the radius around the spawn location - To remove the leash again, type "remove" instead of a radius
+
+#COMMAND ERROR STUFF
+
+command.error.nomob=A CustomMob called %s doesn't exist!
+command.error.mobexists=A mob named %s does already exist!
+command.error.notype.mob=The mobType (%s) doesn't exist.
+command.error.notype.potion=The potionType (%s) doesn't exist.
+command.error.file=Error writing the File! Tell an Admin of this Error!
+command.error.nocommand=No such Command
+command.error.missingargs=Not enough Arguments
+command.error.invalidargs=Invalid Arguments
+
+command.error.noconsole=No Console
+command.error.nopermission=No Permission
+command.error.requiredpermission=Permission required: %s
+
+command.error.biome=Unknown Biome: %s
+command.error.biome.valid=Valid biomes: %s
+
+command.error.number.int=%s should be a number!
+command.error.number.int.five=%s should be a number between 0 and 5!
+command.error.number.int.infinite=%s should be a number or 'infinite'!
+command.error.number.float=%s should be a floating point number!
+command.error.number.float.norm=%s should be a floating point number between 0.0 and 1.0!
+command.error.number.bool=%s should be either 'true' or 'false'!
+command.error.none=None
+
+#OTHER STUFF
+
+equipment.main=Main Hand
+equipment.off=Off Hand
+equipment.helmet=Helmet
+equipment.chest=Chestplate
+equipment.leggings=Leggings
+equipment.boots=Boots
+
+#TOOL STUFF
+
+tool.display=CustomMobs-Tool
+tool.left=Left-Click
+tool.left.line1=Mobs that are not created by
+tool.left.line2=the CustomMobs Plugin and
+tool.left.line3=enter a Name in order to store
+tool.left.line4=them as a new CustomMob.
+
+tool.right=Right-Click
+tool.right.line1=Get Information about Spawners.
+tool.right.line2=
+tool.right.line3=
+tool.right.line4=
+
+tool.interact.saved=This mob is already a saved mob!
+tool.interact.save.entername=Mob stored! Please enter a name to save the mob as file!
+tool.interact.save.start=Attempting to save the last clicked Mob as '%s'...
+tool.interact.save.success=Mob saved! You may spawn it now with '/cmob spawn %s'
+tool.interact.save.error=Saving of %s failed..
+
+tool.interact.info.default=A normal mob.
+tool.interact.info.removed=It seems this was once a CustomMob, but it got deleted.
+tool.interact.info.success=A CustomMob.
+tool.interact.info.name=Name: %s
+
+tool.interact.spawner=A CustomMob Spawner.
+tool.interact.spawner.spawns=Spawns: %s
+tool.interact.spawner.fixed=Spawns it with fixed delay of %s seconds.
+tool.interact.spawner.random=Spawns it with a random delay between 20-29 seconds.
+tool.interact.spawner.next=Spawns the next mob(s) in %s seconds.
+spawner.destroyed=CustomMob-Spawner destroyed!
