@@ -1,5 +1,6 @@
-package de.hellfirepvp.data.nbt;
+package de.hellfirepvp.data.nbt.entries;
 
+import de.hellfirepvp.data.nbt.NBTRegister;
 import de.hellfirepvp.data.nbt.entries.base.NBTEntryLivingEntity;
 
 /**
@@ -9,9 +10,9 @@ import de.hellfirepvp.data.nbt.entries.base.NBTEntryLivingEntity;
  * Created by HellFirePvP
  * Date: 29.05.2016 / 17:06
  */
-public class NBTEntrySnowMan extends NBTEntryLivingEntity {
+public class NBTEntrySnowman extends NBTEntryLivingEntity {
 
-    public NBTEntrySnowMan(NBTRegister.TypeRegister context) {
+    public NBTEntrySnowman(NBTRegister.TypeRegister context) {
         super(context);
     }
 
