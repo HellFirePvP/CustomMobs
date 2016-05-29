@@ -12,8 +12,11 @@ import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 import org.spigotmc.SpigotWorldConfig;
 
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 /**
@@ -162,16 +165,24 @@ public class WorldSpawner {
 
     public static enum CreatureType {
 
-        AMBIENT(true, false),
-        WATER_CREATURE(true, false),
-        ANIMAL(true, true),
-        MONSTER(false, false);
+        AMBIENT("AMBIENT", true, false),
+        WATER_CREATURE("WATER_CREATURE", true, false),
+        ANIMAL("CREATURE", true, true),
+        MONSTER("MONSTER", false, false);
+
+        private static Map<String, CreatureType> BY_NAME = new HashMap<>();
 
         private final boolean peaceful, animal;
+        private final String representation;
 
-        CreatureType(boolean peaceful, boolean animal) {
+        private CreatureType(String representation, boolean peaceful, boolean animal) {
             this.peaceful = peaceful;
             this.animal = animal;
+            this.representation = representation;
+        }
+
+        public String getName() {
+            return representation;
         }
 
         public boolean isAnimal() {
@@ -198,6 +209,21 @@ public class WorldSpawner {
                     return world.getMonsterSpawnLimit();
             }
             return 0;
+        }
+
+        public static CreatureType getByName(String name) {
+            return BY_NAME.get(name);
+        }
+
+        public static Collection<String> getNames() {
+            return BY_NAME.keySet();
+        }
+
+        static {
+            for (CreatureType ct : values()) {
+                if(ct == null) continue;
+                BY_NAME.put(ct.getName(), ct);
+            }
         }
 
     }

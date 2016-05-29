@@ -78,6 +78,13 @@ command.cai.leash.noleash=The mob %s does not have any leash-settings.
 command.cai.leash.exists=The mob %s does already have a leash-setting.
 command.cai.leash.success=The mob %s will no longer leave its spawnpoint further than %s.
 
+#CCONTROL Commands
+command.ccontrol.list.missingcategory=Category (%s) doesn't exist for Biome '%s'!
+command.ccontrol.list.missingcategory.info=Please delete the File named '%s' in the FullControl folder to solve this issue. Remember: this also deletes your configuration done with /ccontrol so far."
+command.ccontrol.list.startlisting=Listing data for %s/%s:
+command.ccontrol.list.nomobs=No mobs spawn.
+command.ccontrol.list.spawninfo=%s in Group of %s to %s. Chance: %s
+
 #CNBT Commands
 command.cnbt.set.notype=MobType of %s could not be found!
 command.cnbt.set.notsupported=No NBTEntry named %s is known for MobType %s by default.
@@ -213,6 +220,10 @@ command.cnbt.set.inputdesc=/cnbt set <Name> <Entry> <Value>
 command.cnbt.set.usagedesc=Set a defined NBT-Entry to a specific value
 command.cnbt.set.additional=TabComplete help is integrated to get specific entries more easily. If you wish to set your own, custom NBTTags, use /cnbt setraw instead. (setraw will come in 4.1+)
 
+#CCONTROL Commands
+command.ccontrol.list.inputdesc=/ccontrol list <BiomeName> <WATER_CREATURE/AMBIENT/CREATURE/MONSTER>
+command.ccontrol.list.usagedesc=Lists mobs and their random-spawn attributes.
+
 #COMMAND ERROR STUFF
 
 command.error.nomob=A CustomMob called %s doesn't exist!
@@ -230,6 +241,9 @@ command.error.requiredpermission=Permission required: %s
 
 command.error.biome=Unknown Biome: %s
 command.error.biome.valid=Valid biomes: %s
+
+command.error.category=Unknown category: %s
+command.error.category.valid=Available Categories: %s
 
 command.error.number.int=%s should be a number!
 command.error.number.int.ranged=%s should be a number between %s and %s!

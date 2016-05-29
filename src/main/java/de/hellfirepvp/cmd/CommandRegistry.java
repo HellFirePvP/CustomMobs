@@ -4,6 +4,7 @@ import de.hellfirepvp.CustomMobs;
 import de.hellfirepvp.cmd.cai.CommandCaiLeash;
 import de.hellfirepvp.cmd.ccmob.CommandCCmobRemove;
 import de.hellfirepvp.cmd.ccmob.CommandCCmobSpawn;
+import de.hellfirepvp.cmd.ccontrol.CommandCcontrolList;
 import de.hellfirepvp.cmd.cnbt.CommandCnbtSet;
 import de.hellfirepvp.cmd.cspawn.CommandCspawnAdd;
 import de.hellfirepvp.cmd.cspawn.CommandCspawnList;
@@ -64,7 +65,7 @@ public class CommandRegistry {
         BaseCommand handler = new BaseCommand();
         for (CommandCategory cat : CommandCategory.values()) {
             Bukkit.getServer().getPluginCommand(cat.name.toLowerCase()).setExecutor(handler);
-            CustomMobs.logger.info("Registered command \"/" + cat.name + "\"!");
+            CustomMobs.logger.info("Registered commands for \"/" + cat.name + "\"!");
         }
     }
 
@@ -113,9 +114,9 @@ public class CommandRegistry {
         commands.put(CommandCategory.CRESPAWN, crespawnCommands);
 
         LinkedList<AbstractCmobCommand> ccontrolCommands = new LinkedList<>();
-        //if(CustomMobs.instance.getConfigHandler().useFullControl()) {
-        //ccontrolCommands.add(new CommandCcontrolList().setCategory(CommandCategory.CCONTROL)); TODO add again later.
-        //}
+        if(CustomMobs.instance.getConfigHandler().useFullControl()) {
+            ccontrolCommands.add(new CommandCcontrolList().setCategory(CommandCategory.CCONTROL));
+        }
         commands.put(CommandCategory.CCONTROL, ccontrolCommands);
 
         LinkedList<AbstractCmobCommand> cnbtCommands = new LinkedList<>();
