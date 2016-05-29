@@ -1,16 +1,15 @@
 package de.hellfirepvp.nms.v1_9_R2;
 
-import de.hellfirepvp.data.nbt.NBTProvider;
-import de.hellfirepvp.data.nbt.NBTTagType;
-import de.hellfirepvp.data.nbt.WrappedNBTTagCompound;
-import de.hellfirepvp.data.nbt.WrappedNBTTagList;
+import de.hellfirepvp.data.nbt.base.NBTProvider;
+import de.hellfirepvp.data.nbt.base.NBTTagType;
+import de.hellfirepvp.data.nbt.base.WrappedNBTTagCompound;
+import de.hellfirepvp.data.nbt.base.WrappedNBTTagList;
 import net.minecraft.server.v1_9_R2.NBTBase;
 import net.minecraft.server.v1_9_R2.NBTCompressedStreamTools;
 import net.minecraft.server.v1_9_R2.NBTTagByte;
 import net.minecraft.server.v1_9_R2.NBTTagByteArray;
 import net.minecraft.server.v1_9_R2.NBTTagCompound;
 import net.minecraft.server.v1_9_R2.NBTTagDouble;
-import net.minecraft.server.v1_9_R2.NBTTagEnd;
 import net.minecraft.server.v1_9_R2.NBTTagFloat;
 import net.minecraft.server.v1_9_R2.NBTTagInt;
 import net.minecraft.server.v1_9_R2.NBTTagIntArray;
@@ -222,6 +221,26 @@ public class NBTProviderImpl implements NBTProvider {
         }
 
         @Override
+        public void setByte(String key, byte value) {
+            parent.setByte(key, value);
+        }
+
+        @Override
+        public void setShort(String key, short value) {
+            parent.setShort(key, value);
+        }
+
+        @Override
+        public void setLong(String key, long value) {
+            parent.setLong(key, value);
+        }
+
+        @Override
+        public void setFloat(String key, float value) {
+            parent.setFloat(key, value);
+        }
+
+        @Override
         public void setDouble(String key, double value) {
             parent.setDouble(key, value);
         }
@@ -234,6 +253,16 @@ public class NBTProviderImpl implements NBTProvider {
         @Override
         public void setString(String key, String value) {
             parent.setString(key, value);
+        }
+
+        @Override
+        public void setIntArray(String key, int[] value) {
+            parent.setIntArray(key, value);
+        }
+
+        @Override
+        public void setByteArray(String key, byte[] value) {
+            parent.setByteArray(key, value);
         }
 
         @Override

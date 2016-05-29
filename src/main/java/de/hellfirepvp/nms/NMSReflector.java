@@ -1,6 +1,6 @@
 package de.hellfirepvp.nms;
 
-import de.hellfirepvp.data.nbt.NBTProvider;
+import de.hellfirepvp.data.nbt.base.NBTProvider;
 import org.bukkit.Bukkit;
 
 import java.lang.reflect.Field;

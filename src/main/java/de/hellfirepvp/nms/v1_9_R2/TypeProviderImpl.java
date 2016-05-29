@@ -1,7 +1,7 @@
 package de.hellfirepvp.nms.v1_9_R2;
 
 import de.hellfirepvp.CustomMobs;
-import de.hellfirepvp.data.nbt.WrappedNBTTagCompound;
+import de.hellfirepvp.data.nbt.base.WrappedNBTTagCompound;
 import de.hellfirepvp.nms.MobTypeProvider;
 import de.hellfirepvp.nms.NMSReflector;
 import net.minecraft.server.v1_9_R2.Entity;
@@ -12,11 +12,9 @@ import net.minecraft.server.v1_9_R2.WorldServer;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.craftbukkit.v1_9_R2.CraftWorld;
-import org.bukkit.craftbukkit.v1_9_R2.entity.CraftEntity;
 import org.bukkit.craftbukkit.v1_9_R2.entity.CraftLivingEntity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.entity.CreatureSpawnEvent;
-import org.bukkit.util.Vector;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;

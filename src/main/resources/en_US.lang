@@ -221,12 +221,16 @@ command.error.biome=Unknown Biome: %s
 command.error.biome.valid=Valid biomes: %s
 
 command.error.number.int=%s should be a number!
-command.error.number.int.five=%s should be a number between 0 and 5!
+command.error.number.int.ranged=%s should be a number between %s and %s!
 command.error.number.int.infinite=%s should be a number or 'infinite'!
 command.error.number.float=%s should be a floating point number!
 command.error.number.float.norm=%s should be a floating point number between 0.0 and 1.0!
+command.error.number.float.ranged=%s should be a floating point number between %s and %s!
 command.error.number.bool=%s should be either 'true' or 'false'!
 command.error.none=None
+
+command.error.parse.arrayByte=%s should be a row of numbers (from -128 to 127), separated by ';' (Example: 5;7;1;7)
+command.error.parse.arrayInt%s should be a row of numbers, separated by ';' (Example: 501;533;12;5;77;1794)
 
 #OTHER STUFF
 

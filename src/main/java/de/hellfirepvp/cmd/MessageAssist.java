@@ -44,12 +44,20 @@ public final class MessageAssist {
         cs.sendMessage(LibLanguageOutput.PREFIX + ChatColor.RED + String.format(LanguageHandler.translate("command.error.number.int.infinite"), strNoNumber));
     }
 
+    public static void msgShouldBeAIntNumberRanged(CommandSender cs, String strNoNumber, String lowerBoundIncl, String higherBoundIncl) {
+        cs.sendMessage(LibLanguageOutput.PREFIX + ChatColor.RED + String.format(LanguageHandler.translate("command.error.number.int.ranged"), strNoNumber, lowerBoundIncl, higherBoundIncl));
+    }
+
     public static void msgShouldBeAFloatNumber(CommandSender cs, String strNoNumber) {
         cs.sendMessage(LibLanguageOutput.PREFIX + ChatColor.RED + String.format(LanguageHandler.translate("command.error.number.float"), strNoNumber));
     }
 
     public static void msgShouldBeAFloatNumberNormalized(CommandSender cs, String strNoNumber) {
         cs.sendMessage(LibLanguageOutput.PREFIX + ChatColor.RED + String.format(LanguageHandler.translate("command.error.number.float.norm"), strNoNumber));
+    }
+
+    public static void msgShouldBeAFloatNumberRanged(CommandSender cs, String strNoNumber, String lowerBoundIncl, String higherBoundIncl) {
+        cs.sendMessage(LibLanguageOutput.PREFIX + ChatColor.RED + String.format(LanguageHandler.translate("command.error.number.float.ranged"), strNoNumber, lowerBoundIncl, higherBoundIncl));
     }
 
     public static void msgShouldBeABooleanValue(CommandSender cs, String strNoBoolean) {

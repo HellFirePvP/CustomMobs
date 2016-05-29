@@ -51,7 +51,7 @@ public class CommandCmobEquip extends PlayerCmobCommand {
             section = Integer.parseInt(sectionStr);
             if(section < 0 || section > 5) throw new Exception();
         } catch (Exception exc) {
-            p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.RED + String.format(LanguageHandler.translate("command.error.number.int.five"), sectionStr));
+            p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.RED + String.format(LanguageHandler.translate("command.error.number.int.ranged"), sectionStr, "0", "5"));
             BaseCommand.sendPlayerDescription(p, this, true);
             return;
         }

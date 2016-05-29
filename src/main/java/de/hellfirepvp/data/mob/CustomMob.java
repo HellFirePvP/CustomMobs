@@ -1,23 +1,16 @@
 package de.hellfirepvp.data.mob;
 
 import de.hellfirepvp.CustomMobs;
-import de.hellfirepvp.data.nbt.NBTTagType;
-import de.hellfirepvp.data.nbt.WrappedNBTTagCompound;
-import de.hellfirepvp.data.nbt.WrappedNBTTagList;
+import de.hellfirepvp.data.nbt.base.WrappedNBTTagCompound;
 import de.hellfirepvp.file.write.MobDataWriter;
 import de.hellfirepvp.nms.NMSReflector;
 import de.hellfirepvp.spawning.SpawnLimitException;
 import de.hellfirepvp.util.EntityUtils;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.entity.Ageable;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.inventory.EntityEquipment;
-import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 

@@ -2,8 +2,8 @@ package de.hellfirepvp.file.read;
 
 import de.hellfirepvp.CustomMobs;
 import de.hellfirepvp.data.mob.CustomMob;
-import de.hellfirepvp.data.nbt.NBTWrapper;
-import de.hellfirepvp.data.nbt.WrappedNBTTagCompound;
+import de.hellfirepvp.data.nbt.base.NBTWrapper;
+import de.hellfirepvp.data.nbt.base.WrappedNBTTagCompound;
 import de.hellfirepvp.nms.NMSReflector;
 
 import java.io.File;

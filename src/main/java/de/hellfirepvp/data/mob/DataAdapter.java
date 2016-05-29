@@ -1,9 +1,9 @@
 package de.hellfirepvp.data.mob;
 
 import de.hellfirepvp.CustomMobs;
-import de.hellfirepvp.data.nbt.NBTTagType;
-import de.hellfirepvp.data.nbt.WrappedNBTTagCompound;
-import de.hellfirepvp.data.nbt.WrappedNBTTagList;
+import de.hellfirepvp.data.nbt.base.NBTTagType;
+import de.hellfirepvp.data.nbt.base.WrappedNBTTagCompound;
+import de.hellfirepvp.data.nbt.base.WrappedNBTTagList;
 import de.hellfirepvp.nms.NMSReflector;
 import org.bukkit.inventory.ItemStack;
 

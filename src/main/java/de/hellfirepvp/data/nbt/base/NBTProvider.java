@@ -1,4 +1,4 @@
-package de.hellfirepvp.data.nbt;
+package de.hellfirepvp.data.nbt.base;
 
 import org.bukkit.inventory.ItemStack;
 
