@@ -73,8 +73,8 @@ public class CustomMobSpawnEvent extends CustomMobEvent implements Cancellable {
         public static final SpawnReason COMMAND_CMOB = new SpawnReason("COMMAND_CMOB");
         public static final SpawnReason COMMAND_CCMOB = new SpawnReason("COMMAND_CCMOB");
         public static final SpawnReason SPAWNER = new SpawnReason("SPAWNER");
-        public static final SpawnReason CCONFIG = new SpawnReason("CCONFIG");
-        public static final SpawnReason CCONFIG_GROUP = new SpawnReason("CCONFIG_GROUP");
+        public static final SpawnReason CSPAWN = new SpawnReason("CSPAWN");
+        public static final SpawnReason CSPAWN_GROUP = new SpawnReason("CSPAWN_GROUP");
         public static final SpawnReason RESPAWN = new SpawnReason("RESPAWN");
         protected static final SpawnReason NULL = new SpawnReason("NULL");
 

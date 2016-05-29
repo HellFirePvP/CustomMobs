@@ -81,19 +81,19 @@ command.cai.leash.success=The mob %s will no longer leave its spawnpoint further
 #CCMOB Commands
 command.ccmob.spawn.noworld=World called '%s' not found!
 
-#CCONFIG Commands
-command.cconfig.list=Mobs that spawn randomly:
+#CSPAWN Commands
+command.cspawn.list=Mobs that spawn randomly:
 
-command.cconfig.remove.success=%s doesn't spawn randomly anymore.
+command.cspawn.remove.success=%s doesn't spawn randomly anymore.
 
-command.cconfig.add.exists=%s is already set to spawn randomly
-command.cconfig.add.success=%s is successfully set to spawn randomly.
-command.cconfig.add.info.properties=Properties:
-command.cconfig.add.info.spawnrate=SpawnRate: %s
-command.cconfig.add.info.group=GroupSpawning: %s, GroupSpawnAmount: %s
-command.cconfig.add.info.biomes=Biomes: %s
-command.cconfig.add.info.worlds=Worlds: %s
-command.cconfig.add.info.regions=Regions: %s
+command.cspawn.add.exists=%s is already set to spawn randomly
+command.cspawn.add.success=%s is successfully set to spawn randomly.
+command.cspawn.add.info.properties=Properties:
+command.cspawn.add.info.spawnrate=SpawnRate: %s
+command.cspawn.add.info.group=GroupSpawning: %s, GroupSpawnAmount: %s
+command.cspawn.add.info.biomes=Biomes: %s
+command.cspawn.add.info.worlds=Worlds: %s
+command.cspawn.add.info.regions=Regions: %s
 
 #CRESPAWN Commands
 command.crespawn.add.exists=%s is already set to respawn somewhere.
@@ -176,16 +176,16 @@ command.ccmob.remove.usagedesc=Removes all custommobs with the given name from t
 command.ccmob.spawn.inputdesc=/ccmob spawn <Name> <worldname> <x> <y> <z> [amount]
 command.ccmob.spawn.usagedesc=Console and CommandBlock spawn command
 
-#CCONFIG Commands
-command.cconfig.add.inputdesc=/cconfig add <Name> <groupSpawn> <groupAmount> <spawnRate 0.0 - 1.0> [b:biomes] [w:worlds] [r:regions]
-command.cconfig.add.usagedesc=Sets a mob to spawn randomly
-command.cconfig.add.additional=Since this is a quite difficult command, check the command descriptions on the official project website if you need help.
+#CSPAWN Commands
+command.cspawn.add.inputdesc=/cspawn add <Name> <groupSpawn> <groupAmount> <spawnRate 0.0 - 1.0> [b:biomes] [w:worlds] [r:regions]
+command.cspawn.add.usagedesc=Sets a mob to spawn randomly
+command.cspawn.add.additional=Since this is a quite difficult command, check the command descriptions on the official project website if you need help.
 
-command.cconfig.list.inputdesc=/cconfig list
-command.cconfig.list.usagedesc=Lists all mobs that are currently spawned randomly
+command.cspawn.list.inputdesc=/cspawn list
+command.cspawn.list.usagedesc=Lists all mobs that are currently spawned randomly
 
-command.cconfig.remove.inputdesc=/cconfig remove <Name>
-command.cconfig.remove.usagedesc=Removes a mob from being spawned randomly
+command.cspawn.remove.inputdesc=/cspawn remove <Name>
+command.cspawn.remove.usagedesc=Removes a mob from being spawned randomly
 
 #CRESPAWN Commands
 command.crespawn.add.inputdesc=/crespawn add <Name> <Time In Seconds>

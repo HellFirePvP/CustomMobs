@@ -8,6 +8,7 @@ import de.hellfirepvp.data.SpawnSettingsHolder;
 import de.hellfirepvp.data.SpawnerDataHolder;
 import de.hellfirepvp.data.mob.CustomMob;
 import de.hellfirepvp.data.mob.MobDataHolder;
+import de.hellfirepvp.data.nbt.NBTRegister;
 import de.hellfirepvp.event.GeneralEventListener;
 import de.hellfirepvp.event.ToolEventListener;
 import de.hellfirepvp.event.WorldEventListener;
@@ -101,6 +102,7 @@ public class CustomMobs extends JavaPlugin {
 
         mobDataHolder.reloadAllMobs();
         logger.info("Loaded " + mobDataHolder.getAllLoadedMobs().size() + " mobs!");
+        NBTRegister.initializeRegistry();
 
         spawnSettings.resolveSettings();
         spawnerDataHolder.loadData();

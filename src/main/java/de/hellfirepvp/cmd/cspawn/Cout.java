@@ -1,4 +1,4 @@
-package de.hellfirepvp.cmd.cconfig;
+package de.hellfirepvp.cmd.cspawn;
 
 /**
  * This class is part of the CustomMobs Plugin

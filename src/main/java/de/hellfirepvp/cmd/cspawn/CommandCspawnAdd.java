@@ -1,4 +1,4 @@
-package de.hellfirepvp.cmd.cconfig;
+package de.hellfirepvp.cmd.cspawn;
 
 import de.hellfirepvp.cmd.BaseCommand;
 import de.hellfirepvp.cmd.MessageAssist;
@@ -13,17 +13,16 @@ import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
  * This class is part of the CustomMobs Plugin
  * The plugin can be found at: https://www.spigotmc.org/resources/custommobs.7339
- * Class: CommandCconfigAdd
+ * Class: CommandCspawnAdd
  * Created by HellFirePvP
  * Date: (Header change) 27.05.2016 / 4:05
  */
-public class CommandCconfigAdd extends PlayerCmobCommand {
+public class CommandCspawnAdd extends PlayerCmobCommand {
 
     @Override
     public void execute(Player p, String[] args) {
@@ -121,16 +120,16 @@ public class CommandCconfigAdd extends PlayerCmobCommand {
 
         switch (SpawnSettingsWriter.setSpawnSettings(name, settings)) {
             case MOB_ALREADY_EXISTS:
-                p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.RED + String.format(LanguageHandler.translate("command.cconfig.add.exists"), name));
+                p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.RED + String.format(LanguageHandler.translate("command.cspawn.add.exists"), name));
                 break;
             case IO_EXCEPTION:
                 MessageAssist.msgIOException(p);
                 break;
             case SUCCESS:
-                p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.GREEN + String.format(LanguageHandler.translate("command.cconfig.add.success"), name));
-                p.sendMessage(ChatColor.GOLD + LanguageHandler.translate("command.cconfig.add.info.properties"));
-                p.sendMessage(ChatColor.GREEN + String.format(LanguageHandler.translate("command.cconfig.add.info.spawnrate"), String.valueOf(spawnRate)));
-                p.sendMessage(ChatColor.GREEN + String.format(LanguageHandler.translate("command.cconfig.add.info.group"), String.valueOf(grpSpawn), String.valueOf(grpSpawnAmt)));
+                p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.GREEN + String.format(LanguageHandler.translate("command.cspawn.add.success"), name));
+                p.sendMessage(ChatColor.GOLD + LanguageHandler.translate("command.cspawn.add.info.properties"));
+                p.sendMessage(ChatColor.GREEN + String.format(LanguageHandler.translate("command.cspawn.add.info.spawnrate"), String.valueOf(spawnRate)));
+                p.sendMessage(ChatColor.GREEN + String.format(LanguageHandler.translate("command.cspawn.add.info.group"), String.valueOf(grpSpawn), String.valueOf(grpSpawnAmt)));
                 if(!biomes.isEmpty()) {
                     StringBuilder builder = new StringBuilder();
                     boolean first = true;
@@ -141,7 +140,7 @@ public class CommandCconfigAdd extends PlayerCmobCommand {
                         builder.append(b.name());
                         first = false;
                     }
-                    p.sendMessage(ChatColor.GREEN + String.format(LanguageHandler.translate("command.cconfig.add.info.biomes"), builder.toString()));
+                    p.sendMessage(ChatColor.GREEN + String.format(LanguageHandler.translate("command.cspawn.add.info.biomes"), builder.toString()));
                 }
                 if(!worlds.isEmpty()) {
                     StringBuilder builder = new StringBuilder();
@@ -153,7 +152,7 @@ public class CommandCconfigAdd extends PlayerCmobCommand {
                         builder.append(world);
                         first = false;
                     }
-                    p.sendMessage(ChatColor.GREEN + String.format(LanguageHandler.translate("command.cconfig.add.info.worlds"), builder.toString()));
+                    p.sendMessage(ChatColor.GREEN + String.format(LanguageHandler.translate("command.cspawn.add.info.worlds"), builder.toString()));
                 }
                 if(!regions.isEmpty()) {
                     StringBuilder builder = new StringBuilder();
@@ -165,7 +164,7 @@ public class CommandCconfigAdd extends PlayerCmobCommand {
                         builder.append(region);
                         first = false;
                     }
-                    p.sendMessage(ChatColor.GREEN + String.format(LanguageHandler.translate("command.cconfig.add.info.regions"), builder.toString()));
+                    p.sendMessage(ChatColor.GREEN + String.format(LanguageHandler.translate("command.cspawn.add.info.regions"), builder.toString()));
                 }
                 break;
         }

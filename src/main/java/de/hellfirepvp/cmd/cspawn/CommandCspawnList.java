@@ -1,4 +1,4 @@
-package de.hellfirepvp.cmd.cconfig;
+package de.hellfirepvp.cmd.cspawn;
 
 import de.hellfirepvp.CustomMobs;
 import de.hellfirepvp.cmd.PlayerCmobCommand;
@@ -12,11 +12,11 @@ import java.util.Collection;
 /**
  * This class is part of the CustomMobs Plugin
  * The plugin can be found at: https://www.spigotmc.org/resources/custommobs.7339
- * Class: CommandCconfigList
+ * Class: CommandCspawnList
  * Created by HellFirePvP
  * Date: (Header change) 27.05.2016 / 4:05
  */
-public class CommandCconfigList extends PlayerCmobCommand {
+public class CommandCspawnList extends PlayerCmobCommand {
     @Override
     public void execute(Player p, String[] args) {
         Collection<String> mobs = CustomMobs.instance.getSpawnSettings().getMobNamesWithSettings();
@@ -31,7 +31,7 @@ public class CommandCconfigList extends PlayerCmobCommand {
         }
         String mobsAsString = builder.toString();
 
-        p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.AQUA + LanguageHandler.translate("command.cconfig.list"));
+        p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.AQUA + LanguageHandler.translate("command.cspawn.list"));
         if(mobsAsString.isEmpty()) {
             p.sendMessage(ChatColor.GREEN + LanguageHandler.translate("command.error.none"));
         } else {

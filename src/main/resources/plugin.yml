@@ -12,9 +12,9 @@ commands:
   ccmob:
     description: Console-and-Player Command
     usage: /ccmob
-  cconfig:
-    description: Config-Customizing Command
-    usage: /cconfig
+  cspawn:
+    description: WorldSpawning-Specification Command
+    usage: /cspawn
   crespawn:
     description: Respawn-Timer command
     usage: /crespawn

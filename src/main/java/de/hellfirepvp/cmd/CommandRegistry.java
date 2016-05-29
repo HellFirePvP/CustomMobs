@@ -1,11 +1,12 @@
 package de.hellfirepvp.cmd;
 
+import de.hellfirepvp.CustomMobs;
 import de.hellfirepvp.cmd.cai.CommandCaiLeash;
 import de.hellfirepvp.cmd.ccmob.CommandCCmobRemove;
 import de.hellfirepvp.cmd.ccmob.CommandCCmobSpawn;
-import de.hellfirepvp.cmd.cconfig.CommandCconfigAdd;
-import de.hellfirepvp.cmd.cconfig.CommandCconfigList;
-import de.hellfirepvp.cmd.cconfig.CommandCconfigRemove;
+import de.hellfirepvp.cmd.cspawn.CommandCspawnAdd;
+import de.hellfirepvp.cmd.cspawn.CommandCspawnList;
+import de.hellfirepvp.cmd.cspawn.CommandCspawnRemove;
 import de.hellfirepvp.cmd.cmob.CommandCmobBurn;
 import de.hellfirepvp.cmd.cmob.CommandCmobCmd;
 import de.hellfirepvp.cmd.cmob.CommandCmobCreate;
@@ -58,6 +59,7 @@ public class CommandRegistry {
         BaseCommand handler = new BaseCommand();
         for (CommandCategory cat : CommandCategory.values()) {
             Bukkit.getServer().getPluginCommand(cat.name.toLowerCase()).setExecutor(handler);
+            CustomMobs.logger.info("Registered command \"/" + cat.name + "\"!");
         }
     }
 
@@ -93,11 +95,11 @@ public class CommandRegistry {
         ccmobCommands.add(new CommandCCmobSpawn() .setCategory(CommandCategory.CCMOB));
         commands.put(CommandCategory.CCMOB, ccmobCommands);
 
-        LinkedList<AbstractCmobCommand> cconfigCommands = new LinkedList<>();
-        cconfigCommands.add(new CommandCconfigAdd()   .setCategory(CommandCategory.CCONFIG));
-        cconfigCommands.add(new CommandCconfigRemove().setCategory(CommandCategory.CCONFIG));
-        cconfigCommands.add(new CommandCconfigList()  .setCategory(CommandCategory.CCONFIG));
-        commands.put(CommandCategory.CCONFIG, cconfigCommands);
+        LinkedList<AbstractCmobCommand> cspawnCommands = new LinkedList<>();
+        cspawnCommands.add(new CommandCspawnAdd()   .setCategory(CommandCategory.CSPAWN));
+        cspawnCommands.add(new CommandCspawnRemove().setCategory(CommandCategory.CSPAWN));
+        cspawnCommands.add(new CommandCspawnList()  .setCategory(CommandCategory.CSPAWN));
+        commands.put(CommandCategory.CSPAWN, cspawnCommands);
 
         LinkedList<AbstractCmobCommand> crespawnCommands = new LinkedList<>();
         crespawnCommands.add(new CommandCrespawnAdd()   .setCategory(CommandCategory.CRESPAWN));
@@ -120,7 +122,7 @@ public class CommandRegistry {
 
         CMOB("cmob"),
         CCMOB(true, "ccmob"),
-        CCONFIG("cconfig"),
+        CSPAWN("cspawn"),
         CRESPAWN("crespawn"),
         CCONTROL(true, "ccontrol"),
         CAI("cai");

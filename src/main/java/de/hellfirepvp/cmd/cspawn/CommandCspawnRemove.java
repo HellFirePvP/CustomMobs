@@ -1,4 +1,4 @@
-package de.hellfirepvp.cmd.cconfig;
+package de.hellfirepvp.cmd.cspawn;
 
 import de.hellfirepvp.cmd.MessageAssist;
 import de.hellfirepvp.cmd.PlayerCmobCommand;
@@ -11,11 +11,11 @@ import org.bukkit.entity.Player;
 /**
  * This class is part of the CustomMobs Plugin
  * The plugin can be found at: https://www.spigotmc.org/resources/custommobs.7339
- * Class: CommandCconfigRemove
+ * Class: CommandCspawnRemove
  * Created by HellFirePvP
  * Date: (Header change) 27.05.2016 / 4:05
  */
-public class CommandCconfigRemove extends PlayerCmobCommand {
+public class CommandCspawnRemove extends PlayerCmobCommand {
     @Override
     public void execute(Player p, String[] args) {
         String name = args[1];
@@ -28,7 +28,7 @@ public class CommandCconfigRemove extends PlayerCmobCommand {
                 MessageAssist.msgIOException(p);
                 break;
             case SUCCESS:
-                p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.GREEN + String.format(LanguageHandler.translate("command.cconfig.remove.success"), name));
+                p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.GREEN + String.format(LanguageHandler.translate("command.cspawn.remove.success"), name));
                 break;
         }
     }

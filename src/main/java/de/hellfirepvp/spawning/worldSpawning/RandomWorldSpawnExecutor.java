@@ -88,7 +88,7 @@ public final class RandomWorldSpawnExecutor {
             return count;
         }
 
-        CustomMobSpawnEvent event = new CustomMobSpawnEvent(selected, entity, CustomMobSpawnEvent.SpawnReason.CCONFIG);
+        CustomMobSpawnEvent event = new CustomMobSpawnEvent(selected, entity, CustomMobSpawnEvent.SpawnReason.CSPAWN);
         Bukkit.getPluginManager().callEvent(event);
 
         if(event.isCancelled()) {
@@ -113,7 +113,7 @@ public final class RandomWorldSpawnExecutor {
                     break;
                 }
 
-                CustomMobSpawnEvent spawnEvent = new CustomMobSpawnEvent(selected, spawned, CustomMobSpawnEvent.SpawnReason.CCONFIG_GROUP);
+                CustomMobSpawnEvent spawnEvent = new CustomMobSpawnEvent(selected, spawned, CustomMobSpawnEvent.SpawnReason.CSPAWN_GROUP);
                 Bukkit.getPluginManager().callEvent(spawnEvent);
 
                 if(spawnEvent.isCancelled()) {
