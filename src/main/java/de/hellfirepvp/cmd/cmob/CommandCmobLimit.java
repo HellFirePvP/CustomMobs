@@ -40,6 +40,11 @@ public class CommandCmobLimit extends PlayerCmobCommand {
     }
 
     @Override
+    public int getCustomMobArgumentIndex() {
+        return 2;
+    }
+
+    @Override
     public void execute(Player p, String[] args) {
         String name = args[1];
         String limitStr = args[2];

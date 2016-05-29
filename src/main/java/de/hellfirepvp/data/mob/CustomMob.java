@@ -51,6 +51,19 @@ public class CustomMob {
         entityAdapter.reloadEntity();
     }
 
+    protected boolean saveTagAlongWith(String entry, Object value) {
+        WrappedNBTTagCompound tag = entityAdapter.getEntityTag();
+        try {
+            tag.set(entry, value);
+        } catch (WrappedNBTTagCompound.UnsupportedNBTTypeException e) {
+            return false;
+        }
+        this.snapshotTag = tag;
+        MobDataWriter.writeMobFile(this);
+        entityAdapter.reloadEntity();
+        return true;
+    }
+
     public String getMobFileName() {
         return name;
     }

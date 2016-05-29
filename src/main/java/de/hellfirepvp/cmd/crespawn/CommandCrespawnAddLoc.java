@@ -71,6 +71,11 @@ public class CommandCrespawnAddLoc extends PlayerCmobCommand {
     }
 
     @Override
+    public int getCustomMobArgumentIndex() {
+        return 2;
+    }
+
+    @Override
     public String getCommandStart() {
         return "addloc";
     }

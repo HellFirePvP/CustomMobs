@@ -39,6 +39,11 @@ public class CommandCmobExp extends PlayerCmobCommand {
     }
 
     @Override
+    public int getCustomMobArgumentIndex() {
+        return 2;
+    }
+
+    @Override
     public void execute(Player p, String[] args) {
         String name = args[1];
         String expStr = args[2];

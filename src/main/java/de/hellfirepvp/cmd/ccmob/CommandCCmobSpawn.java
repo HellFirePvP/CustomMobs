@@ -46,6 +46,11 @@ public class CommandCCmobSpawn extends AbstractCmobCommand {
     }
 
     @Override
+    public int getCustomMobArgumentIndex() {
+        return 2;
+    }
+
+    @Override
     public void execute(CommandSender cs, String[] args) {
         String name = args[1];
         String worldName = args[2];

@@ -8,6 +8,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.permissions.Permissible;
 
 import java.util.List;
 
@@ -25,6 +26,7 @@ public class BaseCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender cs, Command cmd, String label, String[] args) {
         CommandRegistry.CommandCategory category = CommandRegistry.CommandCategory.evaluate(cmd.getName().toLowerCase());
+        if(category == null) return true; //Uhm. nope.
         if(!category.allowsConsole) {
             if(!(cs instanceof Player)) {
                 CustomMobs.logger.info(LanguageHandler.translate(NO_CONSOLE));
@@ -32,7 +34,7 @@ public class BaseCommand implements CommandExecutor {
             }
         }
 
-        if(!((cs.hasPermission(LibMisc.PERM_USE)) || cs.isOp())) {
+        if(!hasPermissions(cs, LibMisc.PERM_USE)) {
             cs.sendMessage(PREFIX + ChatColor.DARK_RED + LanguageHandler.translate(NO_PERMISSION));
             cs.sendMessage(PREFIX + ChatColor.DARK_RED + LanguageHandler.translate(PERMISSION_REQUIRED) + " '" + LibMisc.PERM_USE + "'");
             return true;
@@ -40,7 +42,7 @@ public class BaseCommand implements CommandExecutor {
 
         if(args.length == 0) {
             cs.sendMessage(PREFIX + ChatColor.AQUA + String.format(CMD_DESCRIPTION_HEADER, "HellFirePvP"));
-            List<AbstractCmobCommand> commands = CommandRegistry.getAllRegisteredCommands(category);
+            List<? extends AbstractCmobCommand> commands = CommandRegistry.getAllRegisteredCommands(category);
             for(AbstractCmobCommand cmobCmd : commands) {
                 cs.sendMessage(forgeDescriptionString(cmobCmd));
             }
@@ -48,18 +50,19 @@ public class BaseCommand implements CommandExecutor {
         }
 
         String commandIdentifier = args[0];
-        AbstractCmobCommand exec = CommandRegistry.getCommand(category, commandIdentifier);
+        CommandRegistry.CommandRegisterKey key = new CommandRegistry.CommandRegisterKey(category, commandIdentifier);
+        AbstractCmobCommand exec = CommandRegistry.getCommand(key);
 
         if(exec == null) {
             cs.sendMessage(PREFIX + ChatColor.RED + LanguageHandler.translate(ERR_NO_SUCH_COMMAND));
             return true;
         }
 
-        String perm = "custommobs." + category.name + "." + exec.getCommandStart();
+        String perm = getPermissionNode(exec);
 
-        if(!((cs.hasPermission(perm)) || cs.isOp() || cs.hasPermission(LibMisc.PERM_ALL))) {
+        if(!hasPermissions(cs, perm)) {
             cs.sendMessage(PREFIX + ChatColor.DARK_RED + LanguageHandler.translate(NO_PERMISSION));
-            cs.sendMessage(PREFIX + ChatColor.DARK_RED + LanguageHandler.translate(PERMISSION_REQUIRED) + " '" + perm + "'");
+            cs.sendMessage(PREFIX + ChatColor.DARK_RED + String.format(LanguageHandler.translate(PERMISSION_REQUIRED), perm));
             return true;
         }
 
@@ -83,6 +86,18 @@ public class BaseCommand implements CommandExecutor {
             ((PlayerCmobCommand) exec).execute((Player) cs, args);
         }
         return true;
+    }
+
+    public static boolean hasPermissions(Permissible perm, String explicitCommandPermission) {
+        return perm.hasPermission(explicitCommandPermission) || perm.isOp() || perm.hasPermission(LibMisc.PERM_ALL);
+    }
+
+    public static String getPermissionNode(AbstractCmobCommand command) {
+        return getPermissionNode(command.category, command.getCommandStart());
+    }
+
+    public static String getPermissionNode(String commandCat, String cmdStart) {
+        return String.format("custommobs.%s.%s", commandCat, cmdStart);
     }
 
     private static String forgeDescriptionString(AbstractCmobCommand cmobCommand) {

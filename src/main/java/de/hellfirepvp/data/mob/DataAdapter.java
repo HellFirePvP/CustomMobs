@@ -34,6 +34,10 @@ public class DataAdapter {
         return parentMob.snapshotTag.getTagCompound("CustomMobs");
     }
 
+    public boolean saveTagWithPair(String entry, Object value) {
+        return parentMob.saveTagAlongWith(entry, value);
+    }
+
     public void setCommandToExecute(String command) {
         WrappedNBTTagCompound cmobTag = getPersistentCustomMobsTag();
         if(command == null) {

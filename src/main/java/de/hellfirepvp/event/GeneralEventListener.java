@@ -2,11 +2,16 @@ package de.hellfirepvp.event;
 
 import de.hellfirepvp.CustomMobs;
 import de.hellfirepvp.api.event.CustomMobDeathEvent;
+import de.hellfirepvp.cmd.AbstractCmobCommand;
+import de.hellfirepvp.cmd.BaseCommand;
+import de.hellfirepvp.cmd.CommandRegistry;
 import de.hellfirepvp.data.mob.CustomMob;
+import de.hellfirepvp.data.nbt.NBTRegister;
 import de.hellfirepvp.lang.LanguageHandler;
 import de.hellfirepvp.leash.LeashExecutor;
 import de.hellfirepvp.leash.LeashManager;
 import de.hellfirepvp.lib.LibLanguageOutput;
+import de.hellfirepvp.lib.LibMisc;
 import de.hellfirepvp.nms.NMSReflector;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -16,12 +21,16 @@ import org.bukkit.entity.ExperienceOrb;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.server.TabCompleteEvent;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -116,6 +125,69 @@ public class GeneralEventListener implements Listener {
         }
 
         CustomMobs.instance.getRespawner().informDeath(mob);
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void onTab(TabCompleteEvent event) {
+        String msg = event.getBuffer();
+        if(!msg.startsWith("/")) return; //Not a command. Not our business.
+        msg = msg.substring(1);
+        String[] args = msg.split(" ", -1);
+        String command = args[0];
+        CommandRegistry.CommandCategory cat = CommandRegistry.CommandCategory.evaluate(command);
+        if(cat == null) return; //Not our command. ?
+        LinkedList<String> arguments = prepareArgs(args);
+        if(!BaseCommand.hasPermissions(event.getSender(), LibMisc.PERM_USE)) return;
+
+        if(arguments.size() == 2) {
+            event.getCompletions().clear();
+            String arg = arguments.getLast();
+            List<? extends AbstractCmobCommand> commands = CommandRegistry.getAllRegisteredCommands(cat);
+            for (AbstractCmobCommand cmd : commands) {
+                String cmdStart = cmd.getCommandStart();
+                if(cmdStart.toLowerCase().startsWith(arg.toLowerCase()) && BaseCommand.hasPermissions(event.getSender(), BaseCommand.getPermissionNode(cmd))) {
+                    event.getCompletions().add(cmdStart);
+                }
+            }
+            return;
+        }
+        if(cat.equals(CommandRegistry.CommandCategory.CNBT) && arguments.size() == 4) {
+            event.getCompletions().clear();
+            String suggestedCmob = arguments.get(2);
+            CustomMob cmob = CustomMobs.instance.getMobDataHolder().getCustomMob(suggestedCmob);
+            if(cmob == null) return;
+            String existing = arguments.getLast();
+            Collection<String> entries = NBTRegister.getRegister().getEntries((String) cmob.getDataSnapshot().getValue("id"));
+            entries.stream().filter(entry -> entry.toLowerCase().startsWith(existing.toLowerCase())).forEach(entry -> event.getCompletions().add(entry));
+        }
+        if(arguments.size() > 2) {
+            String cmdStart = arguments.get(1);
+            CommandRegistry.CommandRegisterKey key = new CommandRegistry.CommandRegisterKey(cat, cmdStart);
+            AbstractCmobCommand cmd = CommandRegistry.getCommand(key);
+            if(cmd == null || cmd.getCustomMobArgumentIndex() < 0) return;
+            int index = cmd.getCustomMobArgumentIndex();
+            if(index + 1 != arguments.size()) return;
+            event.getCompletions().clear();
+            String arg = arguments.getLast().toLowerCase();
+            Collection<CustomMob> mobs = CustomMobs.instance.getMobDataHolder().getAllLoadedMobs();
+            mobs.stream().filter(mob -> mob.getMobFileName().toLowerCase().startsWith(arg)).forEach(mob -> event.getCompletions().add(mob.getMobFileName()));
+        }
+    }
+
+    private boolean hasTailingEmptyString(LinkedList<String> list) {
+        return list.getLast().isEmpty();
+    }
+
+    private LinkedList<String> prepareArgs(String[] args) {
+        LinkedList<String> list = new LinkedList<>();
+        boolean hadEmptyLastIteration = false;
+        for (String s : args) {
+            if(s == null) continue;
+            if(hadEmptyLastIteration && s.isEmpty()) continue;
+            list.add(s);
+            hadEmptyLastIteration = s.isEmpty();
+        }
+        return list;
     }
 
     private boolean commandSecurityCheck(String cmd) {

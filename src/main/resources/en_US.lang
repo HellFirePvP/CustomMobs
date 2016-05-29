@@ -78,6 +78,12 @@ command.cai.leash.noleash=The mob %s does not have any leash-settings.
 command.cai.leash.exists=The mob %s does already have a leash-setting.
 command.cai.leash.success=The mob %s will no longer leave its spawnpoint further than %s.
 
+#CNBT Commands
+command.cnbt.set.notype=MobType of %s could not be found!
+command.cnbt.set.notsupported=No NBTEntry named %s is known for MobType %s by default.
+command.cnbt.set.success=NBTEntry %s was set to %s for CustomMob %s!
+command.cnbt.set.failed=DataType for %s is not supported.
+
 #CCMOB Commands
 command.ccmob.spawn.noworld=World called '%s' not found!
 
@@ -191,7 +197,7 @@ command.cspawn.remove.usagedesc=Removes a mob from being spawned randomly
 command.crespawn.add.inputdesc=/crespawn add <Name> <Time In Seconds>
 command.crespawn.add.usagedesc=Sets the mob to respawn at your location.
 
-command.crespawn.addloc.inputdesc=/crespawn add <Name> <Time In Seconds> <x> <y> <z>
+command.crespawn.addloc.inputdesc=/crespawn addloc <Name> <Time In Seconds> <x> <y> <z>
 command.crespawn.addloc.usagedesc=Sets the mob to respawn at specified location
 
 command.crespawn.remove.inputdesc=/crespawn remove <Name>
@@ -201,6 +207,11 @@ command.crespawn.remove.usagedesc=Removes a mob from the respawning
 command.cai.leash.inputdesc=/cai leash <Name> <maxRange>/"remove"
 command.cai.leash.usagedesc=Leash a mob to its spawn position
 command.cai.leash.additional=Define a maxRange and the mob will never leave the radius around the spawn location - To remove the leash again, type "remove" instead of a radius
+
+#CNBT Commands
+command.cnbt.set.inputdesc=/cnbt set <Name> <Entry> <Value>
+command.cnbt.set.usagedesc=Set a defined NBT-Entry to a specific value
+command.cnbt.set.additional=TabComplete help is integrated to get specific entries more easily. If you wish to set your own, custom NBTTags, use /cnbt setraw instead. (setraw will come in 4.1+)
 
 #COMMAND ERROR STUFF
 

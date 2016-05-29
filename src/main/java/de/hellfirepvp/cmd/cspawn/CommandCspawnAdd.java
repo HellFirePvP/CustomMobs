@@ -25,6 +25,11 @@ import java.util.List;
 public class CommandCspawnAdd extends PlayerCmobCommand {
 
     @Override
+    public int getCustomMobArgumentIndex() {
+        return 2;
+    }
+
+    @Override
     public void execute(Player p, String[] args) {
         String name = args[1];
         String boolGrpSpawnStr = args[2];

@@ -44,6 +44,11 @@ public class CommandCmobDrop extends PlayerCmobCommand {
     }
 
     @Override
+    public int getCustomMobArgumentIndex() {
+        return 2;
+    }
+
+    @Override
     public void execute(Player p, String[] args) {
         args[2] = args[2].replace(",", ".");
         String name = args[1];

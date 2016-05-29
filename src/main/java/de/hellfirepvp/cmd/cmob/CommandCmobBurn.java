@@ -38,7 +38,12 @@ public class CommandCmobBurn extends PlayerCmobCommand {
 
     @Override
     public int getMinArgLength() {
-        return 3; //to 4 - burn <Name> <true/false> [duration]
+        return 3;
+    }
+
+    @Override
+    public int getCustomMobArgumentIndex() {
+        return 2;
     }
 
     @Override

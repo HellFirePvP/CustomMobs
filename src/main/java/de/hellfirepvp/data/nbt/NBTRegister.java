@@ -5,6 +5,8 @@ import com.google.common.reflect.ClassPath;
 import de.hellfirepvp.CustomMobs;
 
 import java.lang.reflect.Modifier;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,8 +24,15 @@ public class NBTRegister {
     private static NBTRegister instance = new NBTRegister();
     private NBTRegister() {}
 
-    private NBTRegister getRegister() {
+    public static NBTRegister getRegister() {
         return instance;
+    }
+
+    public Collection<String> getEntries(String mobTypeStr) {
+        if(mobTypeStr == null) return Collections.emptyList();
+        TypeRegister reg = entryRegister.get(mobTypeStr);
+        if(reg == null) return Collections.emptyList();
+        return reg.registeredTypes.keySet();
     }
 
     public NBTEntryParser<?> getParserFor(String mobTypeStr, String suggestedEntry) {

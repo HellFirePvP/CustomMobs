@@ -16,8 +16,7 @@ public abstract class AbstractCmobCommand {
     protected String category;
 
     public final AbstractCmobCommand setCategory(CommandRegistry.CommandCategory category) {
-        this.category = category.getName();
-        return this;
+        return setCategory(category.getName());
     }
 
     public final AbstractCmobCommand setCategory(String category) {
@@ -38,6 +37,10 @@ public abstract class AbstractCmobCommand {
      * If its length is not fixed, this defines how many args it has to have at least.
      */
     public abstract int getMinArgLength();
+
+    public int getCustomMobArgumentIndex() {
+        return -1;
+    }
 
     public final String getInputDescriptionKey() {
         return "command." + category + "." + getCommandStart() + ".inputdesc";

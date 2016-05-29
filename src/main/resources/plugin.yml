@@ -24,3 +24,6 @@ commands:
   cai:
     description: AI command
     usage: /cai
+  cnbt:
+    description: NBT Modification command
+    usage: /cnbt

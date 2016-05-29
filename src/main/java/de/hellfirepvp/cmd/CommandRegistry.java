@@ -4,6 +4,7 @@ import de.hellfirepvp.CustomMobs;
 import de.hellfirepvp.cmd.cai.CommandCaiLeash;
 import de.hellfirepvp.cmd.ccmob.CommandCCmobRemove;
 import de.hellfirepvp.cmd.ccmob.CommandCCmobSpawn;
+import de.hellfirepvp.cmd.cnbt.CommandCnbtSet;
 import de.hellfirepvp.cmd.cspawn.CommandCspawnAdd;
 import de.hellfirepvp.cmd.cspawn.CommandCspawnList;
 import de.hellfirepvp.cmd.cspawn.CommandCspawnRemove;
@@ -45,9 +46,13 @@ import java.util.Map;
  */
 public class CommandRegistry {
 
-    private static Map<CommandCategory, LinkedList<AbstractCmobCommand>> commands = new HashMap<>();
+    private static Map<CommandCategory, LinkedList<? extends AbstractCmobCommand>> commands = new HashMap<>();
 
-    public static AbstractCmobCommand getCommand(CommandCategory category, String commandIdentifier) {
+    public static AbstractCmobCommand getCommand(CommandRegisterKey key) {
+        return getCommand(key.getCategory(), key.getCommandStart());
+    }
+
+    private static AbstractCmobCommand getCommand(CommandCategory category, String commandIdentifier) {
         if(!commands.containsKey(category)) return null;
         for(AbstractCmobCommand cmd : commands.get(category)) {
             if(cmd.getCommandStart().equalsIgnoreCase(commandIdentifier)) return cmd;
@@ -63,7 +68,7 @@ public class CommandRegistry {
         }
     }
 
-    public static List<AbstractCmobCommand> getAllRegisteredCommands(CommandCategory category) {
+    public static List<? extends AbstractCmobCommand> getAllRegisteredCommands(CommandCategory category) {
         return commands.get(category);
     }
 
@@ -109,13 +114,52 @@ public class CommandRegistry {
 
         LinkedList<AbstractCmobCommand> ccontrolCommands = new LinkedList<>();
         //if(CustomMobs.instance.getConfigHandler().useFullControl()) {
-            //ccontrolCommands.add(new CommandCcontrolList().setCategory(CommandCategory.CCONTROL)); TODO add again later.
+        //ccontrolCommands.add(new CommandCcontrolList().setCategory(CommandCategory.CCONTROL)); TODO add again later.
         //}
         commands.put(CommandCategory.CCONTROL, ccontrolCommands);
+
+        LinkedList<AbstractCmobCommand> cnbtCommands = new LinkedList<>();
+        cnbtCommands.add(new CommandCnbtSet().setCategory(CommandCategory.CNBT));
+        commands.put(CommandCategory.CNBT, cnbtCommands);
 
         LinkedList<AbstractCmobCommand> caiCommands = new LinkedList<>();
         caiCommands.add(new CommandCaiLeash().setCategory(CommandCategory.CAI));
         commands.put(CommandCategory.CAI, caiCommands);
+    }
+
+    public static class CommandRegisterKey {
+
+        private final CommandCategory category;
+        private final String commandStart;
+
+        public CommandRegisterKey(CommandCategory category, String commandStart) {
+            this.category = category;
+            this.commandStart = commandStart;
+        }
+
+        public CommandCategory getCategory() {
+            return category;
+        }
+
+        public String getCommandStart() {
+            return commandStart;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            CommandRegisterKey that = (CommandRegisterKey) o;
+            return category == that.category &&
+                    !(commandStart != null ? !commandStart.equals(that.commandStart) : that.commandStart != null);
+        }
+
+        @Override
+        public int hashCode() {
+            int result = category != null ? category.hashCode() : 0;
+            result = 31 * result + (commandStart != null ? commandStart.hashCode() : 0);
+            return result;
+        }
     }
 
     public static enum CommandCategory {
@@ -125,10 +169,11 @@ public class CommandRegistry {
         CSPAWN("cspawn"),
         CRESPAWN("crespawn"),
         CCONTROL(true, "ccontrol"),
-        CAI("cai");
+        CAI("cai"),
+        CNBT("cnbt");
 
         public final boolean allowsConsole;
-        public final String name;
+        private final String name;
 
         private CommandCategory(String name) {
             this(false, name);
@@ -144,13 +189,14 @@ public class CommandRegistry {
         }
 
         public static CommandCategory evaluate(String cmdName) {
+            if(cmdName.toLowerCase().startsWith("custommobs:")) cmdName = cmdName.substring(11);
             cmdName = cmdName.toLowerCase();
             for(CommandCategory cat : values()) {
                 if(cat == null) continue;
 
                 if(cat.name.equalsIgnoreCase(cmdName)) return cat;
             }
-            return CMOB;
+            return null;
         }
 
     }

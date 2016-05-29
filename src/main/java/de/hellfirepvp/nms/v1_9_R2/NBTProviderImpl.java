@@ -187,6 +187,9 @@ public class NBTProviderImpl implements NBTProvider {
             if(value instanceof Integer) {
                 parent.setInt(key, (Integer) value);
                 return;
+            } else if(value instanceof Boolean) {
+                parent.setBoolean(key, (Boolean) value);
+                return;
             } else if(value instanceof Byte) {
                 parent.setByte(key, (Byte) value);
                 return;
@@ -289,6 +292,8 @@ public class NBTProviderImpl implements NBTProvider {
         if(value == null) return null;
         if(value instanceof Integer) {
             return new NBTTagInt((Integer) value);
+        } else if(value instanceof Boolean) {
+            return new NBTTagByte(((Boolean) value) ? (byte) 1 : (byte) 0);
         } else if(value instanceof Byte) {
             return new NBTTagByte((Byte) value);
         } else if(value instanceof Short) {

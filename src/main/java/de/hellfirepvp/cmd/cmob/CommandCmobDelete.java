@@ -42,6 +42,11 @@ public class CommandCmobDelete extends PlayerCmobCommand {
     }
 
     @Override
+    public int getCustomMobArgumentIndex() {
+        return 2;
+    }
+
+    @Override
     public void execute(Player p, String[] args) {
         SpawnSettingsWriter.resetSpawnSettings(args[1]);
         RespawnDataWriter.resetRespawnSettings(args[1]);
