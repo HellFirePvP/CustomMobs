@@ -276,8 +276,8 @@ tool.left.line3=enter a Name in order to store
 tool.left.line4=them as a new CustomMob.
 
 tool.right=Right-Click
-tool.right.line1=Get Information about Spawners.
-tool.right.line2=
+tool.right.line1=Get Information about Spawners
+tool.right.line2=or the mob you're right-clicking.
 tool.right.line3=
 tool.right.line4=
 

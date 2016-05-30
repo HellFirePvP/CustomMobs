@@ -109,7 +109,7 @@ public class WorldSpawner {
     }
 
     private int collectChunks(World world, List<ChunkCoordPair> chunks) {
-        SpigotWorldConfig configuration = NMSReflector.nmsUtils.getSpigotConfiguration(world);
+        byte[] spawnDetails = NMSReflector.nmsUtils.getMobSpawnRangeAndViewDistance(world);
         WorldBorderUtil worldBorderUtil = new WorldBorderUtil(world.getWorldBorder());
         int counter = 0;
         for (Player p : world.getPlayers()) {
@@ -117,8 +117,8 @@ public class WorldSpawner {
             int chX = ch.getX();
             int chZ = ch.getZ();
 
-            byte viewRange = configuration.mobSpawnRange;
-            viewRange = viewRange > configuration.viewDistance ? (byte) configuration.viewDistance : viewRange;
+            byte viewRange = spawnDetails[0];
+            viewRange = viewRange > spawnDetails[1] ? spawnDetails[1] : viewRange;
             viewRange = viewRange > 8 ? 8 : viewRange;
             for (int xx = -viewRange; xx <= viewRange; xx++) {
                 for (int zz = -viewRange; zz < viewRange; zz++) {

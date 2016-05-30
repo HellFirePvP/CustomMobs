@@ -21,7 +21,7 @@ public interface NMSUtils {
 
     public String getName(LivingEntity entity);
 
-    public SpigotWorldConfig getSpigotConfiguration(World world);
+    public byte[] getMobSpawnRangeAndViewDistance(World world);
 
     public int getLivingCount(WorldSpawner.CreatureType creatureType, World world);
 

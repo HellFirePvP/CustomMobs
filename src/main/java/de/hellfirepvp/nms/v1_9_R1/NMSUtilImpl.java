@@ -1,26 +1,24 @@
-package de.hellfirepvp.nms.v1_9_R2;
+package de.hellfirepvp.nms.v1_9_R1;
 
 import de.hellfirepvp.CustomMobs;
 import de.hellfirepvp.nms.NMSUtils;
 import de.hellfirepvp.spawning.worldSpawning.WorldSpawner;
-import net.minecraft.server.v1_9_R2.BlockPosition;
-import net.minecraft.server.v1_9_R2.Blocks;
-import net.minecraft.server.v1_9_R2.EntityInsentient;
-import net.minecraft.server.v1_9_R2.EntityLiving;
-import net.minecraft.server.v1_9_R2.EnumCreatureType;
-import net.minecraft.server.v1_9_R2.EnumItemSlot;
-import net.minecraft.server.v1_9_R2.IBlockData;
-import net.minecraft.server.v1_9_R2.IBlockState;
-import net.minecraft.server.v1_9_R2.Item;
-import net.minecraft.server.v1_9_R2.ItemStack;
-import net.minecraft.server.v1_9_R2.WorldServer;
+import net.minecraft.server.v1_9_R1.BlockPosition;
+import net.minecraft.server.v1_9_R1.Blocks;
+import net.minecraft.server.v1_9_R1.EntityLiving;
+import net.minecraft.server.v1_9_R1.EnumCreatureType;
+import net.minecraft.server.v1_9_R1.EnumItemSlot;
+import net.minecraft.server.v1_9_R1.IBlockData;
+import net.minecraft.server.v1_9_R1.Item;
+import net.minecraft.server.v1_9_R1.ItemStack;
+import net.minecraft.server.v1_9_R1.WorldServer;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.CreatureSpawner;
-import org.bukkit.craftbukkit.v1_9_R2.CraftWorld;
-import org.bukkit.craftbukkit.v1_9_R2.block.CraftCreatureSpawner;
-import org.bukkit.craftbukkit.v1_9_R2.entity.CraftLivingEntity;
+import org.bukkit.craftbukkit.v1_9_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_9_R1.block.CraftCreatureSpawner;
+import org.bukkit.craftbukkit.v1_9_R1.entity.CraftLivingEntity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.util.Vector;
 import org.spigotmc.SpigotWorldConfig;
@@ -30,9 +28,9 @@ import java.lang.reflect.Field;
 /**
  * This class is part of the CustomMobs Plugin
  * The plugin can be found at: https://www.spigotmc.org/resources/custommobs.7339
- * Class: EntityUtilImpl
+ * Class: NMSUtilImpl
  * Created by HellFirePvP
- * Date: 26.05.2016 / 17:30
+ * Date: 30.05.2016 / 08:53
  */
 public class NMSUtilImpl implements NMSUtils {
 
@@ -68,10 +66,10 @@ public class NMSUtilImpl implements NMSUtils {
 
     @Override
     public byte[] getMobSpawnRangeAndViewDistance(World world) {
-        net.minecraft.server.v1_9_R2.WorldServer ws = ((CraftWorld) world).getHandle();
+        net.minecraft.server.v1_9_R1.WorldServer ws = ((CraftWorld) world).getHandle();
         if(spigotCfgField == null && isSpigot) {
             try {
-                spigotCfgField = net.minecraft.server.v1_9_R2.World.class.getDeclaredField("spigotConfig");
+                spigotCfgField = net.minecraft.server.v1_9_R1.World.class.getDeclaredField("spigotConfig");
             } catch (NoSuchFieldException e) {
                 isSpigot = false;
                 return getMobSpawnRangeAndViewDistance(world);
