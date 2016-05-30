@@ -1,4 +1,6 @@
-package de.hellfirepvp.data.nbt.base;
+package de.hellfirepvp.api.data.nbt;
+
+import de.hellfirepvp.data.nbt.base.NBTTagType;
 
 /**
  * This class is part of the CustomMobs Plugin
@@ -46,6 +48,8 @@ public interface WrappedNBTTagCompound {
     public WrappedNBTTagList getTagList(String key, NBTTagType expectedListElements);
 
     public Object getValue(String key);
+
+    public WrappedNBTTagCompound unmodifiable();
 
     public static class UnsupportedNBTTypeException extends Exception {}
 

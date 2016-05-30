@@ -8,7 +8,7 @@ import de.hellfirepvp.data.mob.CustomMob;
 import de.hellfirepvp.lang.LanguageHandler;
 import de.hellfirepvp.lib.LibLanguageOutput;
 import de.hellfirepvp.lib.LibMisc;
-import de.hellfirepvp.spawning.SpawnLimitException;
+import de.hellfirepvp.api.exception.SpawnLimitException;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -92,7 +92,7 @@ public class CommandCmobSpawn extends PlayerCmobCommand {
                     return;
                 }
 
-                CustomMobSpawnEvent event = new CustomMobSpawnEvent(mob, entity, CustomMobSpawnEvent.SpawnReason.COMMAND_CMOB);
+                CustomMobSpawnEvent event = new CustomMobSpawnEvent(mob.createApiAdapter(), entity, CustomMobSpawnEvent.SpawnReason.COMMAND_CMOB);
                 Bukkit.getPluginManager().callEvent(event);
 
                 if(event.isCancelled()) {
@@ -112,7 +112,7 @@ public class CommandCmobSpawn extends PlayerCmobCommand {
                 return;
             }
 
-            CustomMobSpawnEvent event = new CustomMobSpawnEvent(mob, entity, CustomMobSpawnEvent.SpawnReason.COMMAND_CMOB);
+            CustomMobSpawnEvent event = new CustomMobSpawnEvent(mob.createApiAdapter(), entity, CustomMobSpawnEvent.SpawnReason.COMMAND_CMOB);
             Bukkit.getPluginManager().callEvent(event);
 
             if(event.isCancelled()) {

@@ -1,9 +1,10 @@
 package de.hellfirepvp.spawning;
 
 import de.hellfirepvp.CustomMobs;
+import de.hellfirepvp.api.data.ICustomMob;
 import de.hellfirepvp.api.event.CustomMobSpawnEvent;
+import de.hellfirepvp.api.exception.SpawnLimitException;
 import de.hellfirepvp.data.SpawnerDataHolder;
-import de.hellfirepvp.data.mob.CustomMob;
 import de.hellfirepvp.integration.IntegrationHandler;
 import de.hellfirepvp.nms.NMSReflector;
 import de.hellfirepvp.util.LocationUtils;
@@ -65,7 +66,7 @@ public final class SpawnerHandler {
         if(!l.getWorld().isChunkLoaded(l.getBlockX() >> 4, l.getBlockZ() >> 4)) return;
 
         if(!NMSReflector.nmsUtils.isPlayerInRange(l, CustomMobs.instance.getConfigHandler().spawnerRange())) return; //No players near.
-        CustomMob mob = spawner.linked;
+        ICustomMob mob = spawner.linked;
         int count = 0;
         if(RANDOM.nextBoolean()) count += 2;
         if(RANDOM.nextBoolean()) count += 2;
@@ -76,7 +77,7 @@ public final class SpawnerHandler {
             Location spawnLoc = LocationUtils.toRand(l, 5); //Larger than default.
 
             if(IntegrationHandler.integrationWorldGuard != null) {
-                if(!IntegrationHandler.integrationWorldGuard.doRegionsAllowSpawning(mob.getEntityAdapter().getEntityType(), spawnLoc)) {
+                if(!IntegrationHandler.integrationWorldGuard.doRegionsAllowSpawning(mob.getEntityType(), spawnLoc)) {
                     continue;
                 }
             }
@@ -93,7 +94,7 @@ public final class SpawnerHandler {
             if(event.isCancelled()) {
                 if(entity != null) {
                     entity.remove();
-                    CustomMobs.instance.getSpawnLimiter().decrement(mob, entity);
+                    CustomMobs.instance.getSpawnLimiter().decrement(mob.getName(), entity);
                 }
                 continue;
             }

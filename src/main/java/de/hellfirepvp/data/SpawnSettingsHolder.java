@@ -1,5 +1,6 @@
 package de.hellfirepvp.data;
 
+import de.hellfirepvp.api.data.ISpawnSettings;
 import de.hellfirepvp.file.read.SpawnSettingsReader;
 import org.bukkit.block.Biome;
 
@@ -33,7 +34,7 @@ public final class SpawnSettingsHolder {
         return Collections.unmodifiableCollection(settings.keySet());
     }
 
-    public static class SpawnSettings {
+    public static class SpawnSettings implements ISpawnSettings {
 
         public final boolean groupSpawn, biomeSpecified, worldsSpecified, regionsSpecified;
         public final int groupAmount;
@@ -53,38 +54,47 @@ public final class SpawnSettingsHolder {
             this.spawnRate = spawnRate;
         }
 
+        @Override
         public boolean areBiomesSpecified() {
             return biomeSpecified;
         }
 
+        @Override
         public boolean areWorldsSpecified() {
             return worldsSpecified;
         }
 
+        @Override
         public boolean areRegionsSpecified() {
             return regionsSpecified;
         }
 
+        @Override
         public List<Biome> getSpecifiedBiomes() {
             return Collections.unmodifiableList(biomes);
         }
 
+        @Override
         public List<String> getSpecifiedWorlds() {
             return Collections.unmodifiableList(worlds);
         }
 
+        @Override
         public List<String> getSpecifiedRegions() {
             return Collections.unmodifiableList(regions);
         }
 
+        @Override
         public boolean doesSpawnInGroup() {
             return groupSpawn;
         }
 
+        @Override
         public int averageGroupAmount() {
             return groupAmount;
         }
 
+        @Override
         public double getSpawnRate() {
             return spawnRate;
         }

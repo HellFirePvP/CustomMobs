@@ -2,7 +2,7 @@ package de.hellfirepvp.file.write;
 
 import de.hellfirepvp.CustomMobs;
 import de.hellfirepvp.data.RespawnDataHolder;
-import de.hellfirepvp.data.callback.RespawnDataCallback;
+import de.hellfirepvp.api.data.callback.RespawnDataCallback;
 import de.hellfirepvp.lib.LibConfiguration;
 import de.hellfirepvp.util.LocationUtils;
 import org.bukkit.Location;

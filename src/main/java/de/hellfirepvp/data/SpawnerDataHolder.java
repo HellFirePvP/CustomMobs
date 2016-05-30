@@ -1,5 +1,7 @@
 package de.hellfirepvp.data;
 
+import de.hellfirepvp.api.data.ICustomMob;
+import de.hellfirepvp.api.data.ISpawnerEditor;
 import de.hellfirepvp.data.mob.CustomMob;
 import de.hellfirepvp.file.read.SpawnerDataReader;
 import org.bukkit.Location;
@@ -33,16 +35,31 @@ public final class SpawnerDataHolder {
         return Collections.unmodifiableMap(spawnerData);
     }
 
-    public static class Spawner {
+    public static class Spawner implements ISpawnerEditor.ISpawner {
 
-        public final CustomMob linked;
+        public final ICustomMob linked;
         public final int fixedDelay;
         public final boolean hasFixedDelay;
 
-        public Spawner(CustomMob linked, int fixedDelay, boolean hasFixedDelay) {
+        public Spawner(ICustomMob linked, int fixedDelay, boolean hasFixedDelay) {
             this.linked = linked;
             this.fixedDelay = fixedDelay;
             this.hasFixedDelay = hasFixedDelay;
+        }
+
+        @Override
+        public ICustomMob getSpawningCustomMob() {
+            return linked;
+        }
+
+        @Override
+        public boolean hasFixedDelay() {
+            return hasFixedDelay;
+        }
+
+        @Override
+        public int getFixedDelay() {
+            return fixedDelay;
         }
     }
 

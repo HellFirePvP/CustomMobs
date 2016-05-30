@@ -2,6 +2,7 @@ package de.hellfirepvp.spawning;
 
 import de.hellfirepvp.CustomMobs;
 import de.hellfirepvp.api.event.CustomMobSpawnEvent;
+import de.hellfirepvp.api.exception.SpawnLimitException;
 import de.hellfirepvp.data.RespawnDataHolder;
 import de.hellfirepvp.data.mob.CustomMob;
 import org.bukkit.Bukkit;
@@ -41,13 +42,13 @@ public final class Respawner {
                         continue;
                     }
 
-                    CustomMobSpawnEvent event = new CustomMobSpawnEvent(mob, entity, CustomMobSpawnEvent.SpawnReason.RESPAWN);
+                    CustomMobSpawnEvent event = new CustomMobSpawnEvent(mob.createApiAdapter(), entity, CustomMobSpawnEvent.SpawnReason.RESPAWN);
                     Bukkit.getPluginManager().callEvent(event);
 
                     if(event.isCancelled()) {
                         if(entity != null) {
                             entity.remove();
-                            CustomMobs.instance.getSpawnLimiter().decrement(mob, entity);
+                            CustomMobs.instance.getSpawnLimiter().decrement(mob.getMobFileName(), entity);
                         }
                     }
                 }
@@ -77,13 +78,13 @@ public final class Respawner {
                     continue;
                 }
 
-                CustomMobSpawnEvent event = new CustomMobSpawnEvent(mob, entity, CustomMobSpawnEvent.SpawnReason.RESPAWN);
+                CustomMobSpawnEvent event = new CustomMobSpawnEvent(mob.createApiAdapter(), entity, CustomMobSpawnEvent.SpawnReason.RESPAWN);
                 Bukkit.getPluginManager().callEvent(event);
 
                 if(event.isCancelled()) {
                     if(entity != null) {
                         entity.remove();
-                        CustomMobs.instance.getSpawnLimiter().decrement(mob, entity);
+                        CustomMobs.instance.getSpawnLimiter().decrement(mob.getMobFileName(), entity);
                     }
                 }
             } else {

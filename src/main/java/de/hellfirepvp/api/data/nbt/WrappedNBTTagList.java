@@ -1,4 +1,6 @@
-package de.hellfirepvp.data.nbt.base;
+package de.hellfirepvp.api.data.nbt;
+
+import de.hellfirepvp.data.nbt.base.NBTTagType;
 
 import java.util.Iterator;
 
@@ -20,6 +22,8 @@ public interface WrappedNBTTagList {
     public NBTTagType getElementType();
 
     public Iterator getImmutableElementIterator();
+
+    public WrappedNBTTagList unmodifiable();
 
     public int size();
 

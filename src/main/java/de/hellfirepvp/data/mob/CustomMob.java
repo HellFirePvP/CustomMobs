@@ -1,10 +1,10 @@
 package de.hellfirepvp.data.mob;
 
 import de.hellfirepvp.CustomMobs;
-import de.hellfirepvp.data.nbt.base.WrappedNBTTagCompound;
+import de.hellfirepvp.api.data.nbt.WrappedNBTTagCompound;
 import de.hellfirepvp.file.write.MobDataWriter;
 import de.hellfirepvp.nms.NMSReflector;
-import de.hellfirepvp.spawning.SpawnLimitException;
+import de.hellfirepvp.api.exception.SpawnLimitException;
 import de.hellfirepvp.util.EntityUtils;
 import org.bukkit.Location;
 import org.bukkit.entity.LivingEntity;
@@ -45,6 +45,10 @@ public class CustomMob {
         return dataAdapter;
     }
 
+    public CustomMobAdapter createApiAdapter() {
+        return new CustomMobAdapter(this);
+    }
+
     protected void updateTag() {
         this.snapshotTag = entityAdapter.getEntityTag();
         MobDataWriter.writeMobFile(this);
@@ -73,11 +77,11 @@ public class CustomMob {
     }
 
     public LivingEntity spawnAt(Location l) throws SpawnLimitException {
-        if(!CustomMobs.instance.getSpawnLimiter().canSpawn(this)) throw new SpawnLimitException("SpawnLimit denies spawning of " + name);
+        if(!CustomMobs.instance.getSpawnLimiter().canSpawn(getMobFileName())) throw new SpawnLimitException("SpawnLimit denies spawning of " + name);
         LivingEntity entity = unsafe_Spawn(l);
         if(entity == null)
             throw new IllegalStateException("Unknown EntityType for " + getMobFileName() + " or NBTTag is missing some information.");
-        CustomMobs.instance.getSpawnLimiter().spawnedIncrement(this, entity);
+        CustomMobs.instance.getSpawnLimiter().spawnedIncrement(getMobFileName(), entity);
         return entity;
     }
 
@@ -112,7 +116,7 @@ public class CustomMob {
             entities.remove(entity);
         }
         if(mob.dataAdapter.getSpawnLimit() > 0) {
-            CustomMobs.instance.getSpawnLimiter().decrement(mob, entity);
+            CustomMobs.instance.getSpawnLimiter().decrement(mob.getMobFileName(), entity);
         }
     }
 
@@ -130,7 +134,7 @@ public class CustomMob {
                 count++;
                 entity.remove();
                 if(mob.dataAdapter.getSpawnLimit() > 0) {
-                    CustomMobs.instance.getSpawnLimiter().decrement(mob, entity);
+                    CustomMobs.instance.getSpawnLimiter().decrement(mob.getMobFileName(), entity);
                 }
             }
             alive.get(mob).clear();

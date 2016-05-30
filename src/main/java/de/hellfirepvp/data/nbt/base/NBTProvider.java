@@ -1,5 +1,7 @@
 package de.hellfirepvp.data.nbt.base;
 
+import de.hellfirepvp.api.data.nbt.WrappedNBTTagCompound;
+import de.hellfirepvp.api.data.nbt.WrappedNBTTagList;
 import org.bukkit.inventory.ItemStack;
 
 import java.io.IOException;

@@ -1,7 +1,7 @@
 package de.hellfirepvp.nms.v1_9_R1;
 
 import de.hellfirepvp.CustomMobs;
-import de.hellfirepvp.data.nbt.base.WrappedNBTTagCompound;
+import de.hellfirepvp.api.data.nbt.WrappedNBTTagCompound;
 import de.hellfirepvp.nms.MobTypeProvider;
 import de.hellfirepvp.nms.NMSReflector;
 import net.minecraft.server.v1_9_R1.Entity;

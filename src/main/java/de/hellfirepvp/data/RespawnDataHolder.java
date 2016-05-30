@@ -1,5 +1,6 @@
 package de.hellfirepvp.data;
 
+import de.hellfirepvp.api.data.IRespawnEditor;
 import de.hellfirepvp.file.read.RespawnDataReader;
 import org.bukkit.Location;
 
@@ -32,7 +33,7 @@ public final class RespawnDataHolder {
         return Collections.unmodifiableMap(respawnData);
     }
 
-    public static class RespawnSettings {
+    public static class RespawnSettings implements IRespawnEditor.IRespawnSettings {
 
         public final Location location;
         public final long respawnTime;
@@ -40,6 +41,16 @@ public final class RespawnDataHolder {
         public RespawnSettings(Location location, long respawnTime) {
             this.location = location;
             this.respawnTime = respawnTime;
+        }
+
+        @Override
+        public Location getLocation() {
+            return location;
+        }
+
+        @Override
+        public long getRespawnDelay() {
+            return respawnTime;
         }
     }
 }

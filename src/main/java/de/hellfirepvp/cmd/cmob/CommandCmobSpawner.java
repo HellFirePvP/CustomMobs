@@ -83,7 +83,7 @@ public class CommandCmobSpawner extends PlayerCmobCommand {
             return;
         }
 
-        switch (SpawnerDataWriter.setSpawner(blockSpawnAt.getLocation(), new SpawnerDataHolder.Spawner(mob, delay, args.length > 2))) {
+        switch (SpawnerDataWriter.setSpawner(blockSpawnAt.getLocation(), new SpawnerDataHolder.Spawner(mob.createApiAdapter(), delay, args.length > 2))) {
             case LOCATION_OCCUPIED:
                 p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.RED + LanguageHandler.translate("command.cmob.spawner.alreadyset"));
                 break;

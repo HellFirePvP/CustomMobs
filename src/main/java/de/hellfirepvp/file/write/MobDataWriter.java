@@ -3,7 +3,7 @@ package de.hellfirepvp.file.write;
 import de.hellfirepvp.CustomMobs;
 import de.hellfirepvp.data.mob.CustomMob;
 import de.hellfirepvp.data.nbt.base.NBTWrapper;
-import de.hellfirepvp.data.nbt.base.WrappedNBTTagCompound;
+import de.hellfirepvp.api.data.nbt.WrappedNBTTagCompound;
 
 import java.io.File;
 import java.io.FileOutputStream;

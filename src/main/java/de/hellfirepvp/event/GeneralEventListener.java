@@ -86,7 +86,7 @@ public class GeneralEventListener implements Listener {
 
         if(mob == null) return; //Not our mob.
 
-        CustomMobs.instance.getSpawnLimiter().decrement(mob, entity);
+        CustomMobs.instance.getSpawnLimiter().decrement(mob.getMobFileName(), entity);
         CustomMob.kill(mob, entity);
         LeashManager.unleash(entity);
         LeashExecutor.cutLeash(entity);
@@ -95,7 +95,7 @@ public class GeneralEventListener implements Listener {
         event.getDrops().clear();
         event.setDroppedExp(0);
 
-        CustomMobDeathEvent deathEvent = new CustomMobDeathEvent(mob, entity.getKiller());
+        CustomMobDeathEvent deathEvent = new CustomMobDeathEvent(mob.createApiAdapter(), entity.getKiller());
         Bukkit.getPluginManager().callEvent(deathEvent);
 
         if(mob.getDataAdapter().getExperienceDrop() > 0) {

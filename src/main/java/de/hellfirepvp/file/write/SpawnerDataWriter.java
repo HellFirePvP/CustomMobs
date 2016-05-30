@@ -2,7 +2,7 @@ package de.hellfirepvp.file.write;
 
 import de.hellfirepvp.CustomMobs;
 import de.hellfirepvp.data.SpawnerDataHolder;
-import de.hellfirepvp.data.callback.SpawnerDataCallback;
+import de.hellfirepvp.api.data.callback.SpawnerDataCallback;
 import de.hellfirepvp.lib.LibConfiguration;
 import de.hellfirepvp.util.LocationUtils;
 import org.bukkit.Location;
@@ -52,7 +52,7 @@ public class SpawnerDataWriter {
 
         ConfigurationSection section = config.createSection(blockLoc);
 
-        String mobName = data.linked.getMobFileName();
+        String mobName = data.linked.getName();
 
         section.set(SPAWNER_DATA_MOBNAME, mobName);
         section.set(SPAWNER_DATA_DELAY, data.hasFixedDelay ? data.fixedDelay : -1);

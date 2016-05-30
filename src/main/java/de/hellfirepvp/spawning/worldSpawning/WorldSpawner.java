@@ -1,7 +1,6 @@
 package de.hellfirepvp.spawning.worldSpawning;
 
 import de.hellfirepvp.CustomMobs;
-import de.hellfirepvp.config.ConfigHandler;
 import de.hellfirepvp.nms.NMSReflector;
 import de.hellfirepvp.util.WorldBorderUtil;
 import org.bukkit.Bukkit;
@@ -10,7 +9,6 @@ import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
-import org.spigotmc.SpigotWorldConfig;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -79,8 +77,8 @@ public class WorldSpawner {
                                             Location at = new Location(w, pX, pY, pZ);
 
                                             if (!NMSReflector.nmsUtils.isPlayerInRange(at, 24D) && at.distanceSquared(spawn) >= 576.0D) {
-                                                if(CustomMobs.instance.getRandomWorldSpawner().shouldSpawnCustomMobNext()) {
-                                                    CustomMobs.instance.getRandomWorldSpawner().handleMobSpawning(at);
+                                                if(CustomMobs.instance.getWorldSpawnExecutor().shouldSpawnCustomMobNext()) {
+                                                    CustomMobs.instance.getWorldSpawnExecutor().handleMobSpawning(at);
                                                 }
                                             }
                                         }

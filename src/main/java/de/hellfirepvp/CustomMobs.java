@@ -1,5 +1,6 @@
 package de.hellfirepvp;
 
+import de.hellfirepvp.api.CustomMobsAPI;
 import de.hellfirepvp.cmd.CommandRegistry;
 import de.hellfirepvp.config.ConfigHandler;
 import de.hellfirepvp.data.FullControlHandler;
@@ -50,7 +51,7 @@ public class CustomMobs extends JavaPlugin {
     private ConfigHandler config = new ConfigHandler();
     private LanguageHandler languageHandler = new LanguageHandler();
 
-    private RandomWorldSpawnExecutor randomWorldSpawner = new RandomWorldSpawnExecutor();
+    private RandomWorldSpawnExecutor worldSpawnExecutor = new RandomWorldSpawnExecutor();
     private SpawnerHandler spawnerHandler = new SpawnerHandler();
     private Respawner respawner = new Respawner();
     private FullControlHandler fullControlHandler = new FullControlHandler();
@@ -114,7 +115,7 @@ public class CustomMobs extends JavaPlugin {
             --- Loading and starting Live handlers ---
          */
 
-        randomWorldSpawner.loadData();
+        worldSpawnExecutor.loadData();
         spawnerHandler.start();
         respawner.start();
         LeashExecutor.start();
@@ -130,6 +131,8 @@ public class CustomMobs extends JavaPlugin {
         /*
             --- Cosmetic Stuff last ---
          */
+
+        CustomMobsAPI.setApiHandler(new DefaultApiHandler());
 
         createBiomeInfoFile();
 
@@ -214,8 +217,8 @@ public class CustomMobs extends JavaPlugin {
         return fullControlHandler;
     }
 
-    public RandomWorldSpawnExecutor getRandomWorldSpawner() {
-        return randomWorldSpawner;
+    public RandomWorldSpawnExecutor getWorldSpawnExecutor() {
+        return worldSpawnExecutor;
     }
 
     public SpawnSettingsHolder getSpawnSettings() {

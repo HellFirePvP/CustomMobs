@@ -67,11 +67,11 @@ public class Cout /*extends CmobCommand*/ {
 
         p.sendMessage("-> Mobs that may spawn at your location:");
 
-        p.sendMessage(CustomMobs.getRandomWorldSpawner().collectPossibleSpawnableMobs(p.getLocation()).toString());
+        p.sendMessage(CustomMobs.getWorldSpawnExecutor().collectPossibleSpawnableMobs(p.getLocation()).toString());
 
         p.sendMessage("-> Mobs that can acutally spawn (limited)");
 
-        for(ICustomMob mob : CustomMobs.getRandomWorldSpawner().subtractLimited(CustomMobs.getRandomWorldSpawner().evaluateMobs(CustomMobs.getRandomWorldSpawner().collectPossibleSpawnableMobs(p.getLocation())))) {
+        for(ICustomMob mob : CustomMobs.getWorldSpawnExecutor().subtractLimited(CustomMobs.getWorldSpawnExecutor().evaluateMobs(CustomMobs.getWorldSpawnExecutor().collectPossibleSpawnableMobs(p.getLocation())))) {
             p.sendMessage(mob.getName());
         }
 

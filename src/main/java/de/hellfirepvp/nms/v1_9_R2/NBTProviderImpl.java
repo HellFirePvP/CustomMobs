@@ -2,8 +2,10 @@ package de.hellfirepvp.nms.v1_9_R2;
 
 import de.hellfirepvp.data.nbt.base.NBTProvider;
 import de.hellfirepvp.data.nbt.base.NBTTagType;
-import de.hellfirepvp.data.nbt.base.WrappedNBTTagCompound;
-import de.hellfirepvp.data.nbt.base.WrappedNBTTagList;
+import de.hellfirepvp.api.data.nbt.WrappedNBTTagCompound;
+import de.hellfirepvp.api.data.nbt.WrappedNBTTagList;
+import de.hellfirepvp.data.nbt.base.UnmodWrappedNBTTagCompound;
+import de.hellfirepvp.data.nbt.base.UnmodWrappedNBTTagList;
 import net.minecraft.server.v1_9_R2.NBTBase;
 import net.minecraft.server.v1_9_R2.NBTCompressedStreamTools;
 import net.minecraft.server.v1_9_R2.NBTTagByte;
@@ -108,6 +110,11 @@ public class NBTProviderImpl implements NBTProvider {
         @Override
         public Iterator getImmutableElementIterator() {
             return new ForIntIterator(parentList);
+        }
+
+        @Override
+        public WrappedNBTTagList unmodifiable() {
+            return new UnmodWrappedNBTTagList(this);
         }
 
         @Override
@@ -285,6 +292,11 @@ public class NBTProviderImpl implements NBTProvider {
         @Override
         public Object getValue(String key) {
             return extractValue(parent.get(key));
+        }
+
+        @Override
+        public WrappedNBTTagCompound unmodifiable() {
+            return new UnmodWrappedNBTTagCompound(this);
         }
     }
 

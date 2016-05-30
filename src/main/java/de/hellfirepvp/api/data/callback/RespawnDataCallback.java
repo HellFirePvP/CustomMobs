@@ -1,4 +1,4 @@
-package de.hellfirepvp.data.callback;
+package de.hellfirepvp.api.data.callback;
 
 /**
  * This class is part of the CustomMobs Plugin

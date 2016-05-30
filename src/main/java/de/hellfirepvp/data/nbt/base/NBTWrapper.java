@@ -1,5 +1,6 @@
 package de.hellfirepvp.data.nbt.base;
 
+import de.hellfirepvp.api.data.nbt.WrappedNBTTagCompound;
 import de.hellfirepvp.nms.NMSReflector;
 import org.bukkit.inventory.ItemStack;
 

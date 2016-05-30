@@ -1,6 +1,6 @@
 package de.hellfirepvp.api.event;
 
-import de.hellfirepvp.data.mob.CustomMob;
+import de.hellfirepvp.api.data.ICustomMob;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 
@@ -16,7 +16,7 @@ public class CustomMobDeathEvent extends CustomMobEvent {
     public static HandlerList handlers = new HandlerList();
     private Player killer;
 
-    public CustomMobDeathEvent(CustomMob mob, Player killer) {
+    public CustomMobDeathEvent(ICustomMob mob, Player killer) {
         super(mob);
         this.killer = killer;
     }

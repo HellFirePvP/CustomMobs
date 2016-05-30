@@ -1,8 +1,8 @@
 package de.hellfirepvp.file.write;
 
 import de.hellfirepvp.CustomMobs;
-import de.hellfirepvp.data.SpawnSettingsHolder;
-import de.hellfirepvp.data.callback.SpawnSettingsCallback;
+import de.hellfirepvp.api.data.ISpawnSettings;
+import de.hellfirepvp.api.data.callback.SpawnSettingsCallback;
 import de.hellfirepvp.lib.LibConfiguration;
 import org.bukkit.block.Biome;
 import org.bukkit.configuration.ConfigurationSection;
@@ -39,12 +39,12 @@ public class SpawnSettingsWriter {
 
         CustomMobs.instance.getMobDataHolder().reloadAllMobs();
         CustomMobs.instance.getSpawnSettings().resolveSettings();
-        CustomMobs.instance.getRandomWorldSpawner().loadData();
+        CustomMobs.instance.getWorldSpawnExecutor().loadData();
 
         return SpawnSettingsCallback.SUCCESS;
     }
 
-    public static SpawnSettingsCallback setSpawnSettings(String name, SpawnSettingsHolder.SpawnSettings settings) {
+    public static SpawnSettingsCallback setSpawnSettings(String name, ISpawnSettings settings) {
         YamlConfiguration config = LibConfiguration.getSpawnSettingsConfiguration();
 
         if(config.contains(name))
@@ -79,7 +79,7 @@ public class SpawnSettingsWriter {
 
         CustomMobs.instance.getMobDataHolder().reloadAllMobs();
         CustomMobs.instance.getSpawnSettings().resolveSettings();
-        CustomMobs.instance.getRandomWorldSpawner().loadData();
+        CustomMobs.instance.getWorldSpawnExecutor().loadData();
 
         return SpawnSettingsCallback.SUCCESS;
     }

@@ -83,7 +83,7 @@ public class ToolEventListener implements Listener {
             Integer delay = CustomMobs.instance.getSpawnerHandler().getRemainingDelay(l);
             if(spawner == null) return;
             p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.GOLD + LanguageHandler.translate("tool.interact.spawner"));
-            p.sendMessage(ChatColor.GREEN + String.format(LanguageHandler.translate("tool.interact.spawner.spawns"), spawner.linked.getMobFileName()));
+            p.sendMessage(ChatColor.GREEN + String.format(LanguageHandler.translate("tool.interact.spawner.spawns"), spawner.linked.getName()));
             if(spawner.hasFixedDelay) {
                 p.sendMessage(ChatColor.GREEN + String.format(LanguageHandler.translate("tool.interact.spawner.fixed"), String.valueOf(spawner.fixedDelay)));
             } else {

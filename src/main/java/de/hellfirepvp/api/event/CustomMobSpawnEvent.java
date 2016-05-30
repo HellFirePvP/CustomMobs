@@ -1,6 +1,6 @@
 package de.hellfirepvp.api.event;
 
-import de.hellfirepvp.data.mob.CustomMob;
+import de.hellfirepvp.api.data.ICustomMob;
 import org.bukkit.block.Block;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.Cancellable;
@@ -21,12 +21,12 @@ public class CustomMobSpawnEvent extends CustomMobEvent implements Cancellable {
     private Block spawner = null;
     private SpawnReason reason = SpawnReason.NULL;
 
-    public CustomMobSpawnEvent(CustomMob mob, LivingEntity entity, SpawnReason reason) {
+    public CustomMobSpawnEvent(ICustomMob mob, LivingEntity entity, SpawnReason reason) {
         super(mob);
         this.entity = entity;
         this.reason = reason;
     }
-    public CustomMobSpawnEvent(CustomMob mob, LivingEntity entity, Block spawner) {
+    public CustomMobSpawnEvent(ICustomMob mob, LivingEntity entity, Block spawner) {
         super(mob);
         this.entity = entity;
         this.reason = SpawnReason.SPAWNER;

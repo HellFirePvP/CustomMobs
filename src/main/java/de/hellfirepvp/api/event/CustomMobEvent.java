@@ -1,6 +1,6 @@
 package de.hellfirepvp.api.event;
 
-import de.hellfirepvp.data.mob.CustomMob;
+import de.hellfirepvp.api.data.ICustomMob;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
@@ -15,13 +15,13 @@ public class CustomMobEvent extends Event {
 
     public static HandlerList handlers = new HandlerList();
 
-    private CustomMob mob;
+    private ICustomMob mob;
 
-    public CustomMobEvent(CustomMob mob) {
+    public CustomMobEvent(ICustomMob mob) {
         this.mob = mob;
     }
 
-    public CustomMob getMob() {
+    public ICustomMob getMob() {
         return mob;
     }
 

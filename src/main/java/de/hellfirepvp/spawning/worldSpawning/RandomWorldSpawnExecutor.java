@@ -7,7 +7,7 @@ import de.hellfirepvp.data.mob.CustomMob;
 import de.hellfirepvp.data.mob.MobDataHolder;
 import de.hellfirepvp.integration.IntegrationHandler;
 import de.hellfirepvp.spawning.SpawnLimit;
-import de.hellfirepvp.spawning.SpawnLimitException;
+import de.hellfirepvp.api.exception.SpawnLimitException;
 import de.hellfirepvp.spawning.SpawnSettingsResolver;
 import de.hellfirepvp.util.LocationUtils;
 import de.hellfirepvp.util.WeightedRandom;
@@ -88,13 +88,15 @@ public final class RandomWorldSpawnExecutor {
             return count;
         }
 
-        CustomMobSpawnEvent event = new CustomMobSpawnEvent(selected, entity, CustomMobSpawnEvent.SpawnReason.CSPAWN);
+        String name = selected.getMobFileName();
+
+        CustomMobSpawnEvent event = new CustomMobSpawnEvent(selected.createApiAdapter(), entity, CustomMobSpawnEvent.SpawnReason.CSPAWN);
         Bukkit.getPluginManager().callEvent(event);
 
         if(event.isCancelled()) {
             if(entity != null) {
                 entity.remove();
-                CustomMobs.instance.getSpawnLimiter().decrement(selected, entity);
+                CustomMobs.instance.getSpawnLimiter().decrement(name, entity);
             }
             return 0;
         }
@@ -103,7 +105,7 @@ public final class RandomWorldSpawnExecutor {
         if(settings.groupSpawn) {
             int groupCount = RANDOM.nextInt(settings.groupAmount);
             for (int i = 0; i < groupCount; i++) {
-                if(!limiter.canSpawn(selected)) {
+                if(!limiter.canSpawn(name)) {
                     break;
                 }
                 LivingEntity spawned;
@@ -113,13 +115,13 @@ public final class RandomWorldSpawnExecutor {
                     break;
                 }
 
-                CustomMobSpawnEvent spawnEvent = new CustomMobSpawnEvent(selected, spawned, CustomMobSpawnEvent.SpawnReason.CSPAWN_GROUP);
+                CustomMobSpawnEvent spawnEvent = new CustomMobSpawnEvent(selected.createApiAdapter(), spawned, CustomMobSpawnEvent.SpawnReason.CSPAWN_GROUP);
                 Bukkit.getPluginManager().callEvent(spawnEvent);
 
                 if(spawnEvent.isCancelled()) {
                     if(spawned != null) {
                         spawned.remove();
-                        CustomMobs.instance.getSpawnLimiter().decrement(selected, spawned);
+                        CustomMobs.instance.getSpawnLimiter().decrement(name, spawned);
                     }
                     continue;
                 }
@@ -144,7 +146,7 @@ public final class RandomWorldSpawnExecutor {
     public List<CustomMob> subtractLimited(List<CustomMob> possibleSpawns) {
         List<CustomMob> mobs = new ArrayList<>();
         SpawnLimit limiter = CustomMobs.instance.getSpawnLimiter();
-        mobs.addAll(possibleSpawns.stream().filter(limiter::canSpawn).collect(Collectors.toList()));
+        mobs.addAll(possibleSpawns.stream().filter(mob -> limiter.canSpawn(mob.getMobFileName())).collect(Collectors.toList()));
         return mobs;
     }
 

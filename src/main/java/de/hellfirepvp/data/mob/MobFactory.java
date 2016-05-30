@@ -1,7 +1,7 @@
 package de.hellfirepvp.data.mob;
 
 import de.hellfirepvp.CustomMobs;
-import de.hellfirepvp.data.nbt.base.WrappedNBTTagCompound;
+import de.hellfirepvp.api.data.nbt.WrappedNBTTagCompound;
 import de.hellfirepvp.file.write.MobDataWriter;
 import de.hellfirepvp.nms.NMSReflector;
 import org.bukkit.entity.LivingEntity;

@@ -37,11 +37,11 @@ public class WorldEventListener implements Listener {
             CustomMob.kill(mob, (LivingEntity) e);
             if(CustomMobs.instance.getConfigHandler().removeCustomMobOnChunkUnload()) {
                 e.remove();
-                CustomMobs.instance.getSpawnLimiter().decrement(mob, (LivingEntity) e);
+                CustomMobs.instance.getSpawnLimiter().decrement(mob.getMobFileName(), (LivingEntity) e);
                 LeashManager.unleash((LivingEntity) e);
             } else if(CustomMobs.instance.getConfigHandler().removeLimitedMobsOnChunkUnload()) {
                 if (mob.getDataAdapter().getSpawnLimit() > 0) {
-                    CustomMobs.instance.getSpawnLimiter().decrement(mob, (LivingEntity) e);
+                    CustomMobs.instance.getSpawnLimiter().decrement(mob.getMobFileName(), (LivingEntity) e);
                     e.remove();
                     LeashManager.unleash((LivingEntity) e);
                 }
@@ -63,10 +63,10 @@ public class WorldEventListener implements Listener {
             LeashExecutor.cutLeash((LivingEntity) e);
             if(CustomMobs.instance.getConfigHandler().removeCustomMobOnChunkUnload()) {
                 e.remove();
-                CustomMobs.instance.getSpawnLimiter().decrement(mob, (LivingEntity) e);
+                CustomMobs.instance.getSpawnLimiter().decrement(mob.getMobFileName(), (LivingEntity) e);
                 LeashManager.unleash((LivingEntity) e);
             } else if (CustomMobs.instance.getConfigHandler().removeLimitedMobsOnChunkUnload() && mob.getDataAdapter().getSpawnLimit() > 0) {
-                CustomMobs.instance.getSpawnLimiter().decrement(mob, (LivingEntity) e);
+                CustomMobs.instance.getSpawnLimiter().decrement(mob.getMobFileName(), (LivingEntity) e);
                 e.remove();
                 LeashManager.unleash((LivingEntity) e);
             }

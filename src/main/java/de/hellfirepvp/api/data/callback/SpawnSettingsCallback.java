@@ -1,17 +1,17 @@
-package de.hellfirepvp.data.callback;
+package de.hellfirepvp.api.data.callback;
 
 /**
  * This class is part of the CustomMobs Plugin
  * The plugin can be found at: https://www.spigotmc.org/resources/custommobs.7339
- * Class: SpawnerDataCallback
+ * Class: SpawnSettingsCallback
  * Created by HellFirePvP
- * Date: (Header change) 27.05.2016 / 4:04
+ * Date: (Header change) 27.05.2016 / 4:03
  */
-public enum SpawnerDataCallback {
+public enum SpawnSettingsCallback {
 
-    LOCATION_OCCUPIED,
+    MOB_DOESNT_EXIST,
 
-    LOCATION_NO_SPAWNER,
+    MOB_ALREADY_EXISTS,
 
     IO_EXCEPTION,
 

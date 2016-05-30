@@ -1,7 +1,7 @@
 package de.hellfirepvp.data.mob;
 
 import de.hellfirepvp.api.data.EquipmentSlot;
-import de.hellfirepvp.data.nbt.base.WrappedNBTTagCompound;
+import de.hellfirepvp.api.data.nbt.WrappedNBTTagCompound;
 import de.hellfirepvp.nms.NMSReflector;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;

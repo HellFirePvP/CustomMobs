@@ -55,7 +55,7 @@ public class SpawnerDataReader {
 
             NMSReflector.nmsUtils.clearSpawner(loc.getBlock());
 
-            out.put(loc, new SpawnerDataHolder.Spawner(mob, fixedDelay, fixedDelay > 0));
+            out.put(loc, new SpawnerDataHolder.Spawner(mob.createApiAdapter(), fixedDelay, fixedDelay > 0));
         }
 
         if(changed) {

@@ -1,7 +1,12 @@
 package de.hellfirepvp.api;
 
+import de.hellfirepvp.api.data.ICustomMob;
+import de.hellfirepvp.api.data.IRespawnEditor;
+import de.hellfirepvp.api.data.ISpawnSettingsEditor;
+import de.hellfirepvp.api.data.ISpawnerEditor;
 import de.hellfirepvp.api.internal.ApiHandler;
 import de.hellfirepvp.api.internal.DummyApiHandler;
+import org.bukkit.inventory.ItemStack;
 
 /**
  * This class is part of the CustomMobs Plugin
@@ -16,6 +21,26 @@ public class CustomMobsAPI {
 
     public static void setApiHandler(ApiHandler apiHandler) {
         handler = apiHandler;
+    }
+
+    public static ICustomMob getCustomMob(String name) {
+        return handler.getCustomMob(name);
+    }
+
+    public static ISpawnSettingsEditor getSpawnSettingsEditor() {
+        return handler.getSpawnSettingsEditor();
+    }
+
+    public static ISpawnerEditor getSpawnerEditor() {
+        return handler.getSpawnerEditor();
+    }
+
+    public static IRespawnEditor getRespawnEditor() {
+        return handler.getRespawnEditor();
+    }
+
+    public static ItemStack getCustomMobsTool() {
+        return handler.getCustomMobsTool();
     }
 
 }

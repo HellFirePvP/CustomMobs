@@ -7,7 +7,7 @@ import de.hellfirepvp.cmd.BaseCommand;
 import de.hellfirepvp.cmd.MessageAssist;
 import de.hellfirepvp.data.mob.CustomMob;
 import de.hellfirepvp.lang.LanguageHandler;
-import de.hellfirepvp.spawning.SpawnLimitException;
+import de.hellfirepvp.api.exception.SpawnLimitException;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -105,7 +105,7 @@ public class CommandCCmobSpawn extends AbstractCmobCommand {
 
         int spawned = 0;
         for (int i = 0; i < amount; i++) {
-            if(!CustomMobs.instance.getSpawnLimiter().canSpawn(mob)) {
+            if(!CustomMobs.instance.getSpawnLimiter().canSpawn(mob.getMobFileName())) {
                 cs.sendMessage(String.format(LanguageHandler.translate("command.cmob.spawn.limitreached"), mob.getMobFileName()));
                 cs.sendMessage(String.format(LanguageHandler.translate("command.cmob.spawn.amount"), String.valueOf(spawned), String.valueOf(amount), mob.getMobFileName()));
                 return;
@@ -121,13 +121,13 @@ public class CommandCCmobSpawn extends AbstractCmobCommand {
                 return;
             }
 
-            CustomMobSpawnEvent event = new CustomMobSpawnEvent(mob, entity, CustomMobSpawnEvent.SpawnReason.COMMAND_CCMOB);
+            CustomMobSpawnEvent event = new CustomMobSpawnEvent(mob.createApiAdapter(), entity, CustomMobSpawnEvent.SpawnReason.COMMAND_CCMOB);
             Bukkit.getPluginManager().callEvent(event);
 
             if(event.isCancelled()) {
                 entity.remove();
                 cs.sendMessage(LanguageHandler.translate("command.cmob.spawn.cancelled"));
-                CustomMobs.instance.getSpawnLimiter().decrement(mob, entity);
+                CustomMobs.instance.getSpawnLimiter().decrement(mob.getMobFileName(), entity);
                 return;
             }
         }

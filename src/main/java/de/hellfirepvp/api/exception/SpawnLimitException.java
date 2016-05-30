@@ -1,4 +1,4 @@
-package de.hellfirepvp.spawning;
+package de.hellfirepvp.api.exception;
 
 /**
  * This class is part of the CustomMobs Plugin
