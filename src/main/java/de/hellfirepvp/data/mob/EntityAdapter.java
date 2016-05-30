@@ -32,7 +32,7 @@ public class EntityAdapter {
 
     public EntityAdapter(CustomMob customMob) {
         this.parentMob = customMob;
-        this.adapterEntity = NMSReflector.mobTypeProvider.createEntityShell(getWorld(), customMob.getDataSnapshot());
+        this.adapterEntity = NMSReflector.mobTypeProvider.createEntityShell(getDefaultWorld(), customMob.getDataSnapshot());
     }
 
     public WrappedNBTTagCompound getEntityTag() {
@@ -44,10 +44,10 @@ public class EntityAdapter {
 
     public void reloadEntity() {
         adapterEntity.remove();
-        adapterEntity = NMSReflector.mobTypeProvider.createEntityShell(getWorld(), parentMob.getDataSnapshot());
+        adapterEntity = NMSReflector.mobTypeProvider.createEntityShell(getDefaultWorld(), parentMob.getDataSnapshot());
     }
 
-    private static World getWorld() {
+    public static World getDefaultWorld() {
         World w = Bukkit.getWorlds().get(0);
         if(w == null)
             throw new IllegalStateException("No worlds are loaded?");
@@ -129,46 +129,11 @@ public class EntityAdapter {
     }
 
     public ItemStack getEquipment(EquipmentSlot slot) {
-        EntityEquipment ee = adapterEntity.getEquipment();
-        switch (slot) {
-            case MAIN_HAND:
-                return ee.getItemInMainHand();
-            case OFF_HAND:
-                return ee.getItemInOffHand();
-            case HELMET:
-                return ee.getHelmet();
-            case CHESTPLATE:
-                return ee.getChestplate();
-            case LEGGINGS:
-                return ee.getLeggings();
-            case BOOTS:
-                return ee.getBoots();
-        }
-        return null;
+        return slot.getEquipment(adapterEntity.getEquipment());
     }
 
     public void setEquipment(EquipmentSlot slot, ItemStack item) {
-        EntityEquipment ee = adapterEntity.getEquipment();
-        switch (slot) {
-            case MAIN_HAND:
-                ee.setItemInMainHand(item);
-                break;
-            case OFF_HAND:
-                ee.setItemInOffHand(item);
-                break;
-            case BOOTS:
-                ee.setBoots(item);
-                break;
-            case LEGGINGS:
-                ee.setLeggings(item);
-                break;
-            case CHESTPLATE:
-                ee.setChestplate(item);
-                break;
-            case HELMET:
-                ee.setHelmet(item);
-                break;
-        }
+        slot.setEquipment(item, adapterEntity.getEquipment());
         parentMob.updateTag();
     }
 

@@ -4,14 +4,21 @@ import de.hellfirepvp.api.data.ICustomMob;
 import de.hellfirepvp.api.data.IRespawnEditor;
 import de.hellfirepvp.api.data.ISpawnSettingsEditor;
 import de.hellfirepvp.api.data.ISpawnerEditor;
+import de.hellfirepvp.api.data.callback.MobCreationCallback;
 import de.hellfirepvp.api.internal.ApiHandler;
 import de.hellfirepvp.data.RespawnEditor;
 import de.hellfirepvp.data.SpawnSettingsEditor;
 import de.hellfirepvp.data.SpawnerEditor;
 import de.hellfirepvp.data.mob.CustomMob;
 import de.hellfirepvp.data.mob.CustomMobAdapter;
+import de.hellfirepvp.data.mob.EntityAdapter;
+import de.hellfirepvp.data.mob.MobFactory;
+import de.hellfirepvp.nms.NMSReflector;
 import de.hellfirepvp.tool.CustomMobsTool;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.inventory.ItemStack;
+
+import java.util.Collection;
 
 /**
  * This class is part of the CustomMobs Plugin
@@ -30,7 +37,7 @@ public class DefaultApiHandler implements ApiHandler {
     public ICustomMob getCustomMob(String name) {
         CustomMob mob = CustomMobs.instance.getMobDataHolder().getCustomMob(name);
         if(mob != null) {
-            return new CustomMobAdapter(mob);
+            return mob.createApiAdapter();
         }
         return null;
     }
@@ -53,6 +60,39 @@ public class DefaultApiHandler implements ApiHandler {
     @Override
     public IRespawnEditor getRespawnEditor() {
         return respawnEditor;
+    }
+
+    @Override
+    public Collection<String> getKnownMobTypes() {
+        return NMSReflector.mobTypeProvider.getTypeNames();
+    }
+
+    @Override
+    public MobCreationCallback createCustomMob(String name, String mobType) {
+        if(!NMSReflector.mobTypeProvider.getTypeNames().contains(mobType)) {
+            return MobCreationCallback.UNKNOWN_TYPE;
+        }
+        if(CustomMobs.instance.getMobDataHolder().getCustomMob(name) != null) {
+            return MobCreationCallback.NAME_TAKEN;
+        }
+        LivingEntity created = NMSReflector.mobTypeProvider.getEntityForName(EntityAdapter.getDefaultWorld(), mobType);
+        if(MobFactory.tryCreateCustomMobFromEntity(created, name)) {
+            return MobCreationCallback.SUCCESS;
+        } else {
+            return MobCreationCallback.FAILED;
+        }
+    }
+
+    @Override
+    public MobCreationCallback createCustomMob(LivingEntity livingEntity, String name) {
+        if(CustomMobs.instance.getMobDataHolder().getCustomMob(name) != null) {
+            return MobCreationCallback.NAME_TAKEN;
+        }
+        if(MobFactory.tryCreateCustomMobFromEntity(livingEntity, name)) {
+            return MobCreationCallback.SUCCESS;
+        } else {
+            return MobCreationCallback.FAILED;
+        }
     }
 
 }

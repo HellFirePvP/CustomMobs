@@ -38,11 +38,6 @@ public class CustomMobAdapter implements ICustomMob {
     }
 
     @Override
-    public int getSpawnLimit() {
-        return parent.getDataAdapter().getSpawnLimit();
-    }
-
-    @Override
     public LivingEntity spawnAt(Location at) throws SpawnLimitException {
         return parent.spawnAt(at);
     }

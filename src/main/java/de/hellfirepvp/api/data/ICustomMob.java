@@ -21,8 +21,6 @@ public interface ICustomMob {
 
     public EntityType getEntityType();
 
-    public int getSpawnLimit();
-
     public LivingEntity spawnAt(Location at) throws SpawnLimitException;
 
 }

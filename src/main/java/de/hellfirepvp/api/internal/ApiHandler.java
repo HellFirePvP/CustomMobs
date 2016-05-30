@@ -4,7 +4,11 @@ import de.hellfirepvp.api.data.ICustomMob;
 import de.hellfirepvp.api.data.IRespawnEditor;
 import de.hellfirepvp.api.data.ISpawnSettingsEditor;
 import de.hellfirepvp.api.data.ISpawnerEditor;
+import de.hellfirepvp.api.data.callback.MobCreationCallback;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.inventory.ItemStack;
+
+import java.util.Collection;
 
 /**
  * This class is part of the CustomMobs Plugin
@@ -24,4 +28,11 @@ public interface ApiHandler {
     public ISpawnerEditor getSpawnerEditor();
 
     public IRespawnEditor getRespawnEditor();
+
+    public Collection<String> getKnownMobTypes();
+
+    public MobCreationCallback createCustomMob(String name, String mobType);
+
+    public MobCreationCallback createCustomMob(LivingEntity livingEntity, String name);
+
 }
