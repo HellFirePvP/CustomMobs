@@ -38,7 +38,7 @@ public class LanguageHandler {
         } else {
             readLanguageFile(requested);
         }
-        CustomMobs.logger.info("Successfully loaded " + loadedTranslations.size() + " languagefile entries.");
+        CustomMobs.logger.debug("Successfully loaded " + loadedTranslations.size() + " languagefile entries.");
     }
 
     private void readLanguageFile(File requested) {

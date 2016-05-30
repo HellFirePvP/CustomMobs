@@ -18,7 +18,7 @@ public class ConfigHandler {
             leashViolationTolerance, worldSpawnerTickSpeed, spawnThreshold;
     protected boolean spawnAtStartup, fullcontrolUsage, enableMetrics,
             removeLimitedMobsAtChUnload, removeCustomMobsOnChunkUnload,
-            respectWGDenySpawnFlag, respectWGMobSpawningTypesFlag;
+            respectWGDenySpawnFlag, respectWGMobSpawningTypesFlag, debug;
     protected List<String> bannedMobCommands, spawnLimitResetCommands;
     protected String languageFile;
 
@@ -27,6 +27,7 @@ public class ConfigHandler {
 
         CustomMobs.logger.info("Loaded configuration!");
         CustomMobs.logger.info("LanguageFile: " + languageFile);
+        CustomMobs.logger.info("Debug: " + debug);
         CustomMobs.logger.info("SpawnThreshold: " + spawnThreshold);
         CustomMobs.logger.info("SpawnFrequency: " + frequency + "/100");
         CustomMobs.logger.info("WorldSpawnerTickSpeed: " + worldSpawnerTickSpeed);
@@ -42,6 +43,10 @@ public class ConfigHandler {
         CustomMobs.logger.info("RemoveLimitedMobsOnChunkUnload: " + removeLimitedMobsAtChUnload);
         CustomMobs.logger.info("BannedMobCommands: " + Arrays.toString(bannedMobCommands.toArray()));
         CustomMobs.logger.info("SpawnlimitResetCommand: " + Arrays.toString(spawnLimitResetCommands.toArray()));
+    }
+
+    public boolean debug() {
+        return debug;
     }
 
     public boolean useFullControl() {

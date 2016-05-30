@@ -18,12 +18,12 @@ public class CustomMobAdapter implements ICustomMob {
 
     private final CustomMob parent;
 
-    public CustomMobAdapter(CustomMob parent) {
+    CustomMobAdapter(CustomMob parent) {
         this.parent = parent;
     }
 
     @Override
-    public WrappedNBTTagCompound getUnmodifiableTag() {
+    public WrappedNBTTagCompound getReadOnlyTag() {
         return parent.getDataSnapshot().unmodifiable();
     }
 

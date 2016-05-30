@@ -48,7 +48,7 @@ public class TypeProviderImpl implements MobTypeProvider {
                         !Modifier.isAbstract(entityClass.getModifiers())) {
                     discoveredTypes.add(s);
 
-                    CustomMobs.logger.info("Discovered mobType: " + s);
+                    CustomMobs.logger.debug("Discovered mobType: " + s);
                 }
             }
         } catch (Exception e) {

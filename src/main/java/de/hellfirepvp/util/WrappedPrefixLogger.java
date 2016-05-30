@@ -1,5 +1,7 @@
 package de.hellfirepvp.util;
 
+import de.hellfirepvp.CustomMobs;
+
 import java.util.logging.Logger;
 
 /**
@@ -16,6 +18,12 @@ public class WrappedPrefixLogger {
     public WrappedPrefixLogger(Logger log, String prefix) {
         this.log = log;
         this.prefix = "[" + prefix + "] ";
+    }
+
+    public void debug(String msg) {
+        if(CustomMobs.instance.getConfigHandler().debug()) {
+            log.info(prefix + msg);
+        }
     }
 
     public void info(String msg) {

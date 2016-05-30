@@ -62,6 +62,7 @@ public class LibConfiguration {
             cfg.set("config-version", CustomMobs.pluginYmlVersion);
             cfg.set(LibConstantKeys.CONFIG_DATA_SPAWN_AT_STARTUP_BOOL, Boolean.TRUE);
             cfg.set(LibConstantKeys.CONFIG_DATA_ENABLE_PLMETRICS, true); //*cough*
+            cfg.set(LibConstantKeys.CONFIG_DATA_DEBUG, false);
             cfg.set(LibConstantKeys.CONFIG_DATA_LANG_FILE, "en_US");
             cfg.set(LibConstantKeys.CONFIG_DATA_WORLD_SPAWNER_TICKSPEED, 5);
             cfg.set(LibConstantKeys.CONFIG_DATA_SPAWN_AT_STARTUP_DELAY, 100);

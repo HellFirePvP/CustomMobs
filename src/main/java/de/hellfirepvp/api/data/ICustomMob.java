@@ -15,7 +15,7 @@ import org.bukkit.entity.LivingEntity;
  */
 public interface ICustomMob {
 
-    public WrappedNBTTagCompound getUnmodifiableTag();
+    public WrappedNBTTagCompound getReadOnlyTag();
 
     public String getName();
 

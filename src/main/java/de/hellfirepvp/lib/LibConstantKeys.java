@@ -29,6 +29,7 @@ public class LibConstantKeys {
     public static final String CONFIG_DATA_WS_FREQUENCY = "worldSpawnFrequency";
     public static final String CONFIG_DATA_WS_THRESHOLD = "worldSpawnThreshold";
     public static final String CONFIG_DATA_LANG_FILE = "languageFile";
+    public static final String CONFIG_DATA_DEBUG = "debug";
     public static final String CONFIG_DATA_SPAWN_AT_STARTUP_BOOL = "spawnAtStartup";
     public static final String CONFIG_DATA_SPAWN_AT_STARTUP_DELAY = "spawnAtStartupDelay";
     public static final String CONFIG_DATA_SPAWNER_RANGE = "spawnerRange";

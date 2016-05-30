@@ -24,6 +24,7 @@ public class ConfigReader {
         int threshold = Math.min(512, Math.max(16, config.getInt(CONFIG_DATA_WS_THRESHOLD, 256)));
         boolean spawnAtStartup = config.getBoolean(CONFIG_DATA_SPAWN_AT_STARTUP_BOOL, false);
         boolean enableMetrics = config.getBoolean(CONFIG_DATA_ENABLE_PLMETRICS, true);
+        boolean debug = config.getBoolean(CONFIG_DATA_DEBUG, false);
         int spawnAtStartupDelay = Math.max(0, config.getInt(CONFIG_DATA_SPAWN_AT_STARTUP_DELAY, 100));
         int spawnerRange = config.getInt(CONFIG_DATA_SPAWNER_RANGE, 16);
         int leashTolerance = config.getInt(CONFIG_DATA_LEASH_VIOLATION_TOLERANCE, 100);
@@ -39,6 +40,7 @@ public class ConfigReader {
         List<String> resetCommandsWithSlash = spawnLimitResetCommands.stream().map(reset -> "/" + reset).collect(Collectors.toList());
 
         out.frequency = frequency;
+        out.debug = debug;
         out.spawnThreshold = threshold;
         out.languageFile = langFileName;
         out.spawnAtStartup = spawnAtStartup;

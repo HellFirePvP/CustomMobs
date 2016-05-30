@@ -27,7 +27,7 @@ public class MobDataHolder {
                 String name = mobFile.getName().replace(".dat", "");
                 CustomMob mob = MobDataReader.loadCustomMob(mobFile, name);
                 if(mob == null) {
-                    CustomMobs.logger.info("Skipping loading of " + mobFile.getName());
+                    CustomMobs.logger.warning("Skipping loading of " + mobFile.getName());
                     continue;
                 }
 

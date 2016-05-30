@@ -65,7 +65,7 @@ public class CommandRegistry {
         BaseCommand handler = new BaseCommand();
         for (CommandCategory cat : CommandCategory.values()) {
             Bukkit.getServer().getPluginCommand(cat.name.toLowerCase()).setExecutor(handler);
-            CustomMobs.logger.info("Registered commands for \"/" + cat.name + "\"!");
+            CustomMobs.logger.debug("Registered commands for \"/" + cat.name + "\"!");
         }
     }
 

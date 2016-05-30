@@ -29,11 +29,13 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.server.TabCompleteEvent;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.UUID;
 
 /**
  * This class is part of the CustomMobs Plugin
@@ -77,10 +79,17 @@ public class GeneralEventListener implements Listener {
         }
     }
 
+    private List<UUID> duplicateEntityDeaths = new ArrayList<>();
+
     @EventHandler
     public void onDeath(EntityDeathEvent event) {
         LivingEntity entity = event.getEntity();
         Location l = entity.getLocation();
+
+        UUID entityUUID = entity.getUniqueId();
+        if(duplicateEntityDeaths.contains(entityUUID)) return;
+        duplicateEntityDeaths.add(entityUUID);
+        Bukkit.getScheduler().runTaskLater(CustomMobs.instance, () -> duplicateEntityDeaths.remove(entityUUID), 60L);
 
         CustomMob mob = checkEntity(entity);
 
@@ -90,6 +99,9 @@ public class GeneralEventListener implements Listener {
         CustomMob.kill(mob, entity);
         LeashManager.unleash(entity);
         LeashExecutor.cutLeash(entity);
+        CustomMobs.instance.getRespawner().informDeath(mob);
+
+        if(entity.getKiller() == null) return; //We only care if it was killed by a player.
 
         //Resetting data
         event.getDrops().clear();
@@ -123,8 +135,6 @@ public class GeneralEventListener implements Listener {
                 l.getWorld().dropItemNaturally(l, stack);
             }
         }
-
-        CustomMobs.instance.getRespawner().informDeath(mob);
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
