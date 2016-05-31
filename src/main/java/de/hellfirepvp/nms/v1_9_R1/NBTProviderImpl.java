@@ -1,5 +1,6 @@
 package de.hellfirepvp.nms.v1_9_R1;
 
+import de.hellfirepvp.data.nbt.IndexedIterator;
 import de.hellfirepvp.data.nbt.base.NBTProvider;
 import de.hellfirepvp.data.nbt.base.NBTTagType;
 import de.hellfirepvp.api.data.nbt.WrappedNBTTagCompound;
@@ -12,6 +13,7 @@ import net.minecraft.server.v1_9_R1.NBTTagByte;
 import net.minecraft.server.v1_9_R1.NBTTagByteArray;
 import net.minecraft.server.v1_9_R1.NBTTagCompound;
 import net.minecraft.server.v1_9_R1.NBTTagDouble;
+import net.minecraft.server.v1_9_R1.NBTTagEnd;
 import net.minecraft.server.v1_9_R1.NBTTagFloat;
 import net.minecraft.server.v1_9_R1.NBTTagInt;
 import net.minecraft.server.v1_9_R1.NBTTagIntArray;
@@ -108,13 +110,28 @@ public class NBTProviderImpl implements NBTProvider {
         }
 
         @Override
-        public Iterator getElementIterator(boolean unmodifiable) {
+        public Iterator<Object> getElementIterator(boolean unmodifiable) {
             return new ForIntIterator(parentList, unmodifiable);
         }
 
         @Override
-        public Iterator getElementIterator() {
+        public Iterator<Object> getElementIterator() {
             return new ForIntIterator(parentList, false);
+        }
+
+        @Override
+        public Object getElementAtIndex(int index) {
+            NBTBase element = parentList.h(index);
+
+            Object value = extractValue(element);
+            if(value != null) return value;
+            if(element instanceof NBTTagEnd) return null;
+            if(element instanceof NBTTagCompound) {
+                return new TagCompoundImpl((NBTTagCompound) element);
+            } else if(element instanceof NBTTagList) {
+                return new TagListImpl((NBTTagList) element);
+            }
+            return element; //Awkward huh...
         }
 
         @Override
@@ -127,9 +144,13 @@ public class NBTProviderImpl implements NBTProvider {
             return parentList.size();
         }
 
+        @Override
+        public Iterator<Object> iterator() {
+            return getElementIterator();
+        }
     }
 
-    public static class ForIntIterator implements Iterator {
+    public static class ForIntIterator implements IndexedIterator<Object> {
 
         private NBTTagList list;
         private int entryPointer;
@@ -164,6 +185,10 @@ public class NBTProviderImpl implements NBTProvider {
             return element; //Awkward huh...
         }
 
+        @Override
+        public int getCurrentIndex() {
+            return entryPointer;
+        }
     }
 
     public static class TagCompoundImpl implements WrappedNBTTagCompound {

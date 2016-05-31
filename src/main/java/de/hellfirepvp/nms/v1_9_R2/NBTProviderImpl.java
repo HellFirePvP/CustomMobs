@@ -1,5 +1,6 @@
 package de.hellfirepvp.nms.v1_9_R2;
 
+import de.hellfirepvp.data.nbt.IndexedIterator;
 import de.hellfirepvp.data.nbt.base.NBTProvider;
 import de.hellfirepvp.data.nbt.base.NBTTagType;
 import de.hellfirepvp.api.data.nbt.WrappedNBTTagCompound;
@@ -12,6 +13,7 @@ import net.minecraft.server.v1_9_R2.NBTTagByte;
 import net.minecraft.server.v1_9_R2.NBTTagByteArray;
 import net.minecraft.server.v1_9_R2.NBTTagCompound;
 import net.minecraft.server.v1_9_R2.NBTTagDouble;
+import net.minecraft.server.v1_9_R2.NBTTagEnd;
 import net.minecraft.server.v1_9_R2.NBTTagFloat;
 import net.minecraft.server.v1_9_R2.NBTTagInt;
 import net.minecraft.server.v1_9_R2.NBTTagIntArray;
@@ -108,13 +110,28 @@ public class NBTProviderImpl implements NBTProvider {
         }
 
         @Override
-        public Iterator getElementIterator(boolean unmodifiable) {
+        public Iterator<Object> getElementIterator(boolean unmodifiable) {
             return new ForIntIterator(parentList, unmodifiable);
         }
 
         @Override
-        public Iterator getElementIterator() {
+        public Iterator<Object> getElementIterator() {
             return getElementIterator(false);
+        }
+
+        @Override
+        public Object getElementAtIndex(int index) {
+            NBTBase element = parentList.h(index);
+
+            Object value = extractValue(element);
+            if(value != null) return value;
+            if(element instanceof NBTTagEnd) return null;
+            if(element instanceof NBTTagCompound) {
+                return new TagCompoundImpl((NBTTagCompound) element);
+            } else if(element instanceof NBTTagList) {
+                return new TagListImpl((NBTTagList) element);
+            }
+            return element; //Awkward huh...
         }
 
         @Override
@@ -127,31 +144,37 @@ public class NBTProviderImpl implements NBTProvider {
             return parentList.size();
         }
 
+        @Override
+        public Iterator<Object> iterator() {
+            return getElementIterator();
+        }
     }
 
-    public static class ForIntIterator implements Iterator {
+    public static class ForIntIterator implements IndexedIterator<Object> {
 
         private NBTTagList list;
         private int entryPointer;
-        private boolean unmodifiable;
+        private boolean unmodifiable, removeCalledThisIteration = false;
 
         public ForIntIterator(NBTTagList list, boolean unmodifiable) {
             this.list = list;
-            this.entryPointer = 0;
+            this.entryPointer = -1;
             this.unmodifiable = unmodifiable;
         }
 
         @Override
         public boolean hasNext() {
-            return entryPointer < list.size();
+            return (entryPointer + 1) < list.size();
         }
 
         @Override
         public Object next() {
-            NBTBase element = list.h(entryPointer);
             entryPointer++;
+            removeCalledThisIteration = false;
+            NBTBase element = list.h(entryPointer);
             Object value = extractValue(element);
             if(value != null) return value;
+
             if(element instanceof NBTTagCompound) {
                 WrappedNBTTagCompound cmp = new TagCompoundImpl((NBTTagCompound) element);
                 if(unmodifiable) cmp = cmp.unmodifiable();
@@ -161,9 +184,25 @@ public class NBTProviderImpl implements NBTProvider {
                 if(unmodifiable) list = list.unmodifiable();
                 return list;
             }
+
             return element; //Awkward huh...
         }
 
+        @Override
+        public void remove() {
+            if(unmodifiable) throw new UnsupportedOperationException("remove (unmodifiable NBTIterator)");
+            if(removeCalledThisIteration) throw new IllegalStateException("remove already called for this element");
+
+            list.remove(entryPointer);
+
+            entryPointer--;
+            removeCalledThisIteration = true;
+        }
+
+        @Override
+        public int getCurrentIndex() {
+            return entryPointer;
+        }
     }
 
     public static class TagCompoundImpl implements WrappedNBTTagCompound {

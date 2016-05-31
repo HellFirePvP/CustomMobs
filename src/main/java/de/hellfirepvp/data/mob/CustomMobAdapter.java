@@ -2,17 +2,21 @@ package de.hellfirepvp.data.mob;
 
 import de.hellfirepvp.api.data.EquipmentSlot;
 import de.hellfirepvp.api.data.ICustomMob;
+import de.hellfirepvp.api.data.WatchedNBTEditor;
 import de.hellfirepvp.api.data.nbt.WrappedNBTTagCompound;
 import de.hellfirepvp.api.exception.SpawnLimitException;
+import de.hellfirepvp.data.nbt.BufferingNBTEditor;
 import org.bukkit.Location;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 
+import java.lang.ref.WeakReference;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -26,9 +30,27 @@ import java.util.Map;
 public class CustomMobAdapter implements ICustomMob {
 
     private final CustomMob parent;
+    private List<WeakReference<BufferingNBTEditor>> currentlyEditing = new LinkedList<>();
 
     CustomMobAdapter(CustomMob parent) {
         this.parent = parent;
+    }
+
+    @Override
+    public WatchedNBTEditor editNBTTag() {
+        BufferingNBTEditor editor = new BufferingNBTEditor(parent, parent.getDataSnapshot());
+        currentlyEditing.add(new WeakReference<>(editor));
+        return editor;
+    }
+
+    protected final void invalidateAPIs() {
+        for (WeakReference<BufferingNBTEditor> ref : currentlyEditing) {
+            if(ref.get() == null) continue;
+            try {
+                ref.get().invalidate();
+            } catch (NullPointerException ignored) {}
+        }
+        currentlyEditing.clear();
     }
 
     @Override

@@ -20,6 +20,8 @@ import java.util.Map;
  */
 public interface ICustomMob {
 
+    public WatchedNBTEditor editNBTTag();
+
     public WrappedNBTTagCompound getReadOnlyTag();
 
     public String getName();

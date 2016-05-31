@@ -41,13 +41,25 @@ public class UnmodWrappedNBTTagList implements WrappedNBTTagList {
     }
 
     @Override
-    public Iterator getElementIterator(boolean unmodifiable) { //Intentionally discarding 'unmodifiable' param here.
+    public Iterator<Object> getElementIterator(boolean unmodifiable) { //Intentionally discarding 'unmodifiable' param here.
         return parent.getElementIterator(true);
     }
 
     @Override
-    public Iterator getElementIterator() {
+    public Iterator<Object> getElementIterator() {
         return parent.getElementIterator(true);
+    }
+
+    @Override
+    public Object getElementAtIndex(int index) {
+        Object element = parent.getElementAtIndex(index);
+        if(element == null) return null;
+        if(element instanceof WrappedNBTTagCompound) {
+            return ((WrappedNBTTagCompound) element).unmodifiable();
+        } else if(element instanceof WrappedNBTTagList) {
+            return ((WrappedNBTTagList) element).unmodifiable();
+        }
+        return element;
     }
 
     @Override
@@ -58,5 +70,10 @@ public class UnmodWrappedNBTTagList implements WrappedNBTTagList {
     @Override
     public int size() {
         return parent.size();
+    }
+
+    @Override
+    public Iterator<Object> iterator() {
+        return parent.getElementIterator(true);
     }
 }

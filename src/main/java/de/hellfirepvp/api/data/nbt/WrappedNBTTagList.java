@@ -11,7 +11,7 @@ import java.util.Iterator;
  * Created by HellFirePvP
  * Date: 24.05.2016 / 13:19
  */
-public interface WrappedNBTTagList {
+public interface WrappedNBTTagList extends Iterable<Object> {
 
     public Object getRawNMSTagList();
 
@@ -21,9 +21,11 @@ public interface WrappedNBTTagList {
 
     public NBTTagType getElementType();
 
-    public Iterator getElementIterator(boolean unmodifiable);
+    public Iterator<Object> getElementIterator(boolean unmodifiable);
 
-    public Iterator getElementIterator();
+    public Iterator<Object> getElementIterator();
+
+    public Object getElementAtIndex(int index);
 
     public WrappedNBTTagList unmodifiable();
 

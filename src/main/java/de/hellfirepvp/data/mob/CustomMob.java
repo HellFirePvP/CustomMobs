@@ -2,6 +2,7 @@ package de.hellfirepvp.data.mob;
 
 import de.hellfirepvp.CustomMobs;
 import de.hellfirepvp.api.data.nbt.WrappedNBTTagCompound;
+import de.hellfirepvp.data.nbt.BufferingNBTEditor;
 import de.hellfirepvp.file.write.MobDataWriter;
 import de.hellfirepvp.nms.NMSReflector;
 import de.hellfirepvp.api.exception.SpawnLimitException;
@@ -10,7 +11,9 @@ import org.bukkit.Location;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.inventory.EntityEquipment;
 
+import java.lang.ref.WeakReference;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -29,6 +32,7 @@ public class CustomMob {
     protected WrappedNBTTagCompound snapshotTag;
     private EntityAdapter entityAdapter;
     private DataAdapter dataAdapter;
+    private List<WeakReference<CustomMobAdapter>> activeAdapters = new LinkedList<>();
 
     public CustomMob(String name, WrappedNBTTagCompound data) {
         this.name = name;
@@ -46,16 +50,36 @@ public class CustomMob {
     }
 
     public CustomMobAdapter createApiAdapter() {
-        return new CustomMobAdapter(this);
+        CustomMobAdapter apiAdapter = new CustomMobAdapter(this);
+        activeAdapters.add(new WeakReference<>(apiAdapter));
+        return apiAdapter;
     }
 
-    protected void updateTag() {
+    protected final void updateTag() {
         this.snapshotTag = entityAdapter.getEntityTag();
-        MobDataWriter.writeMobFile(this);
-        entityAdapter.reloadEntity();
+        writeTag();
     }
 
-    protected boolean saveTagAlongWith(String entry, Object value) {
+    private void invalidateAPIs() {
+        for (WeakReference<CustomMobAdapter> ref : activeAdapters) {
+            if(ref.get() == null) continue;
+            try {
+                ref.get().invalidateAPIs();
+            } catch (NullPointerException exc) {
+                CustomMobs.logger.warning("Invalidating API accesses for " + name + " failed. Skipping...");
+            }
+        }
+        activeAdapters.clear();
+    }
+
+    public void askForSave(BufferingNBTEditor bufferingNBTEditor) {
+        this.snapshotTag = entityAdapter.getEntityTag();
+        CustomMobs.logger.debug("API asked for MobFile saving for CustomMob " + name);
+        bufferingNBTEditor.executeQueriesOn(this.snapshotTag);
+        writeTag();
+    }
+
+    protected final boolean saveTagAlongWith(String entry, Object value) {
         WrappedNBTTagCompound tag = entityAdapter.getEntityTag();
         try {
             tag.set(entry, value);
@@ -63,9 +87,14 @@ public class CustomMob {
             return false;
         }
         this.snapshotTag = tag;
-        MobDataWriter.writeMobFile(this);
-        entityAdapter.reloadEntity();
+        writeTag();
         return true;
+    }
+
+    private void writeTag() {
+        MobDataWriter.writeMobFile(this);
+        invalidateAPIs();
+        entityAdapter.reloadEntity();
     }
 
     public String getMobFileName() {
