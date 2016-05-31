@@ -1,7 +1,5 @@
 package de.hellfirepvp.api.data.nbt;
 
-import de.hellfirepvp.data.nbt.base.NBTTagType;
-
 import java.util.Iterator;
 
 /**
@@ -18,6 +16,8 @@ public interface WrappedNBTTagList extends Iterable<Object> {
     public boolean appendNewElement(Object element);
 
     public boolean appendTagCompound(WrappedNBTTagCompound compound);
+
+    public boolean appendTagList(WrappedNBTTagList list);
 
     public NBTTagType getElementType();
 

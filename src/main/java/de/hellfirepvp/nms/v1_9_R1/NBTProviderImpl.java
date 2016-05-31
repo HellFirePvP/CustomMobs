@@ -1,12 +1,14 @@
 package de.hellfirepvp.nms.v1_9_R1;
 
+import de.hellfirepvp.api.data.nbt.UnsupportedNBTTypeException;
 import de.hellfirepvp.data.nbt.IndexedIterator;
 import de.hellfirepvp.data.nbt.base.NBTProvider;
-import de.hellfirepvp.data.nbt.base.NBTTagType;
+import de.hellfirepvp.api.data.nbt.NBTTagType;
 import de.hellfirepvp.api.data.nbt.WrappedNBTTagCompound;
 import de.hellfirepvp.api.data.nbt.WrappedNBTTagList;
 import de.hellfirepvp.data.nbt.base.UnmodWrappedNBTTagCompound;
 import de.hellfirepvp.data.nbt.base.UnmodWrappedNBTTagList;
+import de.hellfirepvp.nms.NMSReflector;
 import net.minecraft.server.v1_9_R1.NBTBase;
 import net.minecraft.server.v1_9_R1.NBTCompressedStreamTools;
 import net.minecraft.server.v1_9_R1.NBTTagByte;
@@ -24,6 +26,7 @@ import net.minecraft.server.v1_9_R1.NBTTagString;
 import org.bukkit.craftbukkit.v1_9_R1.inventory.CraftItemStack;
 import org.bukkit.inventory.ItemStack;
 
+import javax.annotation.Nullable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -40,11 +43,13 @@ public class NBTProviderImpl implements NBTProvider {
 
     @Override
     public void saveStack(ItemStack stack, WrappedNBTTagCompound target) {
+        if(stack == null || target == null) return;
         CraftItemStack.asNMSCopy(stack).save((NBTTagCompound) target.getRawNMSTagCompound());
     }
 
     @Override
     public ItemStack loadStack(WrappedNBTTagCompound savedStack) {
+        if(savedStack == null) return null;
         return CraftItemStack.asBukkitCopy(
                 net.minecraft.server.v1_9_R1.ItemStack.createStack(
                         (NBTTagCompound) savedStack.getRawNMSTagCompound()));
@@ -97,6 +102,13 @@ public class NBTProviderImpl implements NBTProvider {
         public boolean appendTagCompound(WrappedNBTTagCompound compound) {
             if(hasType() && getElementType() != NBTTagType.TAG_COMPOUND) return false;
             parentList.add((NBTBase) compound.getRawNMSTagCompound());
+            return true;
+        }
+
+        @Override
+        public boolean appendTagList(WrappedNBTTagList list) {
+            if(hasType() && getElementType() != NBTTagType.TAG_LIST) return false;
+            parentList.add((NBTBase) list.getRawNMSTagList());
             return true;
         }
 
@@ -222,6 +234,14 @@ public class NBTProviderImpl implements NBTProvider {
         @Override
         public void setSubList(String key, WrappedNBTTagList listTag) {
             parent.set(key, (NBTTagList) listTag.getRawNMSTagList());
+        }
+
+        @Nullable
+        @Override
+        public ItemStack getItemStack(String key) {
+            if(!hasKey(key)) return null;
+
+            return NMSReflector.nbtProvider.loadStack(getTagCompound(key));
         }
 
         //Can't we do better...?

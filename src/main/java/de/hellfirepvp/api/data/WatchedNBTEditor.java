@@ -2,7 +2,9 @@ package de.hellfirepvp.api.data;
 
 import de.hellfirepvp.api.data.nbt.WrappedNBTTagCompound;
 import de.hellfirepvp.api.data.nbt.WrappedNBTTagList;
-import de.hellfirepvp.data.nbt.base.NBTTagType;
+import de.hellfirepvp.api.data.nbt.NBTTagType;
+import org.bukkit.entity.Entity;
+import org.bukkit.inventory.ItemStack;
 
 /**
  * This class is part of the CustomMobs Plugin
@@ -19,10 +21,12 @@ public interface WatchedNBTEditor {
 
     //Partially modifiable NBTTag
 
+    //Query methods
     public void removeKey(String key);
 
     public boolean hasKey(String key);
 
+    //Setter
     public void setInt(String key, int value);
 
     public void setByte(String key, byte value);
@@ -47,8 +51,16 @@ public interface WatchedNBTEditor {
 
     public void setSubList(String key, WrappedNBTTagList subList);
 
-    public WrappedNBTTagCompound getTagCompound(String key);
+    //Complex tags
+    public void setItemStack(String key, ItemStack stack);
 
-    public WrappedNBTTagList getTagList(String key, NBTTagType expectedListElements);
+    //Recursive tags
+    public APIWrappedNBTTagCompound createSubTag(String key);
+
+    public APIWrappedNBTTagList createSubList(String key, NBTTagType expectedElementType);
+
+    public APIWrappedNBTTagCompound getTagCompound(String key);
+
+    public APIWrappedNBTTagList getTagList(String key, NBTTagType expectedListElements);
 
 }

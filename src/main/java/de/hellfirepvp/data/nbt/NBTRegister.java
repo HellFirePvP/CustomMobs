@@ -53,7 +53,7 @@ public class NBTRegister {
                     AbstractNBTEntry entry = (AbstractNBTEntry) c.getConstructor(TypeRegister.class).newInstance(new TypeRegister());
                     entry.registerEntries();
                     reg.registerType(entry.getMobTypeName(), entry.getContext());
-                    CustomMobs.logger.info("Loaded NBTEntry for " + entry.getMobTypeName());
+                    CustomMobs.logger.debug("Loaded NBTEntry for " + entry.getMobTypeName());
                 }
             }
         } catch (Exception e) {

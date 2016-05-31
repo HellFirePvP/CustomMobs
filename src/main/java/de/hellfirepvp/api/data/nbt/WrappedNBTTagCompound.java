@@ -1,6 +1,8 @@
 package de.hellfirepvp.api.data.nbt;
 
-import de.hellfirepvp.data.nbt.base.NBTTagType;
+import org.bukkit.inventory.ItemStack;
+
+import javax.annotation.Nullable;
 
 /**
  * This class is part of the CustomMobs Plugin
@@ -43,6 +45,9 @@ public interface WrappedNBTTagCompound {
 
     public void setSubList(String key, WrappedNBTTagList subList);
 
+    @Nullable
+    public ItemStack getItemStack(String key);
+
     public WrappedNBTTagCompound getTagCompound(String key);
 
     public WrappedNBTTagList getTagList(String key, NBTTagType expectedListElements);
@@ -50,7 +55,5 @@ public interface WrappedNBTTagCompound {
     public Object getValue(String key);
 
     public WrappedNBTTagCompound unmodifiable();
-
-    public static class UnsupportedNBTTypeException extends Exception {}
 
 }

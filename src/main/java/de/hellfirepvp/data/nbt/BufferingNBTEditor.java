@@ -2,13 +2,20 @@ package de.hellfirepvp.data.nbt;
 
 import com.google.common.collect.Maps;
 import de.hellfirepvp.CustomMobs;
+import de.hellfirepvp.api.data.APIWrappedNBTTagCompound;
+import de.hellfirepvp.api.data.APIWrappedNBTTagList;
 import de.hellfirepvp.api.data.ICustomMob;
 import de.hellfirepvp.api.data.WatchedNBTEditor;
+import de.hellfirepvp.api.data.nbt.UnsupportedNBTTypeException;
 import de.hellfirepvp.api.data.nbt.WrappedNBTTagCompound;
 import de.hellfirepvp.api.data.nbt.WrappedNBTTagList;
 import de.hellfirepvp.data.mob.CustomMob;
-import de.hellfirepvp.data.nbt.base.NBTTagType;
+import de.hellfirepvp.api.data.nbt.NBTTagType;
+import de.hellfirepvp.nms.NMSReflector;
+import org.bukkit.inventory.ItemStack;
 
+import javax.annotation.Nullable;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
@@ -48,7 +55,7 @@ public class BufferingNBTEditor implements WatchedNBTEditor {
     public void executeQueriesOn(WrappedNBTTagCompound tag) {
         this.parentTag = tag;
         for (BufferedEditQuery q : executedQueries) {
-            q.execute();
+            q.execute(tag);
         }
     }
 
@@ -63,7 +70,7 @@ public class BufferingNBTEditor implements WatchedNBTEditor {
     @Override
     public void removeKey(String key) {
         checkValid();
-        executedQueries.add(() -> parentTag.removeKey(key));
+        executedQueries.add((root) -> root.removeKey(key));
     }
 
     @Override
@@ -75,107 +82,131 @@ public class BufferingNBTEditor implements WatchedNBTEditor {
     @Override
     public void setInt(String key, int value) {
         checkValid();
-        executedQueries.add(() -> parentTag.setInt(key, value));
+        executedQueries.add((root) -> root.setInt(key, value));
     }
 
     @Override
     public void setByte(String key, byte value) {
         checkValid();
-        executedQueries.add(() -> parentTag.setByte(key, value));
+        executedQueries.add((root) -> root.setByte(key, value));
     }
 
     @Override
     public void setShort(String key, short value) {
         checkValid();
-        executedQueries.add(() -> parentTag.setShort(key, value));
+        executedQueries.add((root) -> root.setShort(key, value));
     }
 
     @Override
     public void setLong(String key, long value) {
         checkValid();
-        executedQueries.add(() -> parentTag.setLong(key, value));
+        executedQueries.add((root) -> root.setLong(key, value));
     }
 
     @Override
     public void setFloat(String key, float value) {
         checkValid();
-        executedQueries.add(() -> parentTag.setFloat(key, value));
+        executedQueries.add((root) -> root.setFloat(key, value));
     }
 
     @Override
     public void setDouble(String key, double value) {
         checkValid();
-        executedQueries.add(() -> parentTag.setDouble(key, value));
+        executedQueries.add((root) -> root.setDouble(key, value));
     }
 
     @Override
     public void setBoolean(String key, boolean value) {
         checkValid();
-        executedQueries.add(() -> parentTag.setBoolean(key, value));
+        executedQueries.add((root) -> root.setBoolean(key, value));
     }
 
     @Override
     public void setString(String key, String value) {
         checkValid();
-        executedQueries.add(() -> parentTag.setString(key, value));
+        executedQueries.add((root) -> root.setString(key, value));
     }
 
     @Override
     public void setIntArray(String key, int[] value) {
         checkValid();
-        executedQueries.add(() -> parentTag.setIntArray(key, value));
+        executedQueries.add((root) -> root.setIntArray(key, value));
     }
 
     @Override
     public void setByteArray(String key, byte[] value) {
         checkValid();
-        executedQueries.add(() -> parentTag.setByteArray(key, value));
+        executedQueries.add((root) -> root.setByteArray(key, value));
     }
 
     @Override
     public void setSubTag(String key, WrappedNBTTagCompound subTag) {
         checkValid();
-        executedQueries.add(() -> parentTag.setSubTag(key, subTag));
+        executedQueries.add((root) -> root.setSubTag(key, subTag));
     }
 
     @Override
     public void setSubList(String key, WrappedNBTTagList subList) {
         checkValid();
-        executedQueries.add(() -> parentTag.setSubList(key, subList));
+        executedQueries.add((root) -> root.setSubList(key, subList));
     }
 
     @Override
-    public WrappedNBTTagCompound getTagCompound(String key) {
+    public void setItemStack(String key, ItemStack stack) {
         checkValid();
-        WrappedNBTTagCompound subTag = parentTag.getTagCompound(key);
-        if(subTag != null) {
-            subTag = new WatchedSubTag(subTag,
-                    new ExecutionPath(this).appendCopy(ExecutionPath.PathQuery.SUB_TAG, key));
-        }
-        return subTag;
+        final ItemStack copyStack = stack.clone();
+        executedQueries.add((root) -> NMSReflector.nbtProvider.saveStack(copyStack, root));
+    }
+
+    @Nullable
+    @Override
+    public APIWrappedNBTTagCompound createSubTag(String key) {
+        if(hasKey(key)) return null;
+
+        WatchedSubTag tag = new WatchedSubTag(NMSReflector.nbtProvider.newTagCompound(), new ExecutionPath(this).appendCopy(ExecutionPath.PathQuery.SUB_TAG, key));
+        executedQueries.add((root) -> root.setSubTag(key, NMSReflector.nbtProvider.newTagCompound()));
+        parentTag.setSubTag(key, NMSReflector.nbtProvider.newTagCompound());
+        return tag;
+    }
+
+    @Nullable
+    @Override
+    public APIWrappedNBTTagList createSubList(String key, NBTTagType expectedElementType) {
+        if(hasKey(key)) return null;
+
+        WatchedSubList list = new WatchedSubList(NMSReflector.nbtProvider.newTagList(), new ExecutionPath(this).appendCopy(ExecutionPath.PathQuery.SUB_LIST, key, expectedElementType));
+        executedQueries.add((root) -> root.setSubList(key, NMSReflector.nbtProvider.newTagList()));
+        parentTag.setSubList(key, NMSReflector.nbtProvider.newTagList());
+        return list;
     }
 
     @Override
-    public WrappedNBTTagList getTagList(String key, NBTTagType expectedListElements) {
+    public APIWrappedNBTTagCompound getTagCompound(String key) {
+        checkValid();
+
+        WrappedNBTTagCompound subTag = parentTag.getTagCompound(key);
+        if(subTag == null) return null;
+        return new WatchedSubTag(subTag, new ExecutionPath(this).appendCopy(ExecutionPath.PathQuery.SUB_TAG, key));
+    }
+
+    @Override
+    public APIWrappedNBTTagList getTagList(String key, NBTTagType expectedListElements) {
         checkValid();
         WrappedNBTTagList subList = parentTag.getTagList(key, expectedListElements);
-        if(subList != null) {
-            subList = new WatchedSubList(subList,
-                    new ExecutionPath(this).appendCopy(ExecutionPath.PathQuery.SUB_LIST, key, expectedListElements));
-        }
-        return subList;
+        if(subList == null) return null;
+        return new WatchedSubList(subList, new ExecutionPath(this).appendCopy(ExecutionPath.PathQuery.SUB_LIST, key, expectedListElements));
     }
 
     static interface BufferedEditQuery {
 
-        public void execute();
+        public void execute(WrappedNBTTagCompound rootTag);
 
     }
 
     static interface ResultingPathQuery {
 
         //Returns either WrappedNBTTagCompound or WrappedNBTTagList depending on last PathQuery executed.
-        public Object execute();
+        public Object execute(WrappedNBTTagCompound rootTag);
 
     }
 
@@ -197,8 +228,8 @@ public class BufferingNBTEditor implements WatchedNBTEditor {
         }
 
         @Override
-        public void execute() {
-            Object pre = prepending.execute();
+        public void execute(WrappedNBTTagCompound rootTag) {
+            Object pre = prepending.execute(rootTag);
             if(pre == null) return; //Means we lost the api user somewhere in the execution....
             deepNbtQuery.executeOn(pre);
         }
@@ -230,14 +261,14 @@ public class BufferingNBTEditor implements WatchedNBTEditor {
         }
 
         private ResultingPathQuery buildQueryFromPath() {
-            return () -> {
+            return (rootTag) -> {
                 Object nbt = root;
                 for (Map.Entry<PathQuery, ExecutionDetails> pathEntry : path.entrySet()) {
                     ExecutionDetails details = pathEntry.getValue();
                     switch (pathEntry.getKey()) {
                         case SUB_TAG:
                             if(nbt == root) {
-                                Object next = ((BufferingNBTEditor) nbt).getTagCompound(details.key);
+                                Object next = rootTag.getTagCompound(details.key);
                                 if(next == null) {
                                     CustomMobs.logger.warning("Can't resolve executed NBT actions.");
                                     CustomMobs.logger.warning("Failed at: Root->getSubTag(" + details.key + ")");
@@ -279,7 +310,7 @@ public class BufferingNBTEditor implements WatchedNBTEditor {
                                 return null;
                             }
                             if(nbt == root) {
-                                Object list = ((BufferingNBTEditor) nbt).getTagList(details.key, executedType);
+                                Object list = rootTag.getTagList(details.key, executedType);
                                 if(list == null) {
                                     CustomMobs.logger.warning("Can't resolve executed NBT actions.");
                                     CustomMobs.logger.warning("Failed at: Root->getSubList(" + details.key + ", " + executedType.name() + ")");
@@ -368,7 +399,7 @@ public class BufferingNBTEditor implements WatchedNBTEditor {
                             break;
                     }
                 }
-                return null;
+                return nbt;
             };
         }
 
@@ -396,7 +427,7 @@ public class BufferingNBTEditor implements WatchedNBTEditor {
 
     }
 
-    static class WatchedSubList implements WrappedNBTTagList {
+    static class WatchedSubList implements APIWrappedNBTTagList {
 
         private WrappedNBTTagList watchedlist;
         private ExecutionPath pathToRoot;
@@ -431,14 +462,32 @@ public class BufferingNBTEditor implements WatchedNBTEditor {
         @Override
         public boolean appendTagCompound(WrappedNBTTagCompound compound) {
             pathToRoot.root.checkValid();
+
             pathToRoot.appendEdit(deepNBTComplex -> {
                 if (deepNBTComplex instanceof WrappedNBTTagList) {
                     WrappedNBTTagList res = (WrappedNBTTagList) deepNBTComplex;
                     if(!res.appendTagCompound(compound)) {
-                        CustomMobs.logger.warning("appendNewElement failed for a TagCompound...");
+                        CustomMobs.logger.warning("appendTagCompound failed for a TagCompound...");
                     }
                 } else {
                     CustomMobs.logger.warning("appendTagCompound-call resolved to something else than a TagList. Did we resolve the wrong way?");
+                }
+            });
+            return true;
+        }
+
+        @Override
+        public boolean appendTagList(WrappedNBTTagList list) {
+            pathToRoot.root.checkValid();
+
+            pathToRoot.appendEdit(deepNBTComplex -> {
+                if (deepNBTComplex instanceof WrappedNBTTagList) {
+                    WrappedNBTTagList res = (WrappedNBTTagList) deepNBTComplex;
+                    if(!res.appendTagList(list)) {
+                        CustomMobs.logger.warning("appendTagList failed for a TagList...");
+                    }
+                } else {
+                    CustomMobs.logger.warning("appendTagList-call resolved to something else than a TagList. Did we resolve the wrong way?");
                 }
             });
             return true;
@@ -509,6 +558,47 @@ public class BufferingNBTEditor implements WatchedNBTEditor {
             }
             return it;
         }
+
+        @Override
+        public void appendItemStack(ItemStack stack) throws UnsupportedNBTTypeException {
+            pathToRoot.root.checkValid();
+            if(getElementType() != null && !getElementType().equals(NBTTagType.TAG_COMPOUND)) throw new UnsupportedNBTTypeException();
+
+            final ItemStack stackCopy = stack.clone();
+            pathToRoot.appendEdit(deepNBTComplex -> {
+                if (deepNBTComplex instanceof WrappedNBTTagList) {
+                    WrappedNBTTagList res = (WrappedNBTTagList) deepNBTComplex;
+                    WrappedNBTTagCompound newStackTag = NMSReflector.nbtProvider.newTagCompound();
+                    NMSReflector.nbtProvider.saveStack(stackCopy, newStackTag);
+                    if(!res.appendTagCompound(newStackTag)) {
+                        CustomMobs.logger.warning("appendItemStack failed for a TagList...");
+                    }
+                } else {
+                    CustomMobs.logger.warning("appendItemStack-call resolved to something else than a TagList. Did we resolve the wrong way?");
+                }
+            });
+        }
+
+        @Override
+        public APIWrappedNBTTagCompound appendNewTagCompound() throws UnsupportedNBTTypeException {
+            pathToRoot.root.checkValid();
+            if(getElementType() != null && !getElementType().equals(NBTTagType.TAG_COMPOUND)) throw new UnsupportedNBTTypeException();
+
+            APIWrappedNBTTagCompound newCmp = new WatchedSubTag(NMSReflector.nbtProvider.newTagCompound(), pathToRoot.appendCopy(ExecutionPath.PathQuery.LIST_INDEX, "", size()));
+            appendTagCompound(NMSReflector.nbtProvider.newTagCompound());
+            watchedlist.appendTagCompound(NMSReflector.nbtProvider.newTagCompound());
+            return newCmp;
+        }
+
+        @Override
+        public APIWrappedNBTTagList appendNewTagList() throws UnsupportedNBTTypeException {
+            pathToRoot.root.checkValid();
+            if(getElementType() != null && !getElementType().equals(NBTTagType.TAG_LIST)) throw new UnsupportedNBTTypeException();
+            APIWrappedNBTTagList newList = new WatchedSubList(NMSReflector.nbtProvider.newTagList(), pathToRoot.appendCopy(ExecutionPath.PathQuery.LIST_INDEX, "", size()));
+            appendTagList(NMSReflector.nbtProvider.newTagList());
+            watchedlist.appendTagList(NMSReflector.nbtProvider.newTagList());
+            return newList;
+        }
     }
 
     static class WatchedListIterator implements IndexedIterator<Object> {
@@ -551,7 +641,7 @@ public class BufferingNBTEditor implements WatchedNBTEditor {
         }
     }
 
-    static class WatchedSubTag implements WrappedNBTTagCompound {
+    static class WatchedSubTag implements APIWrappedNBTTagCompound {
 
         private WrappedNBTTagCompound watchedTag;
         private ExecutionPath pathToRoot;
@@ -758,6 +848,15 @@ public class BufferingNBTEditor implements WatchedNBTEditor {
             });
         }
 
+        @Nullable
+        @Override
+        public ItemStack getItemStack(String key) {
+            if(!hasKey(key)) return null;
+            pathToRoot.root.checkValid();
+
+            return watchedTag.getItemStack(key);
+        }
+
         @Override
         public WrappedNBTTagCompound getTagCompound(String key) {
             pathToRoot.root.checkValid();
@@ -800,6 +899,55 @@ public class BufferingNBTEditor implements WatchedNBTEditor {
             return this;
         }
 
+        @Override
+        public void setItemStack(String key, ItemStack stack) {
+            pathToRoot.root.checkValid();
+
+            final ItemStack copyStack = stack.clone();
+            pathToRoot.appendEdit(deepNBTComplex -> {
+                if(deepNBTComplex instanceof WrappedNBTTagCompound) {
+                    WrappedNBTTagCompound cmp = NMSReflector.nbtProvider.newTagCompound();
+                    NMSReflector.nbtProvider.saveStack(copyStack, cmp);
+                    ((WrappedNBTTagCompound) deepNBTComplex).setSubTag(key, cmp);
+                } else {
+                    CustomMobs.logger.warning("setItemStack-call resolved to something else than a TagCompound. Did we resolve the wrong way?");
+                }
+            });
+        }
+
+        @Nullable
+        @Override
+        public APIWrappedNBTTagCompound createSubTag(String key) {
+            if(hasKey(key)) return null;
+
+            WatchedSubTag tag = new WatchedSubTag(NMSReflector.nbtProvider.newTagCompound(), pathToRoot.appendCopy(ExecutionPath.PathQuery.SUB_TAG, key));
+            pathToRoot.appendEdit(deepNBTComplex -> {
+                if(deepNBTComplex instanceof WrappedNBTTagCompound) {
+                    ((WrappedNBTTagCompound) deepNBTComplex).setSubTag(key, NMSReflector.nbtProvider.newTagCompound());
+                } else {
+                    CustomMobs.logger.warning("createSubTag-call resolved to something else than a TagCompound. Did we resolve the wrong way?");
+                }
+            });
+            watchedTag.setSubTag(key, NMSReflector.nbtProvider.newTagCompound());
+            return tag;
+        }
+
+        @Nullable
+        @Override
+        public APIWrappedNBTTagList createSubList(String key, NBTTagType expectedElementType) {
+            if(hasKey(key)) return null;
+
+            WatchedSubList list = new WatchedSubList(NMSReflector.nbtProvider.newTagList(), pathToRoot.appendCopy(ExecutionPath.PathQuery.SUB_LIST, key));
+            pathToRoot.appendEdit(deepNBTComplex -> {
+                if(deepNBTComplex instanceof WrappedNBTTagCompound) {
+                    ((WrappedNBTTagCompound) deepNBTComplex).setSubList(key, NMSReflector.nbtProvider.newTagList());
+                } else {
+                    CustomMobs.logger.warning("createSubList-call resolved to something else than a TagCompound. Did we resolve the wrong way?");
+                }
+            });
+            watchedTag.setSubList(key, NMSReflector.nbtProvider.newTagList());
+            return list;
+        }
     }
 
 }

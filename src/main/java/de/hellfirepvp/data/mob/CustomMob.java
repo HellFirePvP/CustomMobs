@@ -1,6 +1,7 @@
 package de.hellfirepvp.data.mob;
 
 import de.hellfirepvp.CustomMobs;
+import de.hellfirepvp.api.data.nbt.UnsupportedNBTTypeException;
 import de.hellfirepvp.api.data.nbt.WrappedNBTTagCompound;
 import de.hellfirepvp.data.nbt.BufferingNBTEditor;
 import de.hellfirepvp.file.write.MobDataWriter;
@@ -83,7 +84,7 @@ public class CustomMob {
         WrappedNBTTagCompound tag = entityAdapter.getEntityTag();
         try {
             tag.set(entry, value);
-        } catch (WrappedNBTTagCompound.UnsupportedNBTTypeException e) {
+        } catch (UnsupportedNBTTypeException e) {
             return false;
         }
         this.snapshotTag = tag;

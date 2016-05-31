@@ -1,5 +1,6 @@
 package de.hellfirepvp.data.nbt.base;
 
+import de.hellfirepvp.api.data.nbt.NBTTagType;
 import de.hellfirepvp.api.data.nbt.WrappedNBTTagCompound;
 import de.hellfirepvp.api.data.nbt.WrappedNBTTagList;
 
@@ -32,6 +33,11 @@ public class UnmodWrappedNBTTagList implements WrappedNBTTagList {
 
     @Override
     public boolean appendTagCompound(WrappedNBTTagCompound compound) {
+        throw new UnsupportedOperationException("Unmodifiable");
+    }
+
+    @Override
+    public boolean appendTagList(WrappedNBTTagList list) {
         throw new UnsupportedOperationException("Unmodifiable");
     }
 

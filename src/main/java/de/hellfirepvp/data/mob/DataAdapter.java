@@ -1,7 +1,7 @@
 package de.hellfirepvp.data.mob;
 
 import de.hellfirepvp.CustomMobs;
-import de.hellfirepvp.data.nbt.base.NBTTagType;
+import de.hellfirepvp.api.data.nbt.NBTTagType;
 import de.hellfirepvp.api.data.nbt.WrappedNBTTagCompound;
 import de.hellfirepvp.api.data.nbt.WrappedNBTTagList;
 import de.hellfirepvp.nms.NMSReflector;

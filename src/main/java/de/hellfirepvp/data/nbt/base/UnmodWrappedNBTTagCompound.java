@@ -1,7 +1,12 @@
 package de.hellfirepvp.data.nbt.base;
 
+import de.hellfirepvp.api.data.nbt.NBTTagType;
+import de.hellfirepvp.api.data.nbt.UnsupportedNBTTypeException;
 import de.hellfirepvp.api.data.nbt.WrappedNBTTagCompound;
 import de.hellfirepvp.api.data.nbt.WrappedNBTTagList;
+import org.bukkit.inventory.ItemStack;
+
+import javax.annotation.Nullable;
 
 /**
  * This class is part of the CustomMobs Plugin
@@ -96,6 +101,12 @@ public class UnmodWrappedNBTTagCompound implements WrappedNBTTagCompound {
     @Override
     public void setSubList(String key, WrappedNBTTagList subList) {
         throw new UnsupportedOperationException("Unmodifiable");
+    }
+
+    @Nullable
+    @Override
+    public ItemStack getItemStack(String key) {
+        return parent.getItemStack(key);
     }
 
     @Override

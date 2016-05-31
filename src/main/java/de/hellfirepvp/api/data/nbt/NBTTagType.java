@@ -1,4 +1,4 @@
-package de.hellfirepvp.data.nbt.base;
+package de.hellfirepvp.api.data.nbt;
 
 import java.util.HashMap;
 import java.util.Map;
