@@ -21,7 +21,9 @@ public interface WrappedNBTTagList {
 
     public NBTTagType getElementType();
 
-    public Iterator getImmutableElementIterator();
+    public Iterator getElementIterator(boolean unmodifiable);
+
+    public Iterator getElementIterator();
 
     public WrappedNBTTagList unmodifiable();
 

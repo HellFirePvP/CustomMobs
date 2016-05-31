@@ -124,6 +124,18 @@ public class EntityAdapter {
         parentMob.updateTag();
     }
 
+    public double getMaxHealth() {
+        return adapterEntity.getMaxHealth();
+    }
+
+    public int getFireTicks() {
+        return adapterEntity.getFireTicks();
+    }
+
+    public String getCustomName() {
+        return adapterEntity.getCustomName();
+    }
+
     public Collection<PotionEffect> getAcivePotionEffects() {
         return adapterEntity.getActivePotionEffects();
     }

@@ -130,7 +130,7 @@ public class DataAdapter {
         if(!cmobTag.hasKey("Drops")) return new HashMap<>();
         WrappedNBTTagList dropList = cmobTag.getTagList("Drops", NBTTagType.TAG_COMPOUND);
         Map<ItemStack, Double> dropMap = new HashMap<>();
-        Iterator listIt = dropList.getImmutableElementIterator();
+        Iterator listIt = dropList.getElementIterator();
         while (listIt.hasNext()) {
             Object tag = listIt.next();
             if(tag != null && tag instanceof WrappedNBTTagCompound) {

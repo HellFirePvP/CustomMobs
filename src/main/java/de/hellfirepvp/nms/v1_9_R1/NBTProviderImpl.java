@@ -108,8 +108,13 @@ public class NBTProviderImpl implements NBTProvider {
         }
 
         @Override
-        public Iterator getImmutableElementIterator() {
-            return new ForIntIterator(parentList);
+        public Iterator getElementIterator(boolean unmodifiable) {
+            return new ForIntIterator(parentList, unmodifiable);
+        }
+
+        @Override
+        public Iterator getElementIterator() {
+            return new ForIntIterator(parentList, false);
         }
 
         @Override
@@ -128,10 +133,12 @@ public class NBTProviderImpl implements NBTProvider {
 
         private NBTTagList list;
         private int entryPointer;
+        private boolean unmodifiable;
 
-        public ForIntIterator(NBTTagList list) {
+        public ForIntIterator(NBTTagList list, boolean unmodifiable) {
             this.list = list;
             this.entryPointer = 0;
+            this.unmodifiable = unmodifiable;
         }
 
         @Override
@@ -146,9 +153,13 @@ public class NBTProviderImpl implements NBTProvider {
             Object value = extractValue(element);
             if(value != null) return value;
             if(element instanceof NBTTagCompound) {
-                return new TagCompoundImpl((NBTTagCompound) element);
+                WrappedNBTTagCompound cmp = new TagCompoundImpl((NBTTagCompound) element);
+                if(unmodifiable) cmp = cmp.unmodifiable();
+                return cmp;
             } else if(element instanceof NBTTagList) {
-                return new TagListImpl((NBTTagList) element);
+                WrappedNBTTagList list = new TagListImpl((NBTTagList) element);
+                if(unmodifiable) list = list.unmodifiable();
+                return list;
             }
             return element; //Awkward huh...
         }

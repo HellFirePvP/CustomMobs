@@ -41,8 +41,13 @@ public class UnmodWrappedNBTTagList implements WrappedNBTTagList {
     }
 
     @Override
-    public Iterator getImmutableElementIterator() {
-        return parent.getImmutableElementIterator();
+    public Iterator getElementIterator(boolean unmodifiable) { //Intentionally discarding 'unmodifiable' param here.
+        return parent.getElementIterator(true);
+    }
+
+    @Override
+    public Iterator getElementIterator() {
+        return parent.getElementIterator(true);
     }
 
     @Override
