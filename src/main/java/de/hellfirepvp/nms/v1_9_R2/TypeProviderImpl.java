@@ -5,6 +5,7 @@ import de.hellfirepvp.api.data.nbt.WrappedNBTTagCompound;
 import de.hellfirepvp.nms.MobTypeProvider;
 import de.hellfirepvp.nms.NMSReflector;
 import net.minecraft.server.v1_9_R2.Entity;
+import net.minecraft.server.v1_9_R2.EntityInsentient;
 import net.minecraft.server.v1_9_R2.EntityLiving;
 import net.minecraft.server.v1_9_R2.EntityTypes;
 import net.minecraft.server.v1_9_R2.NBTTagCompound;
@@ -44,7 +45,7 @@ public class TypeProviderImpl implements MobTypeProvider {
             Map<String, Class> nameToClassMap = (Map<String, Class>) nameToClassField.get(null);
             for (String s : nameToClassMap.keySet()) {
                 Class entityClass = nameToClassMap.get(s);
-                if(EntityLiving.class.isAssignableFrom(entityClass) &&
+                if(EntityInsentient.class.isAssignableFrom(entityClass) &&
                         !Modifier.isAbstract(entityClass.getModifiers())) {
                     discoveredTypes.add(s);
 

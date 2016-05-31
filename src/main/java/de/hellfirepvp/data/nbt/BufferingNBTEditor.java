@@ -16,7 +16,6 @@ import de.hellfirepvp.nms.NMSReflector;
 import org.bukkit.inventory.ItemStack;
 
 import javax.annotation.Nullable;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
@@ -244,7 +243,10 @@ public class BufferingNBTEditor implements WatchedNBTEditor {
         @Override
         public void execute(WrappedNBTTagCompound rootTag) {
             Object pre = prepending.execute(rootTag);
-            if(pre == null) return; //Means we lost the api user somewhere in the execution....
+            if(pre == null) {
+                CustomMobs.logger.warning("Could not resolve API-NBTQueryPath completely.");
+                return;
+            }
             deepNbtQuery.executeOn(pre);
         }
 
