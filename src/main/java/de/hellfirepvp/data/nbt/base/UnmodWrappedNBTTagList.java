@@ -1,8 +1,10 @@
 package de.hellfirepvp.data.nbt.base;
 
 import de.hellfirepvp.api.data.nbt.NBTTagType;
+import de.hellfirepvp.api.data.nbt.UnsupportedNBTTypeException;
 import de.hellfirepvp.api.data.nbt.WrappedNBTTagCompound;
 import de.hellfirepvp.api.data.nbt.WrappedNBTTagList;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.Iterator;
 
@@ -23,6 +25,11 @@ public class UnmodWrappedNBTTagList implements WrappedNBTTagList {
 
     @Override
     public Object getRawNMSTagList() {
+        throw new UnsupportedOperationException("Unmodifiable");
+    }
+
+    @Override
+    public boolean appendItemStack(ItemStack stack) {
         throw new UnsupportedOperationException("Unmodifiable");
     }
 

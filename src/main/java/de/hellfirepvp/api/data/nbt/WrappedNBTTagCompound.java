@@ -48,6 +48,8 @@ public interface WrappedNBTTagCompound {
     @Nullable
     public ItemStack getItemStack(String key);
 
+    public void setItemStack(String key, ItemStack stack);
+
     public WrappedNBTTagCompound getTagCompound(String key);
 
     public WrappedNBTTagList getTagList(String key, NBTTagType expectedListElements);

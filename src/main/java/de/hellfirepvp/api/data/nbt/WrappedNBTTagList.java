@@ -1,5 +1,7 @@
 package de.hellfirepvp.api.data.nbt;
 
+import org.bukkit.inventory.ItemStack;
+
 import java.util.Iterator;
 
 /**
@@ -12,6 +14,8 @@ import java.util.Iterator;
 public interface WrappedNBTTagList extends Iterable<Object> {
 
     public Object getRawNMSTagList();
+
+    public boolean appendItemStack(ItemStack stack);
 
     public boolean appendNewElement(Object element);
 

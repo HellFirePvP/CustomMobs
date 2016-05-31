@@ -89,6 +89,17 @@ public class NBTProviderImpl implements NBTProvider {
         }
 
         @Override
+        public boolean appendItemStack(ItemStack stack) {
+            if(stack == null) return false;
+            if(hasType() && NBTTagType.TAG_COMPOUND != getElementType()) return false;
+
+            WrappedNBTTagCompound cmp = NMSReflector.nbtProvider.newTagCompound();
+            NMSReflector.nbtProvider.saveStack(stack, cmp);
+            parentList.add((NBTBase) cmp.getRawNMSTagCompound());
+            return true;
+        }
+
+        @Override
         public boolean appendNewElement(Object element) {
             NBTBase wrapped = wrapValue(element);
             if(wrapped == null) return false;
@@ -242,6 +253,14 @@ public class NBTProviderImpl implements NBTProvider {
             if(!hasKey(key)) return null;
 
             return NMSReflector.nbtProvider.loadStack(getTagCompound(key));
+        }
+
+        @Override
+        public void setItemStack(String key, ItemStack stack) {
+            if(stack == null) return;
+            WrappedNBTTagCompound tag = NMSReflector.nbtProvider.newTagCompound();
+            NMSReflector.nbtProvider.saveStack(stack, tag);
+            parent.set(key, (NBTBase) tag.getRawNMSTagCompound());
         }
 
         //Can't we do better...?

@@ -110,6 +110,11 @@ public class UnmodWrappedNBTTagCompound implements WrappedNBTTagCompound {
     }
 
     @Override
+    public void setItemStack(String key, ItemStack stack) {
+        throw new UnsupportedOperationException("Unmodifiable");
+    }
+
+    @Override
     public WrappedNBTTagCompound getTagCompound(String key) {
         WrappedNBTTagCompound tag = parent.getTagCompound(key);
         if(tag != null) {

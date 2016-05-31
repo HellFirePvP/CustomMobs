@@ -5,6 +5,8 @@ import de.hellfirepvp.api.data.nbt.WrappedNBTTagCompound;
 import org.bukkit.entity.Entity;
 import org.bukkit.inventory.ItemStack;
 
+import javax.annotation.Nullable;
+
 /**
 * This class is part of the CustomMobs Plugin
 * The plugin can be found at: https://www.spigotmc.org/resources/custommobs.7339
@@ -14,10 +16,8 @@ import org.bukkit.inventory.ItemStack;
 */
 public interface APIWrappedNBTTagCompound extends WrappedNBTTagCompound {
 
-    public void setItemStack(String key, ItemStack stack);
+    public APIWrappedNBTTagCompound createOrGetSubTag(String key);
 
-    public APIWrappedNBTTagCompound createSubTag(String key);
-
-    public APIWrappedNBTTagList createSubList(String key, NBTTagType expectedElementType);
+    public APIWrappedNBTTagList createOrGetSubList(String key, NBTTagType expectedElementType);
 
 }
