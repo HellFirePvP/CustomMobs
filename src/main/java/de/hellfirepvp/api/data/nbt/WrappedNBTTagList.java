@@ -2,7 +2,7 @@ package de.hellfirepvp.api.data.nbt;
 
 import org.bukkit.inventory.ItemStack;
 
-import java.util.Iterator;
+import javax.annotation.Nullable;
 
 /**
  * This class is part of the CustomMobs Plugin
@@ -25,10 +25,11 @@ public interface WrappedNBTTagList extends Iterable<Object> {
 
     public NBTTagType getElementType();
 
-    public Iterator<Object> getElementIterator(boolean unmodifiable);
+    public NullableIndexedElementIterator<Object> getElementIterator(boolean unmodifiable);
 
-    public Iterator<Object> getElementIterator();
+    public NullableIndexedElementIterator<Object> getElementIterator();
 
+    @Nullable
     public Object getElementAtIndex(int index);
 
     public WrappedNBTTagList unmodifiable();

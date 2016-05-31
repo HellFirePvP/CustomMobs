@@ -6,6 +6,7 @@ import de.hellfirepvp.api.data.APIWrappedNBTTagCompound;
 import de.hellfirepvp.api.data.APIWrappedNBTTagList;
 import de.hellfirepvp.api.data.ICustomMob;
 import de.hellfirepvp.api.data.WatchedNBTEditor;
+import de.hellfirepvp.api.data.nbt.NullableIndexedElementIterator;
 import de.hellfirepvp.api.data.nbt.UnsupportedNBTTypeException;
 import de.hellfirepvp.api.data.nbt.WrappedNBTTagCompound;
 import de.hellfirepvp.api.data.nbt.WrappedNBTTagList;
@@ -512,10 +513,10 @@ public class BufferingNBTEditor implements WatchedNBTEditor {
         }
 
         @Override
-        public Iterator<Object> getElementIterator(boolean unmodifiable) {
+        public NullableIndexedElementIterator<Object> getElementIterator(boolean unmodifiable) {
             pathToRoot.root.checkValid();
 
-            Iterator<Object> it = watchedlist.getElementIterator(true);
+            NullableIndexedElementIterator<Object> it = watchedlist.getElementIterator(true);
             if(it != null) {
                 it = new WatchedListIterator(it, pathToRoot);
             }
@@ -523,10 +524,10 @@ public class BufferingNBTEditor implements WatchedNBTEditor {
         }
 
         @Override
-        public Iterator<Object> getElementIterator() {
+        public NullableIndexedElementIterator<Object> getElementIterator() {
             pathToRoot.root.checkValid();
 
-            Iterator<Object> it = watchedlist.getElementIterator(true);
+            NullableIndexedElementIterator<Object> it = watchedlist.getElementIterator(true);
             if(it != null) {
                 it = new WatchedListIterator(it, pathToRoot);
             }
@@ -616,7 +617,7 @@ public class BufferingNBTEditor implements WatchedNBTEditor {
         }
     }
 
-    static class WatchedListIterator implements IndexedIterator<Object> {
+    static class WatchedListIterator implements NullableIndexedElementIterator<Object> {
 
         private Iterator<Object> iterator;
         private ExecutionPath path;
@@ -631,6 +632,7 @@ public class BufferingNBTEditor implements WatchedNBTEditor {
             return iterator.hasNext();
         }
 
+        @Nullable
         @Override
         public Object next() {
             Object nextElement = iterator.next();

@@ -27,6 +27,7 @@ public interface WatchedNBTEditor {
 
     public boolean hasKey(String key);
 
+    @Nullable
     public Object getValue(String key);
 
     //Setter

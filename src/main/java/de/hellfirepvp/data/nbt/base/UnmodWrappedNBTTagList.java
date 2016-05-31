@@ -1,6 +1,7 @@
 package de.hellfirepvp.data.nbt.base;
 
 import de.hellfirepvp.api.data.nbt.NBTTagType;
+import de.hellfirepvp.api.data.nbt.NullableIndexedElementIterator;
 import de.hellfirepvp.api.data.nbt.UnsupportedNBTTypeException;
 import de.hellfirepvp.api.data.nbt.WrappedNBTTagCompound;
 import de.hellfirepvp.api.data.nbt.WrappedNBTTagList;
@@ -54,12 +55,12 @@ public class UnmodWrappedNBTTagList implements WrappedNBTTagList {
     }
 
     @Override
-    public Iterator<Object> getElementIterator(boolean unmodifiable) { //Intentionally discarding 'unmodifiable' param here.
+    public NullableIndexedElementIterator<Object> getElementIterator(boolean unmodifiable) { //Intentionally discarding 'unmodifiable' param here.
         return parent.getElementIterator(true);
     }
 
     @Override
-    public Iterator<Object> getElementIterator() {
+    public NullableIndexedElementIterator<Object> getElementIterator() {
         return parent.getElementIterator(true);
     }
 
@@ -86,7 +87,7 @@ public class UnmodWrappedNBTTagList implements WrappedNBTTagList {
     }
 
     @Override
-    public Iterator<Object> iterator() {
+    public NullableIndexedElementIterator<Object> iterator() {
         return parent.getElementIterator(true);
     }
 }

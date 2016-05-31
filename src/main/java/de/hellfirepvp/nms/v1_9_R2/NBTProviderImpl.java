@@ -1,5 +1,6 @@
 package de.hellfirepvp.nms.v1_9_R2;
 
+import de.hellfirepvp.api.data.nbt.NullableIndexedElementIterator;
 import de.hellfirepvp.api.data.nbt.UnsupportedNBTTypeException;
 import de.hellfirepvp.data.nbt.IndexedIterator;
 import de.hellfirepvp.data.nbt.base.NBTProvider;
@@ -133,12 +134,12 @@ public class NBTProviderImpl implements NBTProvider {
         }
 
         @Override
-        public Iterator<Object> getElementIterator(boolean unmodifiable) {
+        public NullableIndexedElementIterator<Object> getElementIterator(boolean unmodifiable) {
             return new ForIntIterator(parentList, unmodifiable);
         }
 
         @Override
-        public Iterator<Object> getElementIterator() {
+        public NullableIndexedElementIterator<Object> getElementIterator() {
             return getElementIterator(false);
         }
 
@@ -173,7 +174,7 @@ public class NBTProviderImpl implements NBTProvider {
         }
     }
 
-    public static class ForIntIterator implements IndexedIterator<Object> {
+    public static class ForIntIterator implements NullableIndexedElementIterator<Object> {
 
         private NBTTagList list;
         private int entryPointer;
@@ -190,6 +191,7 @@ public class NBTProviderImpl implements NBTProvider {
             return (entryPointer + 1) < list.size();
         }
 
+        @Nullable
         @Override
         public Object next() {
             entryPointer++;

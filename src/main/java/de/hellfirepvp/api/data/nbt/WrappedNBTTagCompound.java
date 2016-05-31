@@ -50,10 +50,13 @@ public interface WrappedNBTTagCompound {
 
     public void setItemStack(String key, ItemStack stack);
 
+    @Nullable
     public WrappedNBTTagCompound getTagCompound(String key);
 
+    @Nullable
     public WrappedNBTTagList getTagList(String key, NBTTagType expectedListElements);
 
+    @Nullable
     public Object getValue(String key);
 
     public WrappedNBTTagCompound unmodifiable();
