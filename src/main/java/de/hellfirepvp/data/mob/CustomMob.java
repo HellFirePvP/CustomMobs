@@ -112,6 +112,15 @@ public class CustomMob {
         if(entity == null)
             throw new IllegalStateException("Unknown EntityType for " + getMobFileName() + " or NBTTag is missing some information.");
         CustomMobs.instance.getSpawnLimiter().spawnedIncrement(getMobFileName(), entity);
+        if(!alive.containsKey(this)) alive.put(this, new LinkedList<>());
+
+        alive.get(this).add(entity);
+
+        CustomMob riding = CustomMobs.instance.getStackingData().getMountingMob(this);
+        if(riding != null) {
+            LivingEntity ridingEntity = riding.spawnAt(l);
+            entity.setPassenger(ridingEntity);
+        }
         return entity;
     }
 

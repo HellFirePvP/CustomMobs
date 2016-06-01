@@ -42,8 +42,8 @@ public class CommandCmobBurn extends PlayerCmobCommand {
     }
 
     @Override
-    public int getCustomMobArgumentIndex() {
-        return 2;
+    public int[] getCustomMobArgumentIndex() {
+        return new int[] { 2 };
     }
 
     @Override

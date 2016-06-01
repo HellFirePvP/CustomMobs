@@ -38,8 +38,8 @@ public abstract class AbstractCmobCommand {
      */
     public abstract int getMinArgLength();
 
-    public int getCustomMobArgumentIndex() {
-        return -1;
+    public int[] getCustomMobArgumentIndex() {
+        return new int[0];
     }
 
     public final String getInputDescriptionKey() {

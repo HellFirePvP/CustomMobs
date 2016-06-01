@@ -26,9 +26,12 @@ public class LanguageHandler {
     public void loadLanguageFile() {
         loadedTranslations.clear();
         File defaultLangFile = new File(CustomMobs.instance.getLanguageFileFolder(), "en_US.lang");
-        if(!defaultLangFile.exists()) {
-            copyDefaultLanguageFile(defaultLangFile);
+        if(defaultLangFile.exists()) {
+            if(!defaultLangFile.delete()) {
+                CustomMobs.logger.debug("Could not refresh default language file!");
+            }
         }
+        copyDefaultLanguageFile(defaultLangFile);
         readLanguageFile(defaultLangFile);
 
         String langFile = CustomMobs.instance.getConfigHandler().getLanguageFileConfiguration() + ".lang";

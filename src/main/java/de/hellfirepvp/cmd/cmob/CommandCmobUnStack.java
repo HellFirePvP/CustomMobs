@@ -1,5 +1,6 @@
 package de.hellfirepvp.cmd.cmob;
 
+import com.massivecraft.factions.Lang;
 import de.hellfirepvp.CustomMobs;
 import de.hellfirepvp.cmd.BaseCommand;
 import de.hellfirepvp.cmd.MessageAssist;
@@ -13,25 +14,32 @@ import org.bukkit.entity.Player;
 /**
  * This class is part of the CustomMobs Plugin
  * The plugin can be found at: https://www.spigotmc.org/resources/custommobs.7339
- * Class: CommandCmobRemove
+ * Class: CommandCmobUnStack
  * Created by HellFirePvP
- * Date: (Header change) 27.05.2016 / 4:07
+ * Date: 01.06.2016 / 18:14
  */
-public class CommandCmobRemove extends PlayerCmobCommand {
+public class CommandCmobUnStack extends PlayerCmobCommand {
 
     @Override
     public void execute(Player p, String[] args) {
-        String name = args[1];
+        String mounted = args[1];
 
-        CustomMob cmob = CustomMobs.instance.getMobDataHolder().getCustomMob(name);
-        if(cmob == null) {
-            MessageAssist.msgMobDoesntExist(p, name);
+        CustomMob cmobMounted = CustomMobs.instance.getMobDataHolder().getCustomMob(mounted);
+        if(cmobMounted == null) {
+            MessageAssist.msgMobDoesntExist(p, mounted);
             BaseCommand.sendPlayerDescription(p, this, true);
             return;
         }
 
-        int killed = CustomMob.killAll(cmob.getMobFileName());
-        p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.GREEN + String.format(LanguageHandler.translate("command.cmob.remove.killed"), String.valueOf(killed), args[1]));
+        CustomMob mounting = CustomMobs.instance.getStackingData().getMountingMob(cmobMounted);
+        if(mounting == null) {
+            p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.RED + String.format(LanguageHandler.translate("command.cmob.unstack.none"), cmobMounted.getMobFileName()));
+            BaseCommand.sendPlayerDescription(p, this, true);
+            return;
+        }
+
+        CustomMobs.instance.getStackingData().unStack(cmobMounted);
+        p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.GREEN + String.format(LanguageHandler.translate("command.cmob.unstack.success"), cmobMounted.getMobFileName(), mounting.getMobFileName()));
     }
 
     @Override
@@ -41,7 +49,7 @@ public class CommandCmobRemove extends PlayerCmobCommand {
 
     @Override
     public String getCommandStart() {
-        return "remove";
+        return "unstack";
     }
 
     @Override
@@ -58,5 +66,4 @@ public class CommandCmobRemove extends PlayerCmobCommand {
     public int getMinArgLength() {
         return 0;
     }
-
 }

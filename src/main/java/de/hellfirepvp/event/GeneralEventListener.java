@@ -174,13 +174,16 @@ public class GeneralEventListener implements Listener {
             String cmdStart = arguments.get(1);
             CommandRegistry.CommandRegisterKey key = new CommandRegistry.CommandRegisterKey(cat, cmdStart);
             AbstractCmobCommand cmd = CommandRegistry.getCommand(key);
-            if(cmd == null || cmd.getCustomMobArgumentIndex() < 0) return;
-            int index = cmd.getCustomMobArgumentIndex();
-            if(index + 1 != arguments.size()) return;
-            event.getCompletions().clear();
-            String arg = arguments.getLast().toLowerCase();
-            Collection<CustomMob> mobs = CustomMobs.instance.getMobDataHolder().getAllLoadedMobs();
-            mobs.stream().filter(mob -> mob.getMobFileName().toLowerCase().startsWith(arg)).forEach(mob -> event.getCompletions().add(mob.getMobFileName()));
+            if(cmd == null) return;
+            int[] indexes = cmd.getCustomMobArgumentIndex();
+            if(indexes.length == 0) return;
+            for (int index : indexes) {
+                if(index + 1 != arguments.size()) continue;
+                event.getCompletions().clear();
+                String arg = arguments.getLast().toLowerCase();
+                Collection<CustomMob> mobs = CustomMobs.instance.getMobDataHolder().getAllLoadedMobs();
+                mobs.stream().filter(mob -> mob.getMobFileName().toLowerCase().startsWith(arg)).forEach(mob -> event.getCompletions().add(mob.getMobFileName()));
+            }
         }
     }
 

@@ -279,7 +279,7 @@ public class NBTProviderImpl implements NBTProvider {
             parent.set(key, (NBTBase) tag.getRawNMSTagCompound());
         }
 
-        //Can't we do better...?
+        //TODO NOPE.
         @Override
         public void set(String key, Object value) throws UnsupportedNBTTypeException {
             if(value instanceof Integer) {

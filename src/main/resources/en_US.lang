@@ -68,8 +68,15 @@ command.cmob.spawner.alreadyset=At the location you're looking at is already a s
 command.cmob.spawner.random=New spawner set! The spawner will spawn %s randomly in an interval of 20-29 seconds.
 command.cmob.spawner.delay=New spawner set! The spawner will spawn %s in an interval of %s seconds!
 
+command.cmob.stack.same=A CustomMob can't mount itself. Please use 2 different mobs.
+command.cmob.stack.success=Whenever %s spawns from now on, %s will spawn as mob riding it.
+command.cmob.stack.circle=Can't make %s mount %s - It would create an endless cirlce mob mobs mounting each other.
+
 command.cmob.tool.failed=You already have the CustomMobs-Tool in your inventory!
 command.cmob.tool.success=The CustomMobs-Tool has been added to your inventory!
+
+command.cmob.unstack.none=No mob currently mounts %s!
+command.cmob.unstack.success=%s is no longer mounted by %s.
 
 #CAI Commands
 command.cai.leash.remove.success=Leash-settings for mob %s removed.
@@ -179,8 +186,14 @@ command.cmob.spawner.inputdesc=/cmob spawner <Name> [delay > 0]
 command.cmob.spawner.usagedesc=Sets the block currently looking at to a spawner
 command.cmob.spawner.additional=If no delay specified, the delay will be something between 20 and 29 seconds.
 
+command.cmob.stack.inputdesc=/cmob stack <Name Mounted> <Name Mounting>
+command.cmob.stack.usagedesc=If 'Mounted' is spawned, 'Mounting' will *always* spawn as entity riding it (in case spawnlimit doesn't prevent the spawning)
+
 command.cmob.tool.inputdesc=/cmob tool
 command.cmob.tool.usagedesc=Gives you the custommob tool.
+
+command.cmob.unstack.inputdesc=/cmob unstack <Name Mounted>
+command.cmob.unstack.usagedesc=In case 'Mounted' has any mobs mounting it, the mounting mob will no longer mount 'Mounted' when 'Mounted' gets spawned.
 
 #CCMOB Commands
 command.ccmob.remove.inputdesc=/ccmob remove <Name>

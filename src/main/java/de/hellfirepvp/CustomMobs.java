@@ -7,6 +7,7 @@ import de.hellfirepvp.data.FullControlHandler;
 import de.hellfirepvp.data.RespawnDataHolder;
 import de.hellfirepvp.data.SpawnSettingsHolder;
 import de.hellfirepvp.data.SpawnerDataHolder;
+import de.hellfirepvp.data.StackingDataHolder;
 import de.hellfirepvp.data.mob.CustomMob;
 import de.hellfirepvp.data.mob.MobDataHolder;
 import de.hellfirepvp.data.nbt.NBTRegister;
@@ -63,6 +64,7 @@ public class CustomMobs extends JavaPlugin {
     private SpawnSettingsHolder spawnSettings = new SpawnSettingsHolder();
     private RespawnDataHolder respawnSettings = new RespawnDataHolder();
     private SpawnLimit spawnLimiter = new SpawnLimit();
+    private StackingDataHolder stackingData = new StackingDataHolder();
 
     @Override
     public void onLoad() {
@@ -110,6 +112,7 @@ public class CustomMobs extends JavaPlugin {
         respawnSettings.loadData();
         spawnLimiter.loadData();
         LeashManager.load();
+        stackingData.load();
 
         /*
             --- Loading and starting Live handlers ---
@@ -179,7 +182,7 @@ public class CustomMobs extends JavaPlugin {
     public void onDisable() {
         logger.info("Cleaning up...");
         int killed = CustomMob.killAllWithLimit();
-        logger.info("" + killed + " alive mobs with SpawnLimit killed.");
+        logger.info(killed + " alive mobs with SpawnLimit killed.");
         fullControlHandler.restoreMCDefault();
         logger.info("Fullcontrol restored minecraft biome spawnsettings.");
         logger.info("disabled!");
@@ -231,6 +234,10 @@ public class CustomMobs extends JavaPlugin {
 
     public SpawnerDataHolder getSpawnerDataHolder() {
         return spawnerDataHolder;
+    }
+
+    public StackingDataHolder getStackingData() {
+        return stackingData;
     }
 
     private void createBiomeInfoFile() {

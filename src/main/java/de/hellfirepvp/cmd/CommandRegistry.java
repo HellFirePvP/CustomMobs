@@ -5,6 +5,8 @@ import de.hellfirepvp.cmd.cai.CommandCaiLeash;
 import de.hellfirepvp.cmd.ccmob.CommandCCmobRemove;
 import de.hellfirepvp.cmd.ccmob.CommandCCmobSpawn;
 import de.hellfirepvp.cmd.ccontrol.CommandCcontrolList;
+import de.hellfirepvp.cmd.cmob.CommandCmobStack;
+import de.hellfirepvp.cmd.cmob.CommandCmobUnStack;
 import de.hellfirepvp.cmd.cnbt.CommandCnbtSet;
 import de.hellfirepvp.cmd.cspawn.CommandCspawnAdd;
 import de.hellfirepvp.cmd.cspawn.CommandCspawnList;
@@ -33,6 +35,8 @@ import de.hellfirepvp.cmd.crespawn.CommandCrespawnAddLoc;
 import de.hellfirepvp.cmd.crespawn.CommandCrespawnRemove;
 import org.bukkit.Bukkit;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -93,24 +97,30 @@ public class CommandRegistry {
         cmobCommands.add(new CommandCmobSetPotion()  .setCategory(CommandCategory.CMOB));
         cmobCommands.add(new CommandCmobSpawn()      .setCategory(CommandCategory.CMOB));
         cmobCommands.add(new CommandCmobSpawner()    .setCategory(CommandCategory.CMOB));
+        cmobCommands.add(new CommandCmobStack()      .setCategory(CommandCategory.CMOB));
         cmobCommands.add(new CommandCmobTool()       .setCategory(CommandCategory.CMOB));
+        cmobCommands.add(new CommandCmobUnStack()    .setCategory(CommandCategory.CMOB));
+        Collections.sort(cmobCommands, (o1, o2) -> o1.getCommandStart().compareTo(o2.getCommandStart()));
         commands.put(CommandCategory.CMOB, cmobCommands);
 
         LinkedList<AbstractCmobCommand> ccmobCommands = new LinkedList<>();
         ccmobCommands.add(new CommandCCmobRemove().setCategory(CommandCategory.CCMOB));
         ccmobCommands.add(new CommandCCmobSpawn() .setCategory(CommandCategory.CCMOB));
+        Collections.sort(ccmobCommands, (o1, o2) -> o1.getCommandStart().compareTo(o2.getCommandStart()));
         commands.put(CommandCategory.CCMOB, ccmobCommands);
 
         LinkedList<AbstractCmobCommand> cspawnCommands = new LinkedList<>();
         cspawnCommands.add(new CommandCspawnAdd()   .setCategory(CommandCategory.CSPAWN));
         cspawnCommands.add(new CommandCspawnRemove().setCategory(CommandCategory.CSPAWN));
         cspawnCommands.add(new CommandCspawnList()  .setCategory(CommandCategory.CSPAWN));
+        Collections.sort(cspawnCommands, (o1, o2) -> o1.getCommandStart().compareTo(o2.getCommandStart()));
         commands.put(CommandCategory.CSPAWN, cspawnCommands);
 
         LinkedList<AbstractCmobCommand> crespawnCommands = new LinkedList<>();
         crespawnCommands.add(new CommandCrespawnAdd()   .setCategory(CommandCategory.CRESPAWN));
         crespawnCommands.add(new CommandCrespawnAddLoc().setCategory(CommandCategory.CRESPAWN));
         crespawnCommands.add(new CommandCrespawnRemove().setCategory(CommandCategory.CRESPAWN));
+        Collections.sort(crespawnCommands, (o1, o2) -> o1.getCommandStart().compareTo(o2.getCommandStart()));
         commands.put(CommandCategory.CRESPAWN, crespawnCommands);
 
         LinkedList<AbstractCmobCommand> ccontrolCommands = new LinkedList<>();

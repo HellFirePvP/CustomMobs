@@ -20,6 +20,7 @@ public class LibMisc {
 
     public static final String FILENAME_SPAWNERDATA = "spawnerData.yml";
     public static final String FILENAME_CONFIG = "config.yml";
+    public static final String FILENAME_STACKING = "stackSettings.yml";
     public static final String FILENAME_SPAWNSETTINGS = "spawnSettings.yml";
     public static final String FILENAME_RESPAWNSETTINGS = "respawnSettings.yml";
     public static final String FILENAME_AI_LEASH = "leashData.yml";

@@ -24,6 +24,7 @@ public class LibConfiguration {
     private static File spawnConfigFile = null;
     private static File spawnerDataFile = null;
     private static File respawnSettingsFile = null;
+    private static File stackSettingsFile = null;
 
     private static File leashDataFile = null;
 
@@ -31,6 +32,10 @@ public class LibConfiguration {
 
     public static YamlConfiguration getLeashDataConfiguration() {
         return loadYaml(getLeashDataFile(), leashDataFile);
+    }
+
+    public static YamlConfiguration getStackDataConfiguration() {
+        return loadYaml(getStackSettingsFile(), stackSettingsFile);
     }
 
     public static YamlConfiguration getSpawnerDataConfiguration() {
@@ -107,6 +112,11 @@ public class LibConfiguration {
             return true;
         }
         return false;
+    }
+
+    public static File getStackSettingsFile() {
+        stackSettingsFile = loadFile(stackSettingsFile, FILENAME_STACKING);
+        return stackSettingsFile;
     }
 
     public static File getAiDirectory() {
