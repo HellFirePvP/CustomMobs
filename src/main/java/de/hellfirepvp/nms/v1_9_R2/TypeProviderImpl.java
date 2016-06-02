@@ -115,5 +115,12 @@ public class TypeProviderImpl implements MobTypeProvider {
         return tag;
     }
 
+    @Override
+    public void mergeEntityDataInto(LivingEntity le, WrappedNBTTagCompound tag) {
+        if(NMSReflector.nbtProvider == null || le == null) return;
+        EntityLiving e = ((CraftLivingEntity) le).getHandle();
+        e.c((NBTTagCompound) tag.getRawNMSTagCompound());
+    }
+
 
 }

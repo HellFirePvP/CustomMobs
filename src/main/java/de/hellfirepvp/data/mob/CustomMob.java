@@ -5,10 +5,14 @@ import de.hellfirepvp.api.data.nbt.UnsupportedNBTTypeException;
 import de.hellfirepvp.api.data.nbt.WrappedNBTTagCompound;
 import de.hellfirepvp.data.nbt.BufferingNBTEditor;
 import de.hellfirepvp.file.write.MobDataWriter;
+import de.hellfirepvp.lang.LanguageHandler;
+import de.hellfirepvp.lib.LibLanguageOutput;
 import de.hellfirepvp.nms.NMSReflector;
 import de.hellfirepvp.api.exception.SpawnLimitException;
 import de.hellfirepvp.util.EntityUtils;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.inventory.EntityEquipment;
 
@@ -74,10 +78,47 @@ public class CustomMob {
     }
 
     public void askForSave(BufferingNBTEditor bufferingNBTEditor) {
-        this.snapshotTag = entityAdapter.getEntityTag();
+        try {
+            this.snapshotTag = entityAdapter.getEntityTag();
+        } catch (Exception exc) {
+            CustomMobs.logger.warning("Could not update entityTag for " + name + " - did somebody mess with the NBT tag?");
+            if(CustomMobs.instance.getConfigHandler().debug()) {
+                CustomMobs.logger.warning("Debug is enabled - StackTrace:");
+                exc.printStackTrace();
+            }
+        }
         CustomMobs.logger.debug("API asked for MobFile saving for CustomMob " + name);
         bufferingNBTEditor.executeQueriesOn(this.snapshotTag);
         writeTag();
+    }
+
+    public void askForSave(BufferingNBTEditor editor, CommandSender cs) {
+        try {
+            this.snapshotTag = entityAdapter.getEntityTag();
+        } catch (Exception exc) {
+            CustomMobs.logger.warning("Could not update entityTag for " + name + " - did somebody mess with the NBT tag?");
+            if(CustomMobs.instance.getConfigHandler().debug()) {
+                CustomMobs.logger.warning("Debug is enabled - StackTrace:");
+                exc.printStackTrace();
+            }
+        }
+        CustomMobs.logger.debug("API asked for MobFile saving for CustomMob " + name);
+        editor.executeQueriesOn(this.snapshotTag);
+
+        MobDataWriter.writeMobFile(this);
+        invalidateAPIs();
+        entityAdapter.reloadEntity();
+        try {
+            this.snapshotTag = entityAdapter.getEntityTag();
+        } catch (Exception exc) {
+            cs.sendMessage(LibLanguageOutput.PREFIX + ChatColor.RED +
+                    String.format(LanguageHandler.translate("command.cnbt.setraw.entity.error"), getMobFileName()));
+            CustomMobs.logger.warning("Could not update entityTag for " + name + " - did somebody mess with the NBT tag?");
+            if(CustomMobs.instance.getConfigHandler().debug()) {
+                CustomMobs.logger.warning("Debug is enabled - StackTrace:");
+                exc.printStackTrace();
+            }
+        }
     }
 
     protected final boolean saveTagAlongWith(String entry, Object value) {
@@ -110,7 +151,7 @@ public class CustomMob {
         if(!CustomMobs.instance.getSpawnLimiter().canSpawn(getMobFileName())) throw new SpawnLimitException("SpawnLimit denies spawning of " + name);
         LivingEntity entity = unsafe_Spawn(l);
         if(entity == null)
-            throw new IllegalStateException("Unknown EntityType for " + getMobFileName() + " or NBTTag is missing some information.");
+            throw new IllegalStateException("Unknown EntityType for " + getMobFileName() + " or NBTTag is missing some information or contains wrong data!");
         CustomMobs.instance.getSpawnLimiter().spawnedIncrement(getMobFileName(), entity);
         if(!alive.containsKey(this)) alive.put(this, new LinkedList<>());
 
@@ -194,6 +235,19 @@ public class CustomMob {
             }
         }
         return count;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CustomMob customMob = (CustomMob) o;
+        return !(name != null ? !name.equals(customMob.name) : customMob.name != null);
+    }
+
+    @Override
+    public int hashCode() {
+        return name != null ? name.hashCode() : 0;
     }
 
 }

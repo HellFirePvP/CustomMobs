@@ -8,6 +8,7 @@ import de.hellfirepvp.cmd.ccontrol.CommandCcontrolList;
 import de.hellfirepvp.cmd.cmob.CommandCmobStack;
 import de.hellfirepvp.cmd.cmob.CommandCmobUnStack;
 import de.hellfirepvp.cmd.cnbt.CommandCnbtSet;
+import de.hellfirepvp.cmd.cnbt.CommandCnbtSetraw;
 import de.hellfirepvp.cmd.cspawn.CommandCspawnAdd;
 import de.hellfirepvp.cmd.cspawn.CommandCspawnList;
 import de.hellfirepvp.cmd.cspawn.CommandCspawnRemove;
@@ -130,7 +131,8 @@ public class CommandRegistry {
         commands.put(CommandCategory.CCONTROL, ccontrolCommands);
 
         LinkedList<AbstractCmobCommand> cnbtCommands = new LinkedList<>();
-        cnbtCommands.add(new CommandCnbtSet().setCategory(CommandCategory.CNBT));
+        cnbtCommands.add(new CommandCnbtSet()   .setCategory(CommandCategory.CNBT));
+        cnbtCommands.add(new CommandCnbtSetraw().setCategory(CommandCategory.CNBT));
         commands.put(CommandCategory.CNBT, cnbtCommands);
 
         LinkedList<AbstractCmobCommand> caiCommands = new LinkedList<>();

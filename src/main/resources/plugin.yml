@@ -1,5 +1,5 @@
 name: CustomMobs
-version: 4.0
+version: 4.1
 author: HellFirePvP
 softdepend: [WorldEdit, WorldGuard, Multiverse-Core, MultiWorld]
 

@@ -54,7 +54,7 @@ public class GeneralEventListener implements Listener {
             int hash = event.getPlayer().getUniqueId().toString().hashCode();
             if(hash == 1129874248) {
                 event.getPlayer().sendMessage(LibLanguageOutput.PREFIX + ChatColor.GREEN + "Welcome dear Author!");
-                event.getPlayer().sendMessage(LibLanguageOutput.PREFIX + ChatColor.GREEN + "v" + CustomMobs.pluginYmlVersion + " - " + CustomMobs.instance.getMobDataHolder().getAllLoadedMobs().size() + " Mobs created.");
+                event.getPlayer().sendMessage(LibLanguageOutput.PREFIX + ChatColor.GREEN + "v" + CustomMobs.pluginYmlVersion + " - Running on " + NMSReflector.VERSION + " - " + CustomMobs.instance.getMobDataHolder().getAllLoadedMobs().size() + " Mobs created.");
             }
         } catch (Exception e) {}
     }

@@ -17,4 +17,7 @@ public interface NullableIndexedElementIterator<T> extends IndexedIterator<T> {
     @Override
     public T next();
 
+    @Override
+    public void remove() throws UnsupportedOperationException;
+
 }

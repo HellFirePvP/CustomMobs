@@ -37,7 +37,7 @@ public class CustomMobAdapter implements ICustomMob {
     }
 
     @Override
-    public WatchedNBTEditor editNBTTag() {
+    public BufferingNBTEditor editNBTTag() {
         BufferingNBTEditor editor = new BufferingNBTEditor(parent, parent.getDataSnapshot());
         currentlyEditing.add(new WeakReference<>(editor));
         return editor;

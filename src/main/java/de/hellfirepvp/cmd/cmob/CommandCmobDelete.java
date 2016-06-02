@@ -57,7 +57,7 @@ public class CommandCmobDelete extends PlayerCmobCommand {
             return;
         }
         if(MobFactory.tryDeleteMobFile(args[1])) {
-            p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.GREEN + String.format(LanguageHandler.translate("command.cmob.delete.failed"), args[1]));
+            p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.GREEN + String.format(LanguageHandler.translate("command.cmob.delete.success"), args[1]));
         } else {
             p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.RED + LanguageHandler.translate("command.cmob.delete.failed"));
         }

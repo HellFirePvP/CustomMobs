@@ -50,6 +50,11 @@ public class UnmodWrappedNBTTagList implements WrappedNBTTagList {
     }
 
     @Override
+    public boolean hasElementType() {
+        return parent.hasElementType();
+    }
+
+    @Override
     public NBTTagType getElementType() {
         return parent.getElementType();
     }

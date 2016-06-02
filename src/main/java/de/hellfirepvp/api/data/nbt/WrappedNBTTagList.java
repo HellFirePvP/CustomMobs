@@ -23,6 +23,8 @@ public interface WrappedNBTTagList extends Iterable<Object> {
 
     public boolean appendTagList(WrappedNBTTagList list);
 
+    public boolean hasElementType();
+
     public NBTTagType getElementType();
 
     public NullableIndexedElementIterator<Object> getElementIterator(boolean unmodifiable);

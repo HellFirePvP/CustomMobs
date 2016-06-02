@@ -92,7 +92,7 @@ public class NBTProviderImpl implements NBTProvider {
         @Override
         public boolean appendItemStack(ItemStack stack) {
             if(stack == null) return false;
-            if(hasType() && NBTTagType.TAG_COMPOUND != getElementType()) return false;
+            if(hasElementType() && NBTTagType.TAG_COMPOUND != getElementType()) return false;
 
             WrappedNBTTagCompound cmp = NMSReflector.nbtProvider.newTagCompound();
             NMSReflector.nbtProvider.saveStack(stack, cmp);
@@ -105,26 +105,27 @@ public class NBTProviderImpl implements NBTProvider {
             NBTBase wrapped = wrapValue(element);
             if(wrapped == null) return false;
             NBTTagType wrappedType = NBTTagType.getById((int) wrapped.getTypeId());
-            if(hasType() && wrappedType != getElementType()) return false;
+            if(hasElementType() && wrappedType != getElementType()) return false;
             parentList.add(wrapped);
             return true;
         }
 
         @Override
         public boolean appendTagCompound(WrappedNBTTagCompound compound) {
-            if(hasType() && getElementType() != NBTTagType.TAG_COMPOUND) return false;
+            if(hasElementType() && getElementType() != NBTTagType.TAG_COMPOUND) return false;
             parentList.add((NBTBase) compound.getRawNMSTagCompound());
             return true;
         }
 
         @Override
         public boolean appendTagList(WrappedNBTTagList list) {
-            if(hasType() && getElementType() != NBTTagType.TAG_LIST) return false;
+            if(hasElementType() && getElementType() != NBTTagType.TAG_LIST) return false;
             parentList.add((NBTBase) list.getRawNMSTagList());
             return true;
         }
 
-        private boolean hasType() {
+        @Override
+        public boolean hasElementType() {
             return parentList.d() != 0;
         }
 
@@ -178,7 +179,7 @@ public class NBTProviderImpl implements NBTProvider {
 
         private NBTTagList list;
         private int entryPointer;
-        private boolean unmodifiable;
+        private boolean unmodifiable, removeCalledThisIteration = false;
 
         public ForIntIterator(NBTTagList list, boolean unmodifiable) {
             this.list = list;
@@ -196,6 +197,7 @@ public class NBTProviderImpl implements NBTProvider {
         public Object next() {
             NBTBase element = list.h(entryPointer);
             entryPointer++;
+            removeCalledThisIteration = false;
             Object value = extractValue(element);
             if(value != null) return value;
             if(element instanceof NBTTagCompound) {
@@ -208,6 +210,17 @@ public class NBTProviderImpl implements NBTProvider {
                 return list;
             }
             return element; //Awkward huh...
+        }
+
+        @Override
+        public void remove() {
+            if(unmodifiable) throw new UnsupportedOperationException("remove (unmodifiable NBTIterator)");
+            if(removeCalledThisIteration) throw new IllegalStateException("remove already called for this element");
+
+            list.remove(entryPointer);
+
+            entryPointer--;
+            removeCalledThisIteration = true;
         }
 
         @Override
@@ -354,6 +367,7 @@ public class NBTProviderImpl implements NBTProvider {
 
         @Override
         public WrappedNBTTagCompound getTagCompound(String key) {
+            if(!parent.hasKeyOfType(key, NBTTagType.TAG_COMPOUND.getTypeId())) return null;
             NBTTagCompound other = parent.getCompound(key);
             if(other == null) return null;
             return new TagCompoundImpl(other);
@@ -361,6 +375,7 @@ public class NBTProviderImpl implements NBTProvider {
 
         @Override
         public WrappedNBTTagList getTagList(String key, NBTTagType expectedListElements) {
+            if(!parent.hasKeyOfType(key, NBTTagType.TAG_LIST.getTypeId())) return null;
             NBTTagList list = parent.getList(key, expectedListElements.getTypeId());
             if(list == null) return null;
             return new TagListImpl(list);

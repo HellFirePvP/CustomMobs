@@ -98,6 +98,22 @@ command.cnbt.set.notsupported=No NBTEntry named %s is known for MobType %s by de
 command.cnbt.set.success=NBTEntry %s was set to %s for CustomMob %s!
 command.cnbt.set.failed=DataType for %s is not supported.
 
+command.cnbt.setraw.parse.path.colon=%s must not contain more than 1 colon!
+command.cnbt.setraw.parse.path.type=%s must be either 'T' -> TagCompound or 'TL' -> TagList!
+command.cnbt.setraw.parse.path.end=The specified NBTPath didn't end at a list or tag - how?
+command.cnbt.setraw.parse.path.listtype.accept=A NBTTagList doesn't accept elements of type %s
+command.cnbt.setraw.parse.path.listtype.contain=A NBTTagList doesn't contain elements of type %s
+command.cnbt.setraw.parse.path.list.keyint=For getting/setting elements in a list, please specify a list-element-index instead of %s.
+command.cnbt.setraw.parse.path.list.range=An index you specified for a list is out of range (index: %s, size: %s)
+command.cnbt.setraw.parse.path.typeunknown=Unknown NBTType: %s (Known Types: %s)
+command.cnbt.setraw.noitem=Tried to set an Item to NBT without having an Item in hand!
+command.cnbt.setraw.success.generic=Successfully set NBT entry at %s for %s to %s!
+command.cnbt.setraw.success.item=Successfully set NBT entry at %s for %s to your item in hand!
+command.cnbt.setraw.success.remove=Successfully removed NBT entry at %s with key %s!
+command.cnbt.setraw.failed.remove.element=There is no element to remove with key %s!
+command.cnbt.setraw.failed.remove.list=You can't remove list elements! Try removing the whole list instead.
+command.cnbt.setraw.entity.error=Could not reload entity-tag for entity %s! Did you mess up the NBT or are you in a process of editing multiple tags? Spawning the CustomMob now might not be a good idea.
+
 #CCMOB Commands
 command.ccmob.spawn.noworld=World called '%s' not found!
 
@@ -231,7 +247,11 @@ command.cai.leash.additional=Define a maxRange and the mob will never leave the 
 #CNBT Commands
 command.cnbt.set.inputdesc=/cnbt set <Name> <Entry> <Value>
 command.cnbt.set.usagedesc=Set a defined NBT-Entry to a specific value
-command.cnbt.set.additional=TabComplete help is integrated to get specific entries more easily. If you wish to set your own, custom NBTTags, use /cnbt setraw instead. (setraw will come in 4.1+)
+command.cnbt.set.additional=TabComplete help is integrated to get specific entries more easily. If you wish to set your own, custom NBTTags, use /cnbt setraw instead.
+
+command.cnbt.setraw.inputdesc=/cnbt setraw <Name> [T/TL:PathKey/Index ...] <Type:Key> <Value>
+command.cnbt.setraw.usagedesc=Set a NBT-Entry in the Mob's NBT Tag. Any value can be edited/replaced with anything.
+command.cnbt.setraw.additional=Since everything can be modified, you can also corrupt the mobfile. It's not suggested to use this command if you're inexperienced. Information video on this is provided on the plugin website.
 
 #CCONTROL Commands
 command.ccontrol.list.inputdesc=/ccontrol list <BiomeName> <WATER_CREATURE/AMBIENT/CREATURE/MONSTER>
@@ -268,7 +288,7 @@ command.error.number.bool=%s should be either 'true' or 'false'!
 command.error.none=None
 
 command.error.parse.arrayByte=%s should be a row of numbers (from -128 to 127), separated by ';' (Example: 5;7;1;7)
-command.error.parse.arrayInt%s should be a row of numbers, separated by ';' (Example: 501;533;12;5;77;1794)
+command.error.parse.arrayInt=%s should be a row of numbers, separated by ';' (Example: 501;533;12;5;77;1794)
 
 #OTHER STUFF
 

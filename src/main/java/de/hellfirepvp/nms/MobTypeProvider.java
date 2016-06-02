@@ -28,4 +28,6 @@ public interface MobTypeProvider {
 
     public WrappedNBTTagCompound getDataFromEntity(LivingEntity le);
 
+    public void mergeEntityDataInto(LivingEntity le, WrappedNBTTagCompound tag);
+
 }

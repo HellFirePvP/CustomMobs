@@ -25,7 +25,11 @@ public class CommandCmobList extends PlayerCmobCommand {
             sb.append("(").append(c.getMobFileName()).append(" - ").append(c.getEntityAdapter().getEntityType().getName()).append(")");
         }
         p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.AQUA + LanguageHandler.translate("command.cmob.list"));
-        p.sendMessage(ChatColor.GREEN + sb.toString());
+        if(sb.length() > 0) {
+            p.sendMessage(ChatColor.GREEN + sb.toString());
+        } else {
+            p.sendMessage(ChatColor.RED + LanguageHandler.translate("command.error.none"));
+        }
     }
 
     @Override

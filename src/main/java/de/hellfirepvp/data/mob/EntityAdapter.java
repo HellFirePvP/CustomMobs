@@ -36,10 +36,11 @@ public class EntityAdapter {
     }
 
     public WrappedNBTTagCompound getEntityTag() {
-        WrappedNBTTagCompound rawTag = NMSReflector.mobTypeProvider.getDataFromEntity(adapterEntity);
+        WrappedNBTTagCompound tag = parentMob.getDataSnapshot();
+        NMSReflector.mobTypeProvider.mergeEntityDataInto(adapterEntity, tag);
         WrappedNBTTagCompound cmobTag = parentMob.getDataAdapter().getPersistentCustomMobsTag();
-        rawTag.setSubTag("CustomMobs", cmobTag);
-        return rawTag;
+        tag.setSubTag("CustomMobs", cmobTag);
+        return tag;
     }
 
     public void reloadEntity() {

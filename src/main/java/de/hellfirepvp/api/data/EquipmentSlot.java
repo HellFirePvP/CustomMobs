@@ -6,6 +6,9 @@ import org.bukkit.inventory.EntityEquipment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * This class is part of the CustomMobs Plugin
  * The plugin can be found at: https://www.spigotmc.org/resources/custommobs.7339
@@ -22,10 +25,27 @@ public enum EquipmentSlot {
     LEGGINGS("leggings"),
     BOOTS("boots");
 
+    private static final Map<String, EquipmentSlot> BY_NAME = new HashMap<>();
+
     private final String subKey;
 
     private EquipmentSlot(String subKey) {
         this.subKey = subKey;
+    }
+
+    public String getSubKey() {
+        return subKey;
+    }
+
+    public static EquipmentSlot getByName(String name) {
+        return BY_NAME.get(name);
+    }
+
+    static {
+        for (EquipmentSlot es : values()) {
+            if(es == null) continue;
+            BY_NAME.put(es.getSubKey(), es);
+        }
     }
 
     public String getUnlocalizedRepresentation() {

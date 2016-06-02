@@ -125,9 +125,9 @@ public abstract class NBTEntryParser<T> {
         @Override
         public Boolean parse(String str) throws ParseException {
             String s = str.toLowerCase();
-            if(s.equals(TRUE)) {
+            if(s.equalsIgnoreCase(TRUE)) {
                 return true;
-            } else if(s.equals(FALSE)) {
+            } else if(s.equalsIgnoreCase(FALSE)) {
                 return false;
             }
             throw new ParseException(s, 0);
