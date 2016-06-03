@@ -122,7 +122,7 @@ public class DataAdapter {
 
     public boolean isFireProof() {
         WrappedNBTTagCompound cmobTag = getPersistentCustomMobsTag();
-        return cmobTag.hasKey("FireProof") && (boolean) cmobTag.getValue("FireProof");
+        return cmobTag.hasKey("FireProof") && ((byte) cmobTag.getValue("FireProof") != Byte.valueOf(0));
     }
 
     public Map<ItemStack, Double> getItemDrops() {
