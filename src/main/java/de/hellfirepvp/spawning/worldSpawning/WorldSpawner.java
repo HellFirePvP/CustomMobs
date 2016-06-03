@@ -62,7 +62,7 @@ public class WorldSpawner {
                                 int z = chCoord.z;
                                 int x = chCoord.x;
                                 Vector pos = getRandomChunkPosition(w, x, z);
-                                if(!NMSReflector.nmsUtils.isNormalCube(w, pos)) {
+                                if(NMSReflector.nmsUtils.isNormalCube(w, pos)) {
                                     for (int i = 0; i < 3; ++i) {
                                         int pX = pos.getBlockX();
                                         int pY = pos.getBlockY();
