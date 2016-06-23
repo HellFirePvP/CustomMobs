@@ -415,10 +415,14 @@ public class CommandCnbtSetraw extends PlayerCmobCommand {
         }
 
         public static NBTEditKey parseEntry(String specificEntry) throws LocatableException {
-            String[] spl = specificEntry.split(":");
-            if(spl.length != 2) throw new LocatableException("command.cnbt.setraw.parse.path.colon", specificEntry);
-            String type = spl[0];
-            String key = spl[1];
+            int colon = specificEntry.indexOf(':');
+            if(colon == -1) throw new LocatableException("command.cnbt.setraw.parse.path.colon", specificEntry);
+            if(colon + 1 >= specificEntry.length()) throw new LocatableException("command.cnbt.setraw.parse.path.nopath", specificEntry);
+            //From a technical viewpoint, colon + 1 > length() is sufficient to prevent an error, however we can't do anything with an empty string...
+
+            String type = specificEntry.substring(0, colon);
+            String key = specificEntry.substring(colon + 1);
+
             if(type.equalsIgnoreCase("item")) {
                 return new StackNBTEditKey(key);
             }

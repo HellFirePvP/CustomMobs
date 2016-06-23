@@ -98,7 +98,8 @@ command.cnbt.set.notsupported=No NBTEntry named %s is known for MobType %s by de
 command.cnbt.set.success=NBTEntry %s was set to %s for CustomMob %s!
 command.cnbt.set.failed=DataType for %s is not supported.
 
-command.cnbt.setraw.parse.path.colon=%s must not contain more than 1 colon!
+command.cnbt.setraw.parse.path.colon=%s should contain a colon! - Format: T/TL:PathName/Index
+command.cnbt.setraw.parse.path.nopath=%s doesn't contain a path specification... - Expected format: T/TL:PathName/Index
 command.cnbt.setraw.parse.path.type=%s must be either 'T' -> TagCompound or 'TL' -> TagList!
 command.cnbt.setraw.parse.path.end=The specified NBTPath didn't end at a list or tag - how?
 command.cnbt.setraw.parse.path.listtype.accept=A NBTTagList doesn't accept elements of type %s

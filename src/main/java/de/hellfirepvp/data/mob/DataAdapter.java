@@ -80,12 +80,7 @@ public class DataAdapter {
             WrappedNBTTagCompound dropTag = NMSReflector.nbtProvider.newTagCompound();
             dropTag.setSubTag("ItemStack", tag);
             dropTag.setDouble("Chance", chance);
-
-            if(tagList.appendTagCompound(dropTag)) {
-                System.out.println("Successfully added dropTag");
-            } else {
-                System.out.println("Failed to add drop tag");
-            }
+            tagList.appendTagCompound(dropTag);
         }
 
         WrappedNBTTagCompound cmobTag = getPersistentCustomMobsTag();
@@ -122,7 +117,7 @@ public class DataAdapter {
 
     public boolean isFireProof() {
         WrappedNBTTagCompound cmobTag = getPersistentCustomMobsTag();
-        return cmobTag.hasKey("FireProof") && ((byte) cmobTag.getValue("FireProof") != Byte.valueOf(0));
+        return cmobTag.hasKey("FireProof") && ((byte) cmobTag.getValue("FireProof") != 0);
     }
 
     public Map<ItemStack, Double> getItemDrops() {

@@ -54,6 +54,7 @@ public class CommandCmobName extends PlayerCmobCommand {
             BaseCommand.sendPlayerDescription(p, this, true);
             return;
         }
+        customName = customName.replaceAll("_", " ");
 
         cmob.getEntityAdapter().setCustomName(customName);
         String out = ChatColor.translateAlternateColorCodes('&', customName);
