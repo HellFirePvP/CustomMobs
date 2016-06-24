@@ -3,8 +3,11 @@ package de.hellfirepvp.nms.v1_10_R1;
 import de.hellfirepvp.CustomMobs;
 import de.hellfirepvp.nms.NMSUtils;
 import de.hellfirepvp.spawning.worldSpawning.WorldSpawner;
+import gnu.trove.map.hash.TObjectIntHashMap;
 import net.minecraft.server.v1_10_R1.BlockPosition;
 import net.minecraft.server.v1_10_R1.Blocks;
+import net.minecraft.server.v1_10_R1.Chunk;
+import net.minecraft.server.v1_10_R1.Entity;
 import net.minecraft.server.v1_10_R1.EntityLiving;
 import net.minecraft.server.v1_10_R1.EnumCreatureType;
 import net.minecraft.server.v1_10_R1.EnumItemSlot;
@@ -23,6 +26,7 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.util.Vector;
 
 import java.lang.reflect.Field;
+import java.util.List;
 
 /**
  * This class is part of the CustomMobs Plugin
@@ -96,8 +100,19 @@ public class NMSUtilImpl implements NMSUtils {
         return data;
     }
 
+    private static Field entityCountField;
+
+    static {
+
+        try {
+            entityCountField = Chunk.class.getDeclaredField("entityCount");
+            entityCountField.setAccessible(true);
+        } catch (Exception e) {}
+
+    }
+
     @Override
-    public int getLivingCount(WorldSpawner.CreatureType creatureType, World world) {
+    public int getLivingCount(WorldSpawner.CreatureType creatureType, List<WorldSpawner.ChunkCoordPair> chCoords, World world) {
         EnumCreatureType type;
         switch (creatureType) {
             case AMBIENT:
@@ -115,8 +130,17 @@ public class NMSUtilImpl implements NMSUtils {
             default:
                 return 0;
         }
+        Class<?> clazz = type.a();
         WorldServer ws = ((CraftWorld) world).getHandle();
-        return ws.a(type.a());
+        int cnt = 0;
+        for (WorldSpawner.ChunkCoordPair p : chCoords) {
+            if (ws.getChunkProviderServer().isLoaded(p.x, p.z)) {
+                try {
+                    cnt += ((TObjectIntHashMap<Class>) entityCountField.get(ws.getChunkAt(p.x, p.z))).get(clazz);
+                } catch (Exception e) {}
+            }
+        }
+        return cnt;
     }
 
     @Override

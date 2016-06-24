@@ -8,6 +8,8 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.util.Vector;
 import org.spigotmc.SpigotWorldConfig;
 
+import java.util.List;
+
 /**
  * This class is part of the CustomMobs Plugin
  * The plugin can be found at: https://www.spigotmc.org/resources/custommobs.7339
@@ -23,7 +25,7 @@ public interface NMSUtils {
 
     public byte[] getMobSpawnRangeAndViewDistance(World world);
 
-    public int getLivingCount(WorldSpawner.CreatureType creatureType, World world);
+    public int getLivingCount(WorldSpawner.CreatureType creatureType, List<WorldSpawner.ChunkCoordPair> chCoords, World world);
 
     public boolean isPlayerInRange(Location location, double range);
 
