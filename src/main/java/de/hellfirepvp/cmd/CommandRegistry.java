@@ -16,7 +16,7 @@ import de.hellfirepvp.cmd.cmob.CommandCmobBurn;
 import de.hellfirepvp.cmd.cmob.CommandCmobCmd;
 import de.hellfirepvp.cmd.cmob.CommandCmobCreate;
 import de.hellfirepvp.cmd.cmob.CommandCmobDelete;
-import de.hellfirepvp.cmd.cmob.CommandCmobDrop;
+import de.hellfirepvp.cmd.cmob.CommandCmobDrops;
 import de.hellfirepvp.cmd.cmob.CommandCmobEquip;
 import de.hellfirepvp.cmd.cmob.CommandCmobExp;
 import de.hellfirepvp.cmd.cmob.CommandCmobFireProof;
@@ -37,7 +37,6 @@ import de.hellfirepvp.cmd.crespawn.CommandCrespawnRemove;
 import org.bukkit.Bukkit;
 
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -84,7 +83,7 @@ public class CommandRegistry {
         cmobCommands.add(new CommandCmobCmd()        .setCategory(CommandCategory.CMOB));
         cmobCommands.add(new CommandCmobCreate()     .setCategory(CommandCategory.CMOB));
         cmobCommands.add(new CommandCmobDelete()     .setCategory(CommandCategory.CMOB));
-        cmobCommands.add(new CommandCmobDrop()       .setCategory(CommandCategory.CMOB));
+        cmobCommands.add(new CommandCmobDrops()       .setCategory(CommandCategory.CMOB));
         cmobCommands.add(new CommandCmobEquip()      .setCategory(CommandCategory.CMOB));
         cmobCommands.add(new CommandCmobExp()        .setCategory(CommandCategory.CMOB));
         cmobCommands.add(new CommandCmobFireProof()  .setCategory(CommandCategory.CMOB));

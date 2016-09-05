@@ -9,6 +9,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -20,14 +21,39 @@ import java.util.Map;
  */
 public interface ICustomMob {
 
+    /**
+     * The WatchedNBTEditor is a buffering-setonly NBT-tag editor.
+     * Unless you call "saveAndInvalidateTag" after doing your changes, nothing will be applied to the NBT Tag.
+     *
+     * @return Set-only buffering NBT tag.
+     */
     public WatchedNBTEditor editNBTTag();
 
+    /**
+     * The WrappedNBTTagCompound returned here only allows read operations.
+     * It contains all data that all living entities of this custommob share.
+     *
+     * @return a read-only NBT tag.
+     */
     public WrappedNBTTagCompound getReadOnlyTag();
 
+    /**
+     * @return the name of the custommob
+     */
     public String getName();
 
+    /**
+     * @return the entitytype of the custommob
+     */
     public EntityType getEntityType();
 
+    /**
+     * Tries to spawn the custommob at a specific location.
+     *
+     * @param at the location to spawn the mob at.
+     * @return The entity spawned
+     * @throws SpawnLimitException In case the mob's spawnlimit has been hit.
+     */
     public LivingEntity spawnAt(Location at) throws SpawnLimitException;
 
     //Less important stuff
@@ -50,6 +76,26 @@ public interface ICustomMob {
 
     public Map<EquipmentSlot, ItemStack> getEquipment();
 
-    public Map<ItemStack, Double> getDrops();
+    public List<ItemDrop> getDrops();
+
+    public static class ItemDrop {
+
+        private final ItemStack stack;
+        private final double chance;
+
+        public ItemDrop(ItemStack stack, double chance) {
+            this.stack = stack;
+            this.chance = chance;
+        }
+
+        public ItemStack getStack() {
+            return stack;
+        }
+
+        public double getChance() {
+            return chance;
+        }
+
+    }
 
 }

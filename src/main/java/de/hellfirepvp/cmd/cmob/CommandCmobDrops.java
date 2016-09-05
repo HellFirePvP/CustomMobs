@@ -5,27 +5,21 @@ import de.hellfirepvp.cmd.BaseCommand;
 import de.hellfirepvp.cmd.MessageAssist;
 import de.hellfirepvp.cmd.PlayerCmobCommand;
 import de.hellfirepvp.data.mob.CustomMob;
-import de.hellfirepvp.data.mob.DataAdapter;
-import de.hellfirepvp.lang.LanguageHandler;
-import de.hellfirepvp.lib.LibLanguageOutput;
-import org.bukkit.ChatColor;
+import de.hellfirepvp.data.drops.InventoryDrops;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
-
-import java.util.Map;
 
 /**
  * This class is part of the CustomMobs Plugin
  * The plugin can be found at: https://www.spigotmc.org/resources/custommobs.7339
- * Class: CommandCmobDrop
+ * Class: CommandCmobDrops
  * Created by HellFirePvP
  * Date: (Header change) 27.05.2016 / 4:06
  */
-public class CommandCmobDrop extends PlayerCmobCommand {
+public class CommandCmobDrops extends PlayerCmobCommand {
 
     @Override
     public String getCommandStart() {
-        return "drop";
+        return "drops";
     }
 
     @Override
@@ -35,7 +29,7 @@ public class CommandCmobDrop extends PlayerCmobCommand {
 
     @Override
     public int getFixedArgLength() {
-        return 3;
+        return 2;
     }
 
     @Override
@@ -50,14 +44,26 @@ public class CommandCmobDrop extends PlayerCmobCommand {
 
     @Override
     public void execute(Player p, String[] args) {
-        args[2] = args[2].replace(",", ".");
+        String name = args[1];
+        CustomMob cmob = CustomMobs.instance.getMobDataHolder().getCustomMob(name);
+        if(cmob == null) {
+            MessageAssist.msgMobDoesntExist(p, name);
+            BaseCommand.sendPlayerDescription(p, this, true);
+            return;
+        }
+
+        p.openInventory(InventoryDrops.createDropsInventory(p, cmob.createApiAdapter()));
+        /*args[2] = args[2].replace(",", ".");
         String name = args[1];
         String chanceStr = args[2];
         float chance;
         try {
             chance = Float.parseFloat(chanceStr);
-            if(chance < 0.0F) throw new Exception();
-            if(chance > 1.0F) throw new Exception();
+            if(chance < 0.0F || chance > 1.0F) {
+                MessageAssist.msgShouldBeAFloatNumberNormalized(p, chanceStr);
+                BaseCommand.sendPlayerDescription(p, this, false);
+                return;
+            }
         } catch (Exception exc) {
             MessageAssist.msgShouldBeAFloatNumberNormalized(p, chanceStr);
             BaseCommand.sendPlayerDescription(p, this, false);
@@ -88,6 +94,6 @@ public class CommandCmobDrop extends PlayerCmobCommand {
             drops.put(stack, (double) chance);
             adapter.setDrops(drops);
             p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.GREEN + String.format(LanguageHandler.translate("command.cmob.drop.success"), stack.getType().name(), String.valueOf(chance)));
-        }
+        }*/
     }
 }

@@ -1,14 +1,18 @@
 package de.hellfirepvp.data.mob;
 
 import de.hellfirepvp.CustomMobs;
+import de.hellfirepvp.api.data.ICustomMob;
 import de.hellfirepvp.api.data.nbt.NBTTagType;
 import de.hellfirepvp.api.data.nbt.WrappedNBTTagCompound;
 import de.hellfirepvp.api.data.nbt.WrappedNBTTagList;
 import de.hellfirepvp.nms.NMSReflector;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -71,12 +75,12 @@ public class DataAdapter {
         parentMob.updateTag();
     }
 
-    public void setDrops(Map<ItemStack, Double> drops) {
+    public void setDrops(List<ICustomMob.ItemDrop> drops) {
         WrappedNBTTagList tagList = NMSReflector.nbtProvider.newTagList();
-        for (ItemStack item : drops.keySet()) {
-            Double chance = drops.get(item);
+        for (ICustomMob.ItemDrop drop : drops) {
+            Double chance = drop.getChance();
             WrappedNBTTagCompound tag = NMSReflector.nbtProvider.newTagCompound();
-            NMSReflector.nbtProvider.saveStack(item, tag);
+            NMSReflector.nbtProvider.saveStack(drop.getStack(), tag);
             WrappedNBTTagCompound dropTag = NMSReflector.nbtProvider.newTagCompound();
             dropTag.setSubTag("ItemStack", tag);
             dropTag.setDouble("Chance", chance);
@@ -120,11 +124,11 @@ public class DataAdapter {
         return cmobTag.hasKey("FireProof") && ((byte) cmobTag.getValue("FireProof") != 0);
     }
 
-    public Map<ItemStack, Double> getItemDrops() {
+    public List<ICustomMob.ItemDrop> getItemDrops() {
         WrappedNBTTagCompound cmobTag = getPersistentCustomMobsTag();
-        if(!cmobTag.hasKey("Drops")) return new HashMap<>();
+        if(!cmobTag.hasKey("Drops")) return new LinkedList<>();
         WrappedNBTTagList dropList = cmobTag.getTagList("Drops", NBTTagType.TAG_COMPOUND);
-        Map<ItemStack, Double> dropMap = new HashMap<>();
+        List<ICustomMob.ItemDrop> drops = new LinkedList<>();
         Iterator listIt = dropList.getElementIterator();
         while (listIt.hasNext()) {
             Object tag = listIt.next();
@@ -133,10 +137,10 @@ public class DataAdapter {
                 double chance = (double) dropTag.getValue("Chance");
                 ItemStack stack = NMSReflector.nbtProvider.loadStack(dropTag.getTagCompound("ItemStack"));
                 if(stack != null) {
-                    dropMap.put(stack, chance);
+                    drops.add(new ICustomMob.ItemDrop(stack, chance));
                 }
             }
         }
-        return dropMap;
+        return drops;
     }
 }

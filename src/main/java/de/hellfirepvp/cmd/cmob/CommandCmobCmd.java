@@ -54,7 +54,7 @@ public class CommandCmobCmd extends PlayerCmobCommand {
         List<String> cmdArguments = new LinkedList<>();
         int cmdLength = args.length - 2;
         if(cmdLength > 0) {
-            cmdArguments.addAll(Arrays.asList(args).subList(2, cmdLength));
+            cmdArguments.addAll(Arrays.asList(args).subList(2, args.length));
         }
         StringBuilder builder = new StringBuilder();
         boolean b = true;

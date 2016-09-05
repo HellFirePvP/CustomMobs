@@ -1,6 +1,8 @@
 package de.hellfirepvp.event;
 
 import de.hellfirepvp.CustomMobs;
+import de.hellfirepvp.api.data.ICustomMob;
+import de.hellfirepvp.chat.ChatController;
 import de.hellfirepvp.data.SpawnerDataHolder;
 import de.hellfirepvp.data.mob.CustomMob;
 import de.hellfirepvp.data.mob.MobFactory;
@@ -8,9 +10,11 @@ import de.hellfirepvp.file.write.SpawnerDataWriter;
 import de.hellfirepvp.lang.LanguageHandler;
 import de.hellfirepvp.lib.LibLanguageOutput;
 import de.hellfirepvp.nms.NMSReflector;
+import de.hellfirepvp.spawning.SpawnEggManager;
 import de.hellfirepvp.tool.CustomMobsTool;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -77,41 +81,37 @@ public class ToolEventListener implements Listener {
         if(event.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
             Player p = event.getPlayer();
             ItemStack hand = p.getInventory().getItemInMainHand();
-            if(hand == null || !hand.equals(CustomMobsTool.getTool())) return;
-            Location l = event.getClickedBlock().getLocation();
-            SpawnerDataHolder.Spawner spawner = CustomMobs.instance.getSpawnerDataHolder().getSpawnerAt(l);
-            Integer delay = CustomMobs.instance.getSpawnerHandler().getRemainingDelay(l);
-            if(spawner == null) return;
-            p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.GOLD + LanguageHandler.translate("tool.interact.spawner"));
-            p.sendMessage(ChatColor.GREEN + String.format(LanguageHandler.translate("tool.interact.spawner.spawns"), spawner.linked.getName()));
-            if(spawner.hasFixedDelay) {
-                p.sendMessage(ChatColor.GREEN + String.format(LanguageHandler.translate("tool.interact.spawner.fixed"), String.valueOf(spawner.fixedDelay)));
-            } else {
-                p.sendMessage(ChatColor.GREEN + LanguageHandler.translate("tool.interact.spawner.random"));
-            }
-            if(delay != null && delay > 0) {
-                p.sendMessage(ChatColor.GREEN + String.format(LanguageHandler.translate("tool.interact.spawner.next"), String.valueOf(delay)));
-            }
+            if(hand == null || hand.getType() == null || hand.getType().equals(Material.AIR)) return;
+            if(hand.equals(CustomMobsTool.getTool())) {
+                Location l = event.getClickedBlock().getLocation();
+                SpawnerDataHolder.Spawner spawner = CustomMobs.instance.getSpawnerDataHolder().getSpawnerAt(l);
+                Integer delay = CustomMobs.instance.getSpawnerHandler().getRemainingDelay(l);
+                if(spawner == null) return;
+                p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.GOLD + LanguageHandler.translate("tool.interact.spawner"));
+                p.sendMessage(ChatColor.GREEN + String.format(LanguageHandler.translate("tool.interact.spawner.spawns"), spawner.linked.getName()));
+                if(spawner.hasFixedDelay) {
+                    p.sendMessage(ChatColor.GREEN + String.format(LanguageHandler.translate("tool.interact.spawner.fixed"), String.valueOf(spawner.fixedDelay)));
+                } else {
+                    p.sendMessage(ChatColor.GREEN + LanguageHandler.translate("tool.interact.spawner.random"));
+                }
+                if(delay != null && delay > 0) {
+                    p.sendMessage(ChatColor.GREEN + String.format(LanguageHandler.translate("tool.interact.spawner.next"), String.valueOf(delay)));
+                }
+            }/* else if(hand.getType().equals(Material.MONSTER_EGG)) {
+                ICustomMob mob = SpawnEggManager.getMobFromEgg(hand);
+                if(mob == null) return;
+
+            }*/
         }
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void onChat(AsyncPlayerChatEvent event) {
-        if(!CustomMobs.instance.getToolController().clickedRecently(event.getPlayer())) return;
-
+        ChatController.ChatHandle handler = CustomMobs.instance.getChatHandler().needsHandling(event.getPlayer());
+        if(handler == null) return;
+        String in = event.getMessage();
         event.setCancelled(true);
-        Player player = event.getPlayer();
-        String name = event.getMessage();
-        player.sendMessage(LibLanguageOutput.PREFIX + ChatColor.GOLD + String.format(LanguageHandler.translate(LibLanguageOutput.TOOL_INTERACT_CHAT_ATTEMPT), name));
-
-        LivingEntity entity = CustomMobs.instance.getToolController().getClicked(player);
-        CustomMobs.instance.getToolController().flush(player);
-
-        if(MobFactory.tryCreateCustomMobFromEntity(entity, name)) {
-            player.sendMessage(LibLanguageOutput.PREFIX + ChatColor.GOLD + String.format(LanguageHandler.translate(LibLanguageOutput.TOOL_INTERACT_CHAT_SAVED), name));
-        } else {
-            player.sendMessage(LibLanguageOutput.PREFIX + ChatColor.GOLD + String.format(LanguageHandler.translate(LibLanguageOutput.TOOL_INTERACT_CHAT_ERROR), name));
-        }
+        CustomMobs.instance.getChatHandler().handleChatInput(event.getPlayer(), handler, in);
     }
 
     @EventHandler

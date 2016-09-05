@@ -126,8 +126,8 @@ public class CustomMobAdapter implements ICustomMob {
     }
 
     @Override
-    public Map<ItemStack, Double> getDrops() {
-        return Collections.unmodifiableMap(parent.getDataAdapter().getItemDrops());
+    public List<ItemDrop> getDrops() {
+        return Collections.unmodifiableList(parent.getDataAdapter().getItemDrops());
     }
 
 }

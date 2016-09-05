@@ -1,6 +1,7 @@
 package de.hellfirepvp;
 
 import de.hellfirepvp.api.CustomMobsAPI;
+import de.hellfirepvp.chat.ChatController;
 import de.hellfirepvp.cmd.CommandRegistry;
 import de.hellfirepvp.config.ConfigHandler;
 import de.hellfirepvp.data.FullControlHandler;
@@ -8,12 +9,14 @@ import de.hellfirepvp.data.RespawnDataHolder;
 import de.hellfirepvp.data.SpawnSettingsHolder;
 import de.hellfirepvp.data.SpawnerDataHolder;
 import de.hellfirepvp.data.StackingDataHolder;
+import de.hellfirepvp.data.drops.DropChatController;
 import de.hellfirepvp.data.mob.CustomMob;
 import de.hellfirepvp.data.mob.MobDataHolder;
 import de.hellfirepvp.data.nbt.NBTRegister;
 import de.hellfirepvp.event.GeneralEventListener;
 import de.hellfirepvp.event.ToolEventListener;
 import de.hellfirepvp.event.WorldEventListener;
+import de.hellfirepvp.integration.IntegrationHandler;
 import de.hellfirepvp.lang.LanguageHandler;
 import de.hellfirepvp.leash.LeashExecutor;
 import de.hellfirepvp.leash.LeashManager;
@@ -24,6 +27,7 @@ import de.hellfirepvp.spawning.SpawnLimit;
 import de.hellfirepvp.spawning.SpawnerHandler;
 import de.hellfirepvp.spawning.worldSpawning.WorldSpawner;
 import de.hellfirepvp.tool.ToolController;
+import de.hellfirepvp.util.SupportedVersions;
 import de.hellfirepvp.util.WrappedPrefixLogger;
 import org.bukkit.Bukkit;
 import org.bukkit.block.Biome;
@@ -48,6 +52,8 @@ public class CustomMobs extends JavaPlugin {
     public static WrappedPrefixLogger logger;
     public static String pluginYmlVersion;
 
+    public static SupportedVersions currentVersion;
+
     private File mobFolder, fullControlFolder, langFileFolder;
     private ConfigHandler config = new ConfigHandler();
     private LanguageHandler languageHandler = new LanguageHandler();
@@ -57,7 +63,10 @@ public class CustomMobs extends JavaPlugin {
     private Respawner respawner = new Respawner();
     private FullControlHandler fullControlHandler = new FullControlHandler();
     private ToolController toolController = new ToolController();
+    private DropChatController dropController = new DropChatController();
     private WorldSpawner worldSpawner = new WorldSpawner();
+
+    private ChatController chatHandler = new ChatController();
 
     private MobDataHolder mobDataHolder = new MobDataHolder();
     private SpawnerDataHolder spawnerDataHolder = new SpawnerDataHolder();
@@ -75,6 +84,14 @@ public class CustomMobs extends JavaPlugin {
         config.loadFromFile();
         languageHandler.loadLanguageFile();
         pluginYmlVersion = getDescription().getVersion();
+
+        currentVersion = SupportedVersions.getCurrentVersion();
+
+        if(currentVersion != null) {
+            logger.info("Current server version is supported by CustomMobs!");
+        } else {
+            logger.info("Could not find supported server version! Is this server version not supported by CustomMobs?");
+        }
 
         logger.info("Loading finished.");
     }
@@ -98,6 +115,8 @@ public class CustomMobs extends JavaPlugin {
         logger.info("Discovering MobTypes...");
         NMSReflector.mobTypeProvider.discoverMobTypes(); //Loads/finds all mobTypes
         logger.info("Found " + NMSReflector.mobTypeProvider.getTypeNames().size() + " MobTypes!");
+
+        IntegrationHandler.loadIntegrations();
 
         /*
             --- Loading data ---
@@ -124,6 +143,11 @@ public class CustomMobs extends JavaPlugin {
         LeashExecutor.start();
         fullControlHandler.readAndPushData();
         worldSpawner.start();
+
+        chatHandler.init();
+
+        if(currentVersion != null)
+            getServer().getPluginManager().registerEvents(currentVersion.getAmbiguousEventListener(), this);
 
         getServer().getPluginManager().registerEvents(new GeneralEventListener(), this);
         getServer().getPluginManager().registerEvents(new WorldEventListener(), this);
@@ -198,6 +222,14 @@ public class CustomMobs extends JavaPlugin {
 
     public ToolController getToolController() {
         return toolController;
+    }
+
+    public ChatController getChatHandler() {
+        return chatHandler;
+    }
+
+    public DropChatController getDropController() {
+        return dropController;
     }
 
     public SpawnerHandler getSpawnerHandler() {

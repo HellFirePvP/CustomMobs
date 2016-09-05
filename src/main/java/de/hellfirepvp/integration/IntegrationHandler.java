@@ -13,10 +13,12 @@ public class IntegrationHandler {
 
     public static IntegrationWorldGuard integrationWorldGuard;
     public static IntegrationFactions integrationFactions;
+    //public static IntegrationLibsDisguises integrationLibsDisguises;
 
     public static void loadIntegrations() {
         integrationFactions   = loadIntegration("Factions",   "de.hellfirepvp.integration.impl.ImplIntegrationFactions");
         integrationWorldGuard = loadIntegration("WorldGuard", "de.hellfirepvp.integration.impl.ImplIntegrationWorldGuard");
+        //integrationLibsDisguises = loadIntegration("LibsDisguises", )
     }
 
     private static <T> T loadIntegration(String plName, String integrationClass) {

@@ -73,7 +73,7 @@ public class CommandCnbtSetraw extends PlayerCmobCommand {
 
         ItemStack inHand = null;
         if(nbtEditKey instanceof StackNBTEditKey) {
-            inHand = p.getInventory().getItemInMainHand();
+            inHand = p.getInventory().getItemInHand();
             if(inHand == null || inHand.getType().equals(Material.AIR)) {
                 p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.RED + LanguageHandler.translate("command.cnbt.setraw.noitem"));
                 BaseCommand.sendPlayerDescription(p, this, true);

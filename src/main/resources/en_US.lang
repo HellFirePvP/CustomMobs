@@ -22,9 +22,15 @@ command.cmob.create.failed=Creating %s has failed.
 command.cmob.delete.success=%s was successfully deleted!
 command.cmob.delete.failed=Failed to delete the file! Report this issue to an admin!
 
+#Deprecated/old stuff
 command.cmob.drop.noitem=You have to hold the item you want to set as drop in your hand.
 command.cmob.drop.success=Drop of type %s with chance %s successfully added
 command.cmob.drop.success.overwritten=Drop successfully added. Old drop of type %s overwritten!
+
+command.cmob.drop.gui.chance=Chance: %s
+command.cmob.drop.gui.enterChance=Please enter a drop chance between 1.0 and 0.0!
+command.cmob.drop.gui.removed=Removed drop of type %s
+command.cmob.drop.success=Drop of type %s with chance %s successfully added
 
 command.cmob.equip.nothing=%s doesn't have an item in %s and you currently don't wear an item in that slot. Nothing happens.
 command.cmob.equip.reset=%s of %s resetted!
@@ -157,8 +163,8 @@ command.cmob.create.usagedesc=Creates a new CustomMob with given Type and Name
 command.cmob.delete.inputdesc=/cmob delete <Name>
 command.cmob.delete.usagedesc=Deletes the named CustomMob
 
-command.cmob.drop.inputdesc=/cmob drop <Name> <Chance (0.0 - 1.0)>
-command.cmob.drop.usagedesc=Sets the currently held item as a drop with given chance.
+command.cmob.drops.inputdesc=/cmob drops <Name>
+command.cmob.drops.usagedesc=Open a GUI containing all drops+chances specified for the mob.
 
 command.cmob.equip.inputdesc=/cmob equip <Name> <0/1/2/3/4/5>
 command.cmob.equip.usagedesc=Sets the equipment of a CustomMob.

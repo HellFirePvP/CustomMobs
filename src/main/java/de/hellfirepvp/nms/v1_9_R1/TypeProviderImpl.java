@@ -4,6 +4,7 @@ import de.hellfirepvp.CustomMobs;
 import de.hellfirepvp.api.data.nbt.WrappedNBTTagCompound;
 import de.hellfirepvp.nms.MobTypeProvider;
 import de.hellfirepvp.nms.NMSReflector;
+import net.minecraft.server.v1_9_R1.DragonControllerPhase;
 import net.minecraft.server.v1_9_R1.Entity;
 import net.minecraft.server.v1_9_R1.EntityInsentient;
 import net.minecraft.server.v1_9_R1.EntityLiving;
@@ -13,7 +14,9 @@ import net.minecraft.server.v1_9_R1.WorldServer;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.craftbukkit.v1_9_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_9_R1.entity.CraftEnderDragon;
 import org.bukkit.craftbukkit.v1_9_R1.entity.CraftLivingEntity;
+import org.bukkit.entity.EnderDragon;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 
@@ -103,7 +106,12 @@ public class TypeProviderImpl implements MobTypeProvider {
             CustomMobs.logger.info("Skipping invalid entity spawning....");
             return null;
         }
-        return (LivingEntity) e.getBukkitEntity();
+        LivingEntity le = (LivingEntity) e.getBukkitEntity();
+        if(le instanceof EnderDragon) {
+            CraftEnderDragon ced = (CraftEnderDragon) le;
+            ced.getHandle().cT().a(DragonControllerPhase.a);
+        }
+        return le;
     }
 
     @Override

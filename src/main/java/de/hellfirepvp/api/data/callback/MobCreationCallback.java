@@ -9,9 +9,25 @@ package de.hellfirepvp.api.data.callback;
  */
 public enum MobCreationCallback {
 
+    /**
+     * The name of the mob is already taken
+     */
     NAME_TAKEN,
+
+    /**
+     * The specified mobtype is unknown
+     */
     UNKNOWN_TYPE,
+
+    /**
+     * It failed for some reason
+     * happens if the passed entity is null or the mobtype is unknown, but got passed onwards to deeper nms integrations
+     */
     FAILED,
+
+    /**
+     * Success.
+     */
     SUCCESS
 
 }

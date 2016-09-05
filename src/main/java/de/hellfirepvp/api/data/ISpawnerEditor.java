@@ -14,12 +14,40 @@ import java.util.Collection;
  */
 public interface ISpawnerEditor {
 
+    /**
+     * Defines a location as a custommob spawner.
+     * The delay for spawning mobs is randomized.
+     *
+     * @param mob the mob that should be spawned by the spawner
+     * @param location the location that should be a spawner.
+     * @return a callback, containing information about the result.
+     */
     public SpawnerDataCallback setSpawner(ICustomMob mob, Location location);
 
+    /**
+     * Defines a location as a custommob spawner.
+     * the delay for spawning will always be 'delay' seconds.
+     *
+     * @param delay the mobspawner delay in seconds.
+     * @param mob the mob that should be spawned by the spawner
+     * @param location the location that should be a spawner.
+     * @return a callback, containing information about the result.
+     */
     public SpawnerDataCallback setSpawner(ICustomMob mob, Location location, Integer delay);
 
+    /**
+     * Clears the mobspawner at a specific location
+     *
+     * @param location the location where a spawner should be removed.
+     * @return a callback, containing information about the result.
+     */
     public SpawnerDataCallback resetSpawner(Location location);
 
+    /**
+     * Get all spawners that exist on this server.
+     *
+     * @return a collection of spawner objects, containing all relevant data about a spawner.
+     */
     public Collection<SpawnerInfo> getAllSpawners();
 
     public static class SpawnerInfo {

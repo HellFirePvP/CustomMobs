@@ -9,12 +9,24 @@ package de.hellfirepvp.api.data.callback;
  */
 public enum RespawnDataCallback {
 
+    /**
+     * The mob doesn't exist
+     */
     MOB_DOESNT_EXIST,
 
+    /**
+     * The mob is already specified to respawn
+     */
     MOB_ALREADY_EXISTS,
 
+    /**
+     * Couldn't save the respawn data file
+     */
     IO_EXCEPTION,
 
+    /**
+     * Success.
+     */
     SUCCESS
 
 }

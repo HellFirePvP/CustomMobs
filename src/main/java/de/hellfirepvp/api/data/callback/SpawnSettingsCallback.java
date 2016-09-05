@@ -9,12 +9,24 @@ package de.hellfirepvp.api.data.callback;
  */
 public enum SpawnSettingsCallback {
 
+    /**
+     * The mob you want to set to spawn randomly doesn't exist.
+     */
     MOB_DOESNT_EXIST,
 
+    /**
+     * The mob is already defined to spawn randomly.
+     */
     MOB_ALREADY_EXISTS,
 
+    /**
+     * Failed to save the spawn settings file.
+     */
     IO_EXCEPTION,
 
+    /**
+     * Success.
+     */
     SUCCESS
 
 }
