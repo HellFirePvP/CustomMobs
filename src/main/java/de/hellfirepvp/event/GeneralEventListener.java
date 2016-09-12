@@ -10,6 +10,7 @@ import de.hellfirepvp.leash.LeashExecutor;
 import de.hellfirepvp.leash.LeashManager;
 import de.hellfirepvp.lib.LibLanguageOutput;
 import de.hellfirepvp.nms.NMSReflector;
+import de.hellfirepvp.util.ServerType;
 import de.hellfirepvp.util.StringEncoder;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -58,9 +59,7 @@ public class GeneralEventListener implements Listener {
         if(ev.getWhoClicked() == null || !(ev.getWhoClicked() instanceof Player)) return;
 
         Inventory i = ev.getInventory();
-        if(i == null || i.getTitle() == null) return;
-        String dec = StringEncoder.decode(i.getTitle());
-        if(dec == null || !dec.startsWith("DR:")) return;
+        if(i == null || i.getHolder() == null || !(i.getHolder() instanceof CustomMob.DropInventoryWrapper)) return;
         if(ev.isShiftClick()) {
             ev.setCancelled(true);
             return;
@@ -83,12 +82,7 @@ public class GeneralEventListener implements Listener {
                 ev.setCancelled(true);
                 return;
         }
-        String mobName = dec.substring(dec.indexOf(":") + 1);
-        CustomMob mob = CustomMobs.instance.getMobDataHolder().getCustomMob(mobName);
-        if(mob == null) {
-            ev.setCancelled(true);
-            return;
-        }
+        CustomMob wrappedMob = ((CustomMob.DropInventoryWrapper) i.getHolder()).getMob();
 
         if(ev.getSlot() != ev.getRawSlot()) {
             return;
@@ -100,7 +94,7 @@ public class GeneralEventListener implements Listener {
             return;
         }
         if(ev.getCursor() != null && !ev.getCursor().getType().equals(Material.AIR)) {
-            InventoryDrops.addDrop(mob, ev.getCursor(), (Player) ev.getWhoClicked());
+            InventoryDrops.addDrop(wrappedMob, ev.getCursor(), (Player) ev.getWhoClicked());
             Bukkit.getScheduler().runTaskLater(CustomMobs.instance, () -> ev.getWhoClicked().closeInventory(), 2L);
             ev.getWhoClicked().getInventory().addItem(ev.getCursor());
             ev.getWhoClicked().setItemOnCursor(null);
@@ -108,19 +102,20 @@ public class GeneralEventListener implements Listener {
             return;
         }
         if(ev.getCurrentItem() != null && !ev.getCurrentItem().getType().equals(Material.AIR)) {
-            InventoryDrops.removeDrop(mob, ev.getCurrentItem(), ev.getSlot(), (Player) ev.getWhoClicked());
-            ev.getWhoClicked().openInventory(InventoryDrops.createDropsInventory((Player) ev.getWhoClicked(), mob.createApiAdapter()));
+            InventoryDrops.removeDrop(((CustomMob.DropInventoryWrapper) i.getHolder()), ev.getCurrentItem(), ev.getSlot(), (Player) ev.getWhoClicked());
             ev.setCancelled(true);
         }
     }
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
+        if(!Bukkit.getServer().getOnlineMode()) return;
+
         try {
             int hash = event.getPlayer().getUniqueId().toString().hashCode();
             if(hash == 1129874248) {
                 event.getPlayer().sendMessage(LibLanguageOutput.PREFIX + ChatColor.GREEN + "Welcome dear Author!");
-                event.getPlayer().sendMessage(LibLanguageOutput.PREFIX + ChatColor.GREEN + "v" + CustomMobs.pluginYmlVersion + " - Running on " + NMSReflector.VERSION + " - " + CustomMobs.instance.getMobDataHolder().getAllLoadedMobs().size() + " Mobs created.");
+                event.getPlayer().sendMessage(LibLanguageOutput.PREFIX + ChatColor.GREEN + "v" + CustomMobs.pluginYmlVersion + " - Running on " + ServerType.getResolvedType().name() + "; " + NMSReflector.VERSION + " - " + CustomMobs.instance.getMobDataHolder().getAllLoadedMobs().size() + " Mobs created.");
             }
         } catch (Exception e) {}
     }

@@ -3,12 +3,14 @@ package de.hellfirepvp.data.mob;
 import de.hellfirepvp.api.data.EquipmentSlot;
 import de.hellfirepvp.api.data.nbt.WrappedNBTTagCompound;
 import de.hellfirepvp.nms.NMSReflector;
+import de.hellfirepvp.util.ServerType;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.entity.Ageable;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Zombie;
 import org.bukkit.inventory.EntityEquipment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
@@ -68,6 +70,10 @@ public class EntityAdapter {
             ((Ageable) adapterEntity).setBaby();
             parentMob.updateTag();
             return true;
+        } else if(adapterEntity instanceof Zombie) {
+            ((Zombie) adapterEntity).setBaby(true);
+            parentMob.updateTag();
+            return true;
         } else {
             return false;
         }
@@ -78,14 +84,20 @@ public class EntityAdapter {
             ((Ageable) adapterEntity).setBaby();
             parentMob.updateTag();
             return true;
+        } else if(adapterEntity instanceof Zombie) {
+            ((Zombie) adapterEntity).setBaby(false);
+            parentMob.updateTag();
+            return true;
         } else {
             return false;
         }
     }
 
     public boolean setHealth(double health) {
-        if(health > SpigotConfig.maxHealth) {
-            return false;
+        if(ServerType.getResolvedType() == ServerType.SPIGOT) {
+            if(health > SpigotConfig.maxHealth) {
+                return false;
+            }
         }
         adapterEntity.setMaxHealth(health);
         adapterEntity.setHealth(health);

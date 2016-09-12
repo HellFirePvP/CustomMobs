@@ -13,6 +13,10 @@ command.cmob.burn.reset=The burntime of %s was successfully resetted
 command.cmob.burn.success=The burntime of %s was successfully set to %s
 command.cmob.burn.success.infinite=The burntime of %s was successfully set to %s (-1 = infinite)
 
+command.cmob.clone.filemiss=The file for mob %s doesn't exist.
+command.cmob.clone.fileoverwrite=The file for mob %s does already exist!
+command.cmob.clone.success=Successfully cloned %s and saved again as %s!
+
 command.cmob.cmd.reset=The commandLine of %s has been resetted!
 command.cmob.cmd.success=The commandLine of %s has been set to '%s'
 
@@ -27,9 +31,12 @@ command.cmob.drop.noitem=You have to hold the item you want to set as drop in yo
 command.cmob.drop.success=Drop of type %s with chance %s successfully added
 command.cmob.drop.success.overwritten=Drop successfully added. Old drop of type %s overwritten!
 
+command.cmob.drop.gui.name=Drops %s (Page %s)
 command.cmob.drop.gui.chance=Chance: %s
 command.cmob.drop.gui.enterChance=Please enter a drop chance between 1.0 and 0.0!
 command.cmob.drop.gui.removed=Removed drop of type %s
+command.cmob.drop.gui.next=Click to get to the next page
+command.cmob.drop.gui.prev=Click to get to the previous page
 command.cmob.drop.success=Drop of type %s with chance %s successfully added
 
 command.cmob.equip.nothing=%s doesn't have an item in %s and you currently don't wear an item in that slot. Nothing happens.
@@ -76,7 +83,7 @@ command.cmob.spawner.delay=New spawner set! The spawner will spawn %s in an inte
 
 command.cmob.stack.same=A CustomMob can't mount itself. Please use 2 different mobs.
 command.cmob.stack.success=Whenever %s spawns from now on, %s will spawn as mob riding it.
-command.cmob.stack.circle=Can't make %s mount %s - It would create an endless cirlce mob mobs mounting each other.
+command.cmob.stack.circle=Can't make %s mount %s - It would create an endless circle mob mobs mounting each other.
 
 command.cmob.tool.failed=You already have the CustomMobs-Tool in your inventory!
 command.cmob.tool.success=The CustomMobs-Tool has been added to your inventory!
@@ -152,6 +159,9 @@ command.crespawn.remove.success=%s doesn't respawn anymore.
 command.cmob.burn.inputdesc=/cmob burn <Name> <true/false> [duration/-1/infinite]
 command.cmob.burn.usagedesc=Sets the ticks (20 per sec) how long the mob burns.
 command.cmob.burn.additional=If set to false, the duration doesn't matter and may be left out. If set to true, you have to define a duration. '-1' also counts as 'infinite'.
+
+command.cmob.clone.inputdesc=/cmob clone <Name> <CloneName>
+command.cmob.clone.usagedesc=Clones a CustomMob and saves it as the 2nd name specified.
 
 command.cmob.cmd.inputdesc=/cmob cmd <Name> [Command]
 command.cmob.cmd.usagedesc=Sets the command the mob executes if it's killed by a player.

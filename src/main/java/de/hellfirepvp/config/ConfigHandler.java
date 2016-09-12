@@ -26,23 +26,23 @@ public class ConfigHandler {
         ConfigReader.readAndUpdateConfig(this);
 
         CustomMobs.logger.info("Loaded configuration!");
-        CustomMobs.logger.info("LanguageFile: " + languageFile);
-        CustomMobs.logger.info("Debug: " + debug);
-        CustomMobs.logger.info("SpawnThreshold: " + spawnThreshold);
-        CustomMobs.logger.info("SpawnFrequency: " + frequency + "/100");
-        CustomMobs.logger.info("WorldSpawnerTickSpeed: " + worldSpawnerTickSpeed);
-        CustomMobs.logger.info("SpawnAtStartup: " + spawnAtStartup);
-        CustomMobs.logger.info("SpawnAtStartupDelay: " + spawnAtStartupDelay);
-        CustomMobs.logger.info("SpawnerRange: " + spawnerRange);
-        CustomMobs.logger.info("EnablePluginMetrics: " + enableMetrics);
-        CustomMobs.logger.info("LeashViolationTolerance: " + leashViolationTolerance);
-        CustomMobs.logger.info("UseFullcontrol: " + fullcontrolUsage);
-        CustomMobs.logger.info("RespectWGDenySpawn: " + respectWGDenySpawnFlag);
-        CustomMobs.logger.info("RespectWGMobSpawningTypes: " + respectWGMobSpawningTypesFlag);
-        CustomMobs.logger.info("RemoveCustomMobsOnChunkUnload: " + removeCustomMobsOnChunkUnload);
-        CustomMobs.logger.info("RemoveLimitedMobsOnChunkUnload: " + removeLimitedMobsAtChUnload);
-        CustomMobs.logger.info("BannedMobCommands: " + Arrays.toString(bannedMobCommands.toArray()));
-        CustomMobs.logger.info("SpawnlimitResetCommand: " + Arrays.toString(spawnLimitResetCommands.toArray()));
+        CustomMobs.logger.debug("LanguageFile: " + languageFile);
+        CustomMobs.logger.debug("Debug: " + debug);
+        CustomMobs.logger.debug("SpawnThreshold: " + spawnThreshold);
+        CustomMobs.logger.debug("SpawnFrequency: " + frequency + "/100");
+        CustomMobs.logger.debug("WorldSpawnerTickSpeed: " + worldSpawnerTickSpeed);
+        CustomMobs.logger.debug("SpawnAtStartup: " + spawnAtStartup);
+        CustomMobs.logger.debug("SpawnAtStartupDelay: " + spawnAtStartupDelay);
+        CustomMobs.logger.debug("SpawnerRange: " + spawnerRange);
+        CustomMobs.logger.debug("EnablePluginMetrics: " + enableMetrics);
+        CustomMobs.logger.debug("LeashViolationTolerance: " + leashViolationTolerance);
+        CustomMobs.logger.debug("UseFullcontrol: " + fullcontrolUsage);
+        CustomMobs.logger.debug("RespectWGDenySpawn: " + respectWGDenySpawnFlag);
+        CustomMobs.logger.debug("RespectWGMobSpawningTypes: " + respectWGMobSpawningTypesFlag);
+        CustomMobs.logger.debug("RemoveCustomMobsOnChunkUnload: " + removeCustomMobsOnChunkUnload);
+        CustomMobs.logger.debug("RemoveLimitedMobsOnChunkUnload: " + removeLimitedMobsAtChUnload);
+        CustomMobs.logger.debug("BannedMobCommands: " + Arrays.toString(bannedMobCommands.toArray()));
+        CustomMobs.logger.debug("SpawnlimitResetCommand: " + Arrays.toString(spawnLimitResetCommands.toArray()));
     }
 
     public boolean debug() {

@@ -5,6 +5,7 @@ import de.hellfirepvp.cmd.cai.CommandCaiLeash;
 import de.hellfirepvp.cmd.ccmob.CommandCCmobRemove;
 import de.hellfirepvp.cmd.ccmob.CommandCCmobSpawn;
 import de.hellfirepvp.cmd.ccontrol.CommandCcontrolList;
+import de.hellfirepvp.cmd.cmob.CommandCmobClone;
 import de.hellfirepvp.cmd.cmob.CommandCmobStack;
 import de.hellfirepvp.cmd.cmob.CommandCmobUnStack;
 import de.hellfirepvp.cmd.cnbt.CommandCnbtSet;
@@ -80,10 +81,11 @@ public class CommandRegistry {
     static {
         LinkedList<AbstractCmobCommand> cmobCommands = new LinkedList<>();
         cmobCommands.add(new CommandCmobBurn()       .setCategory(CommandCategory.CMOB));
+        cmobCommands.add(new CommandCmobClone()      .setCategory(CommandCategory.CMOB));
         cmobCommands.add(new CommandCmobCmd()        .setCategory(CommandCategory.CMOB));
         cmobCommands.add(new CommandCmobCreate()     .setCategory(CommandCategory.CMOB));
         cmobCommands.add(new CommandCmobDelete()     .setCategory(CommandCategory.CMOB));
-        cmobCommands.add(new CommandCmobDrops()       .setCategory(CommandCategory.CMOB));
+        cmobCommands.add(new CommandCmobDrops()      .setCategory(CommandCategory.CMOB));
         cmobCommands.add(new CommandCmobEquip()      .setCategory(CommandCategory.CMOB));
         cmobCommands.add(new CommandCmobExp()        .setCategory(CommandCategory.CMOB));
         cmobCommands.add(new CommandCmobFireProof()  .setCategory(CommandCategory.CMOB));

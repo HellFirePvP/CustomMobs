@@ -1,6 +1,7 @@
 package de.hellfirepvp.data.mob;
 
 import de.hellfirepvp.CustomMobs;
+import de.hellfirepvp.api.data.ICustomMob;
 import de.hellfirepvp.api.data.nbt.UnsupportedNBTTypeException;
 import de.hellfirepvp.api.data.nbt.WrappedNBTTagCompound;
 import de.hellfirepvp.data.nbt.BufferingNBTEditor;
@@ -10,6 +11,7 @@ import de.hellfirepvp.lib.LibLanguageOutput;
 import de.hellfirepvp.nms.NMSReflector;
 import de.hellfirepvp.api.exception.SpawnLimitException;
 import de.hellfirepvp.util.EntityUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
@@ -18,6 +20,8 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.inventory.EntityEquipment;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
@@ -251,6 +255,54 @@ public class CustomMob {
     @Override
     public int hashCode() {
         return name != null ? name.hashCode() : 0;
+    }
+
+    public static class DropInventoryWrapper implements InventoryHolder {
+
+        private final CustomMob mob;
+        private final Inventory inventory;
+        private final int pageIndex;
+        private final boolean hasPrev, hasNext;
+
+        public DropInventoryWrapper(CustomMob mob, int dropPageIndex) {
+            int drops = mob.getDataAdapter().getItemDrops().size();
+            int dropPagesNeeded = (drops / 36) + 1;
+            if(drops % 36 == 0 && drops > 0)
+                dropPagesNeeded--;
+
+            if(dropPageIndex < 0)
+                dropPageIndex = 0;
+
+            while (dropPageIndex >= dropPagesNeeded)
+                dropPageIndex--;
+
+            this.inventory = Bukkit.createInventory(this, 54, String.format(LanguageHandler.translate("command.cmob.drop.gui.name"), mob.getMobFileName(), String.valueOf(dropPageIndex)));
+            this.hasPrev = dropPageIndex > 0;
+            this.hasNext = (dropPageIndex + 1) < dropPagesNeeded;
+            this.pageIndex = dropPageIndex;
+            this.mob = mob;
+        }
+
+        public int getPageIndex() {
+            return pageIndex;
+        }
+
+        public boolean hasNext() {
+            return hasNext;
+        }
+
+        public boolean hasPrev() {
+            return hasPrev;
+        }
+
+        public CustomMob getMob() {
+            return mob;
+        }
+
+        @Override
+        public Inventory getInventory() {
+            return inventory;
+        }
     }
 
 }

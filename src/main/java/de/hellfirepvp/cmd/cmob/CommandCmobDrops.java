@@ -52,7 +52,7 @@ public class CommandCmobDrops extends PlayerCmobCommand {
             return;
         }
 
-        p.openInventory(InventoryDrops.createDropsInventory(p, cmob.createApiAdapter()));
+        p.openInventory(InventoryDrops.createDropsInventory(cmob, 0));
         /*args[2] = args[2].replace(",", ".");
         String name = args[1];
         String chanceStr = args[2];

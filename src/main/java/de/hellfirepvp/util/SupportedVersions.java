@@ -57,4 +57,16 @@ public enum SupportedVersions {
         return null;
     }
 
+    public static String getSupportedVersions() {
+        StringBuilder sb = new StringBuilder();
+        SupportedVersions[] values = values();
+        for (int i = 0; i < values.length; i++) {
+            SupportedVersions sv = values[i];
+            if(i != 0)
+                sb.append(", ");
+            sb.append(sv.versionStr);
+        }
+        return sb.toString();
+    }
+
 }

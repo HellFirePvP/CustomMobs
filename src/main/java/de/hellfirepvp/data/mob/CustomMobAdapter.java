@@ -53,6 +53,10 @@ public class CustomMobAdapter implements ICustomMob {
         currentlyEditing.clear();
     }
 
+    public final CustomMob getParent() {
+        return parent;
+    }
+
     @Override
     public WrappedNBTTagCompound getReadOnlyTag() {
         return parent.getDataSnapshot().unmodifiable();

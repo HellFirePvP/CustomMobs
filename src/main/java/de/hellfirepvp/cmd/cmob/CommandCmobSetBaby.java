@@ -9,7 +9,9 @@ import de.hellfirepvp.lang.LanguageHandler;
 import de.hellfirepvp.lib.LibLanguageOutput;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Ageable;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Zombie;
 
 /**
  * This class is part of the CustomMobs Plugin
@@ -47,7 +49,8 @@ public class CommandCmobSetBaby extends PlayerCmobCommand {
             return;
         }
 
-        if(!(cmob.getEntityAdapter().getAdapterEntity().get() instanceof Ageable)) {
+        LivingEntity dummyInstance = cmob.getEntityAdapter().getAdapterEntity().get();
+        if(!(dummyInstance instanceof Ageable || dummyInstance instanceof Zombie)) {
             p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.RED + String.format(LanguageHandler.translate("command.cmob.setbaby.type"), cmob.getEntityAdapter().getEntityType().getName()));
             return;
         }

@@ -20,7 +20,7 @@ public class MobFactory {
     public static boolean tryCreateCustomMobFromEntity(LivingEntity le, String name) {
         WrappedNBTTagCompound mobTag = NMSReflector.mobTypeProvider.getDataFromEntity(le);
         if(mobTag == null) return false;
-        MobDataWriter.writeMobFile(mobTag, name);
+        MobDataWriter.writeMobFile(mobTag, MobDataWriter.getMobFile(name));
         CustomMobs.instance.getMobDataHolder().reloadAllMobs();
         return true;
     }

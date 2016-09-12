@@ -83,6 +83,7 @@ public class CommandCmobSetPotion extends PlayerCmobCommand {
             } else {
                 duration = Integer.parseInt(durationStr);
             }
+            if(duration == -1) duration = Integer.MAX_VALUE;
             if(duration < 1) duration = 1;
         } catch (Exception exc) {
             MessageAssist.msgShouldBeAIntNumber(p, durationStr);

@@ -27,6 +27,7 @@ import de.hellfirepvp.spawning.SpawnLimit;
 import de.hellfirepvp.spawning.SpawnerHandler;
 import de.hellfirepvp.spawning.worldSpawning.WorldSpawner;
 import de.hellfirepvp.tool.ToolController;
+import de.hellfirepvp.util.ServerType;
 import de.hellfirepvp.util.SupportedVersions;
 import de.hellfirepvp.util.WrappedPrefixLogger;
 import org.bukkit.Bukkit;
@@ -81,10 +82,16 @@ public class CustomMobs extends JavaPlugin {
         logger = new WrappedPrefixLogger(Bukkit.getLogger(), "CustomMobs");
         logger.info("Starting loading phase...");
 
+        ServerType.resolve();
+        logger.info("Assumed ServerType: " + ServerType.getResolvedType().name());
+        logger.info("Server version: " + NMSReflector.VERSION);
+
         config.loadFromFile();
         languageHandler.loadLanguageFile();
         pluginYmlVersion = getDescription().getVersion();
 
+        logger.info("This Version of custom mobs supports the following server versions:");
+        logger.info(SupportedVersions.getSupportedVersions());
         currentVersion = SupportedVersions.getCurrentVersion();
 
         if(currentVersion != null) {
@@ -98,8 +105,6 @@ public class CustomMobs extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        logger.info("Enabling CustomMobs (" + pluginYmlVersion + ") on server version " + NMSReflector.VERSION);
-
         if(!NMSReflector.initialize()) {
             logger.severe("Could not create link to Server version " + NMSReflector.VERSION + "!");
             logger.severe("Are you using a supported server version?");
@@ -108,6 +113,8 @@ public class CustomMobs extends JavaPlugin {
         } else {
             logger.info("Successfully created links to current server version!");
         }
+
+        logger.info("Enabling CustomMobs (" + pluginYmlVersion + ") on server version " + NMSReflector.VERSION);
 
         /*
             --- General loading stuff first ---

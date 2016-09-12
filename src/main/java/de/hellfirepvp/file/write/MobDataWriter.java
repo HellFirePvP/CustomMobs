@@ -18,17 +18,28 @@ import java.io.IOException;
  */
 public class MobDataWriter {
 
-    public static void writeMobFile(CustomMob mob) {
-        writeMobFile(mob.getDataSnapshot(), mob.getMobFileName());
+    public static File getMobFile(CustomMob mob) {
+        return new File(CustomMobs.instance.getMobDataFolder(), mob.getMobFileName() + ".dat");
     }
 
-    public static void writeMobFile(WrappedNBTTagCompound tag, String name) {
-        File mobFile = new File(CustomMobs.instance.getMobDataFolder(), name + ".dat");
+    public static File getMobFile(String mobFileName) {
+        return new File(CustomMobs.instance.getMobDataFolder(), mobFileName + ".dat");
+    }
+
+    public static void writeMobFile(CustomMob mob) {
+        writeMobFile(mob.getDataSnapshot(), getMobFile(mob));
+    }
+
+    public static void writeMobFile(WrappedNBTTagCompound tag, CustomMob customMob) {
+        writeMobFile(tag, getMobFile(customMob));
+    }
+
+    public static void writeMobFile(WrappedNBTTagCompound tag, File mobFile) {
         if(!mobFile.exists()) {
             try {
                 mobFile.createNewFile();
             } catch (IOException e) {
-                CustomMobs.logger.warning("Could not create mobfile: " + name + ".dat");
+                CustomMobs.logger.warning("Could not create mobfile: " + mobFile.getName());
                 return;
             }
         }
@@ -36,7 +47,7 @@ public class MobDataWriter {
         try (FileOutputStream fos = new FileOutputStream(mobFile)) {
             NBTWrapper.writeTagToOutputStream(tag, fos);
         } catch (IOException exc) {
-            CustomMobs.logger.warning("Writing into mobfile failed: " + name + ".dat");
+            CustomMobs.logger.warning("Writing into mobfile failed: " + mobFile.getName());
             exc.printStackTrace();
         }
     }

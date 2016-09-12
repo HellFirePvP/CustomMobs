@@ -21,6 +21,8 @@ public class MobDataHolder {
     private Map<String, CustomMob> loadedMobs = new HashMap<>();
 
     public void reloadAllMobs() {
+        CustomMobs.logger.debug("Reloading all Mobfiles!");
+
         loadedMobs.clear();
         for (File mobFile : CustomMobs.instance.getMobDataFolder().listFiles()) {
             try {
@@ -37,6 +39,8 @@ public class MobDataHolder {
                 CustomMobs.logger.severe("Skipping loading of " + mobFile.getName() + "! Reason: Corrupted File!");
             }
         }
+
+        CustomMobs.logger.debug("Finished reloading all Mobfiles!");
     }
 
     public CustomMob getCustomMob(String name) {

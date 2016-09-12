@@ -63,7 +63,7 @@ public class DropChatController implements ChatController.ChatHandle {
         drops.add(new ICustomMob.ItemDrop(drop, chance));
         adapter.setDrops(drops);
         p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.GREEN + String.format(LanguageHandler.translate("command.cmob.drop.success"), drop.getType().name(), String.valueOf(chance)));
-        p.openInventory(InventoryDrops.createDropsInventory(p, cmob.createApiAdapter()));
+        p.openInventory(InventoryDrops.createDropsInventory(cmob, 0));
     }
 
     private static class Session {
