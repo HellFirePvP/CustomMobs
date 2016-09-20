@@ -25,7 +25,7 @@ public class CommandCmobExp extends PlayerCmobCommand {
 
     @Override
     public boolean hasFixedLength() {
-        return true;
+        return false;
     }
 
     @Override
@@ -35,7 +35,7 @@ public class CommandCmobExp extends PlayerCmobCommand {
 
     @Override
     public int getMinArgLength() {
-        return 0;
+        return 3;
     }
 
     @Override
@@ -47,22 +47,48 @@ public class CommandCmobExp extends PlayerCmobCommand {
     public void execute(Player p, String[] args) {
         String name = args[1];
         String expStr = args[2];
-        int exp;
+        boolean displayRange = false;
+        int expLower, expHigher;
         try {
-            exp = Integer.parseInt(expStr);
-            if(exp < 0) exp = 0;
+            expLower = Integer.parseInt(expStr);
+            if(expLower < 0) expLower = 0;
         } catch (Exception exc) {
-            MessageAssist.msgShouldBeAIntNumber(p, args[3]);
-            BaseCommand.sendPlayerDescription(p, this, false);
+            MessageAssist.msgShouldBeAIntNumber(p, expStr);
+            BaseCommand.sendPlayerDescription(p, this, true);
             return;
         }
+        if(args.length > 3) {
+            displayRange = true;
+            String expHStr = args[3];
+            try {
+                expHigher = Integer.parseInt(expHStr);
+                if(expHigher < 0) expHigher = 0;
+            } catch (Exception exc) {
+                MessageAssist.msgShouldBeAIntNumber(p, expHStr);
+                BaseCommand.sendPlayerDescription(p, this, true);
+                return;
+            }
+        } else {
+            expHigher = expLower;
+        }
+
+        if(expLower < expHigher) {
+            p.sendMessage(ChatColor.RED + String.format(LanguageHandler.translate("command.cmob.exp.failrange"), String.valueOf(expLower), String.valueOf(expHigher)));
+            BaseCommand.sendPlayerDescription(p, this, true);
+            return;
+        }
+
         CustomMob cmob = CustomMobs.instance.getMobDataHolder().getCustomMob(name);
         if(cmob == null) {
             MessageAssist.msgMobDoesntExist(p, name);
             BaseCommand.sendPlayerDescription(p, this, true);
             return;
         }
-        cmob.getDataAdapter().setExperienceDrop(exp);
-        p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.GREEN + String.format(LanguageHandler.translate("command.cmob.exp.success"), name, String.valueOf(exp)));
+        cmob.getDataAdapter().setExperienceDropRange(expLower, expHigher);
+        if(displayRange) {
+            p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.GREEN + String.format(LanguageHandler.translate("command.cmob.exp.success.range"), name, String.valueOf(expLower), String.valueOf(expHigher)));
+        } else {
+            p.sendMessage(LibLanguageOutput.PREFIX + ChatColor.GREEN + String.format(LanguageHandler.translate("command.cmob.exp.success"), name, String.valueOf(expLower)));
+        }
     }
 }

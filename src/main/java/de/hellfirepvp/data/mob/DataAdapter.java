@@ -63,9 +63,10 @@ public class DataAdapter {
         CustomMobs.instance.getSpawnLimiter().reloadSingleMob(parentMob.getMobFileName(), limit);
     }
 
-    public void setExperienceDrop(int experienceDrop) {
+    public void setExperienceDropRange(int lowerEDrop, int higherExpDrop) {
         WrappedNBTTagCompound cmobTag = getPersistentCustomMobsTag();
-        cmobTag.setInt("Experience", experienceDrop);
+        cmobTag.setInt("ExperienceLower", lowerEDrop);
+        cmobTag.setInt("ExperienceHigher", higherExpDrop);
         parentMob.updateTag();
     }
 
@@ -110,10 +111,19 @@ public class DataAdapter {
         }
     }
 
-    public int getExperienceDrop() {
+    public int getExpDropLower() {
         WrappedNBTTagCompound cmobTag = getPersistentCustomMobsTag();
-        if(cmobTag.hasKey("Experience")) {
-            return (int) cmobTag.getValue("Experience");
+        if(cmobTag.hasKey("ExperienceLower")) {
+            return (int) cmobTag.getValue("ExperienceLower");
+        } else {
+            return 0;
+        }
+    }
+
+    public int getExpDropHigher() {
+        WrappedNBTTagCompound cmobTag = getPersistentCustomMobsTag();
+        if(cmobTag.hasKey("ExperienceHigher")) {
+            return (int) cmobTag.getValue("ExperienceHigher");
         } else {
             return 0;
         }

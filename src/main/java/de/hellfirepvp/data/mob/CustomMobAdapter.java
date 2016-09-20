@@ -87,9 +87,20 @@ public class CustomMobAdapter implements ICustomMob {
         return parent.getEntityAdapter().getFireTicks();
     }
 
+    @Deprecated
     @Override
     public Integer getExperienceDrop() {
-        return parent.getDataAdapter().getExperienceDrop();
+        return parent.getDataAdapter().getExpDropLower();
+    }
+
+    @Override
+    public Integer getLowestExperienceDrop() {
+        return parent.getDataAdapter().getExpDropLower();
+    }
+
+    @Override
+    public Integer getHighestExperienceDrop() {
+        return parent.getDataAdapter().getExpDropHigher();
     }
 
     @Override

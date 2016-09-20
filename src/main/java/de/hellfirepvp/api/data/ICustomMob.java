@@ -62,7 +62,12 @@ public interface ICustomMob {
 
     public Integer getBurnTime();
 
+    @Deprecated
     public Integer getExperienceDrop();
+
+    public Integer getLowestExperienceDrop();
+
+    public Integer getHighestExperienceDrop();
 
     public String getDisplayName();
 

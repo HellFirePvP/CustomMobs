@@ -45,6 +45,8 @@ command.cmob.equip.success=%s of %s set!
 command.cmob.equip.success.overwritten=%s of %s overwritten!
 
 command.cmob.exp.success=Experience dropped by %s is set to %s
+command.cmob.exp.success.range=Experience dropped by %s is set to the range of %s to %s
+command.cmob.exp.failrange=Invalid range! %s should be lower than %s
 
 command.cmob.fireproof.set=%s won't take damage from fire and related anymore.
 command.cmob.fireproof.reset=%s will take damage from fire and related.
@@ -180,8 +182,9 @@ command.cmob.equip.inputdesc=/cmob equip <Name> <0/1/2/3/4/5>
 command.cmob.equip.usagedesc=Sets the equipment of a CustomMob.
 command.cmob.equip.additional=0 = MainHand, 1 = OffHand, 2 = Helmet, 3 = Chestplate, 4 = Leggings, 5 = Boots
 
-command.cmob.exp.inputdesc=/cmob exp <Name> <ExpAmount>
+command.cmob.exp.inputdesc=/cmob exp <Name> <ExpLower> [ExpHigher]
 command.cmob.exp.usagedesc=Sets the amount of experience the mob drops at death.
+command.cmob.cmd.additional=Setting a range of experience is possible by also defining the higher-exp-range. If only the lower one is specified, the range is fixxed on that value.
 
 command.cmob.fireproof.inputdesc=/cmob fireproof <Name> <true/false>
 command.cmob.fireproof.usagedesc=If set to 'true' the mob can't burn or take damage from fire anymore.

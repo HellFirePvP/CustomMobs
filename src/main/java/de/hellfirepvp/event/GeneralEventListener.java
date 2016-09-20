@@ -184,9 +184,13 @@ public class GeneralEventListener implements Listener {
         CustomMobDeathEvent deathEvent = new CustomMobDeathEvent(mob.createApiAdapter(), entity.getKiller());
         Bukkit.getPluginManager().callEvent(deathEvent);
 
-        if(mob.getDataAdapter().getExperienceDrop() > 0) {
-            ExperienceOrb orb = (ExperienceOrb) l.getWorld().spawnEntity(l, EntityType.EXPERIENCE_ORB);
-            orb.setExperience(mob.getDataAdapter().getExperienceDrop());
+        if(mob.getDataAdapter().getExpDropHigher() > 0) {
+            int higher = mob.getDataAdapter().getExpDropHigher();
+            int lower = mob.getDataAdapter().getExpDropLower();
+            int r = lower + RANDOM.nextInt(higher - lower);
+            if(r > 0) {
+                ((ExperienceOrb) l.getWorld().spawnEntity(l, EntityType.EXPERIENCE_ORB)).setExperience(r);
+            }
         }
 
         if(entity.getKiller() != null) {
@@ -194,6 +198,10 @@ public class GeneralEventListener implements Listener {
             String cmd = mob.getDataAdapter().getCommandToExecute();
             if(cmd != null && !cmd.equals("")) {
                 cmd = cmd.replaceAll("%player%", killerName);
+                cmd = cmd.replaceAll("%world%", l.getWorld().getName());
+                cmd = cmd.replaceAll("%x%", String.valueOf(l.getBlockX()));
+                cmd = cmd.replaceAll("%y%", String.valueOf(l.getBlockY()));
+                cmd = cmd.replaceAll("%z%", String.valueOf(l.getBlockZ()));
                 if(commandSecurityCheck(cmd))
                     //cmd must not start with '/' !!
                     Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd);

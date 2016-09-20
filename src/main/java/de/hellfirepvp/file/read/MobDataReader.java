@@ -42,6 +42,18 @@ public class MobDataReader {
         if(dataTag.hasKey("Leashed")) {
             dataTag.setBoolean("Leashed", false);
         }
+
+        if(dataTag.hasKey("CustomMobs")) {
+            WrappedNBTTagCompound cmp = dataTag.getTagCompound("CustomMobs");
+            if(cmp != null && cmp.hasKey("Experience")) {
+                int exp = (int) cmp.getValue("Experience");
+                cmp.removeKey("Experience");
+                cmp.setInt("ExperienceLower", exp);
+                cmp.setInt("ExperienceHigher", exp);
+                dataTag.setSubTag("CustomMobs", cmp);
+            }
+        }
+
         return new CustomMob(name, dataTag);
     }
 

@@ -7,6 +7,7 @@ import de.hellfirepvp.api.data.nbt.WrappedNBTTagCompound;
 import de.hellfirepvp.data.nbt.BufferingNBTEditor;
 import de.hellfirepvp.file.write.MobDataWriter;
 import de.hellfirepvp.lang.LanguageHandler;
+import de.hellfirepvp.leash.LeashManager;
 import de.hellfirepvp.lib.LibLanguageOutput;
 import de.hellfirepvp.nms.NMSReflector;
 import de.hellfirepvp.api.exception.SpawnLimitException;
@@ -190,6 +191,11 @@ public class CustomMob {
             EntityUtils.setFireproof(le);
         }
         NMSReflector.nmsUtils.setName(le, getMobFileName());
+
+        if(LeashManager.shouldBeLeashed(this)) {
+            LeashManager.leash(le, this);
+        }
+
         return le;
     }
 

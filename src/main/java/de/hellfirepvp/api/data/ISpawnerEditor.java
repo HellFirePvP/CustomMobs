@@ -3,6 +3,7 @@ package de.hellfirepvp.api.data;
 import de.hellfirepvp.api.data.callback.SpawnerDataCallback;
 import org.bukkit.Location;
 
+import javax.annotation.Nullable;
 import java.util.Collection;
 
 /**
@@ -42,6 +43,16 @@ public interface ISpawnerEditor {
      * @return a callback, containing information about the result.
      */
     public SpawnerDataCallback resetSpawner(Location location);
+
+    /**
+     * Try to get a mobspawner at a specific location
+     *
+     * @param location the location where you guess there is a spawner
+     * @return the spawner info of the spawner at the specified location or null if
+     *          there is no spawner at the specified location
+     */
+    @Nullable
+    public SpawnerInfo getSpawner(Location location);
 
     /**
      * Get all spawners that exist on this server.

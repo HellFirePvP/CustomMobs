@@ -21,7 +21,7 @@ public class ConfigReader {
         YamlConfiguration config = LibConfiguration.getConfigSettingsConfiguration();
 
         int frequency = Math.min(100, Math.max(0, config.getInt(CONFIG_DATA_WS_FREQUENCY, 10)));
-        int threshold = Math.min(512, Math.max(16, config.getInt(CONFIG_DATA_WS_THRESHOLD, 256)));
+        int threshold = Math.min(4096, Math.max(16, config.getInt(CONFIG_DATA_WS_THRESHOLD, 256)));
         boolean spawnAtStartup = config.getBoolean(CONFIG_DATA_SPAWN_AT_STARTUP_BOOL, false);
         boolean enableMetrics = config.getBoolean(CONFIG_DATA_ENABLE_PLMETRICS, true);
         boolean debug = config.getBoolean(CONFIG_DATA_DEBUG, false);
