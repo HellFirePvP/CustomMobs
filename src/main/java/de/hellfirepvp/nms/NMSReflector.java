@@ -19,7 +19,7 @@ public class NMSReflector
             NMSReflector.nbtProvider = (NBTProvider)Class.forName(getCmobPackageName() + ".NBTProviderImpl").newInstance();
             NMSReflector.biomeMetaProvider = (BiomeMetaProvider)Class.forName(getCmobPackageName() + ".BiomeMetaProviderImpl").newInstance();
             NMSReflector.nmsUtils = (NMSUtils)Class.forName(getCmobPackageName() + ".NMSUtilImpl").newInstance();
-            if (CustomMobs.currentVersion.isThisAMoreRecentOrEqualVersionThan(SupportedVersions.V1_11_R1)) {
+            if (CustomMobs.currentVersion.isThisAMoreRecentOrEqualVersionThan(SupportedVersions.V1_12_R1)) {
                 NMSReflector.mobTypeProvider = (RegistryTypeProvider)Class.forName(getCmobPackageName() + ".TypeProviderImpl").newInstance();
             }
             else {
