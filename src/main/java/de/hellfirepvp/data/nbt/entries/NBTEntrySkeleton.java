@@ -15,7 +15,7 @@ public class NBTEntrySkeleton extends NBTEntryLivingEntity
     @Override
     public void registerEntries() {
         super.registerEntries();
-        if (!CustomMobs.currentVersion.isThisAMoreRecentOrEqualVersionThan(SupportedVersions.V1_11_R1)) {
+        if (!CustomMobs.currentVersion.isThisAMoreRecentOrEqualVersionThan(SupportedVersions.V1_12_R1)) {
             this.offerEntry("SkeletonType", NBTEntryParser.BYTE_PARSER);
         }
     }
