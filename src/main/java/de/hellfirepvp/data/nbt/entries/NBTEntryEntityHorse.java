@@ -22,7 +22,7 @@ public class NBTEntryEntityHorse extends NBTEntryAgeable
         this.offerEntry("Variant", NBTEntryParser.INT_PARSER);
         this.offerEntry("OwnerUUID", NBTEntryParser.STRING_PARSER);
         this.offerEntry("Saddle", NBTEntryParser.BOOLEAN_PARSER);
-        if (!CustomMobs.currentVersion.isThisAMoreRecentOrEqualVersionThan(SupportedVersions.V1_12_R1)) {
+        if (!CustomMobs.currentVersion.isThisAMoreRecentOrEqualVersionThan(SupportedVersions.V1_11_R1)) {
             this.offerEntry("SkeletonTrap", NBTEntryParser.BOOLEAN_PARSER);
             this.offerEntry("SkeletonTrapTime", NBTEntryParser.INT_PARSER);
             this.offerEntry("ChestedHorse", NBTEntryParser.BOOLEAN_PARSER);
@@ -33,7 +33,7 @@ public class NBTEntryEntityHorse extends NBTEntryAgeable
     
     @Override
     public boolean isAvailable(final SupportedVersions mcVersion) {
-        return mcVersion.isThisAMoreRecentOrEqualVersionThan(SupportedVersions.V1_12_R1);
+        return mcVersion.isThisAMoreRecentOrEqualVersionThan(SupportedVersions.V1_11_R1);
     }
     
     @Override
