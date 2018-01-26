@@ -18,7 +18,8 @@ public enum SupportedVersions {
 
     V1_9_R1("v1_9_R1"),
     V1_9_R2("v1_9_R2"),
-    V1_10_R1("v1_10_R1");
+    V1_10_R1("v1_10_R1"),
+    V1_12_R1("v1_12_R1");
 
     private final String versionStr;
 
@@ -41,6 +42,8 @@ public enum SupportedVersions {
             case V1_9_R2:
                 return new de.hellfirepvp.event.v1_9_R2.AmbigousEventListener();
             case V1_10_R1:
+                return new de.hellfirepvp.event.v1_10_R1.AmbigousEventListener();
+            case V1_12_R1:
                 return new de.hellfirepvp.event.v1_10_R1.AmbigousEventListener();
             default:
                 break;
