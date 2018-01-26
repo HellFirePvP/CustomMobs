@@ -27,7 +27,7 @@ public class MobDataReader
             CustomMobs.logger.info("Can't find Type-Tag for " + mobFile.getName() + " - Skipping loading...");
             return null;
         }
-        if (CustomMobs.currentVersion == SupportedVersions.V1_11_R1) {
+        if (CustomMobs.currentVersion == SupportedVersions.V1_12_R1) {
             if (!((RegistryTypeProvider)NMSReflector.mobTypeProvider).doesMobTypeExist(type)) {
                 final String newType = ((RegistryTypeProvider)NMSReflector.mobTypeProvider).tryTranslateNameToRegistry(type);
                 if (newType != null) {
@@ -69,7 +69,7 @@ public class MobDataReader
     }
     
     private static void convertData(final WrappedNBTTagCompound dataTag) {
-        if (CustomMobs.currentVersion.isThisAMoreRecentOrEqualVersionThan(SupportedVersions.V1_11_R1)) {
+        if (CustomMobs.currentVersion.isThisAMoreRecentOrEqualVersionThan(SupportedVersions.V1_12_R1)) {
             final String type = (String)dataTag.getValue("id");
             if (type.equalsIgnoreCase("minecraft:skeleton")) {
                 if (dataTag.hasKey("SkeletonType")) {
