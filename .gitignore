@@ -16,14 +16,6 @@ hs_err_pid*
 /.project
 /.settings
 
-# netbeans
-/nbproject
-
-#gradle stuff
-/gradlew
-/gradlew.bat
-/gradle
-/.gradle
 
 # maven
 /build.xml
