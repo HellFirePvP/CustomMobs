@@ -1,5 +1,5 @@
 # Project CustomMobs 4.2
-  Supports 1.12/1.11/1.10/1.9 server
+  Supports 1.12/1.11/1.10/1.9 server (Spigot only!)
 
 ## Building instructions
 
