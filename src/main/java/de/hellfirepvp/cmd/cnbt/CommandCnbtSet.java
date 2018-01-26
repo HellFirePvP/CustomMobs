@@ -37,7 +37,7 @@ public class CommandCnbtSet extends PlayerCmobCommand
             BaseCommand.sendPlayerDescription((CommandSender)p, this, true);
             return;
         }
-        if (CustomMobs.currentVersion.isThisAMoreRecentOrEqualVersionThan(SupportedVersions.V1_11_R1)) {
+        if (CustomMobs.currentVersion.isThisAMoreRecentOrEqualVersionThan(SupportedVersions.V1_12_R1)) {
             type = ((RegistryTypeProvider)NMSReflector.mobTypeProvider).tryTranslateRegistryNameToName(type);
         }
         final NBTEntryParser<?> parser = NBTRegister.getRegister().getParserFor(type, entryStr);
