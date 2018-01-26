@@ -12,7 +12,7 @@ public class NBTEntryWitherSkeleton extends NBTEntryLivingEntity
     
     @Override
     public boolean isAvailable(final SupportedVersions mcVersion) {
-        return mcVersion.isThisAMoreRecentOrEqualVersionThan(SupportedVersions.V1_11_R1);
+        return mcVersion.isThisAMoreRecentOrEqualVersionThan(SupportedVersions.V1_12_R1);
     }
     
     @Override
