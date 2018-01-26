@@ -1,56 +1,51 @@
 package de.hellfirepvp.data;
 
-import de.hellfirepvp.api.data.IRespawnEditor;
-import de.hellfirepvp.file.read.RespawnDataReader;
 import org.bukkit.Location;
-
+import de.hellfirepvp.api.data.IRespawnEditor;
 import java.util.Collections;
+import de.hellfirepvp.file.read.RespawnDataReader;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * This class is part of the CustomMobs Plugin
- * The plugin can be found at: https://www.spigotmc.org/resources/custommobs.7339
- * Class: RespawnDataHolder
- * Created by HellFirePvP
- * Date: (Header change) 27.05.2016 / 4:04
- */
-public final class RespawnDataHolder {
-
-    private Map<String, RespawnSettings> respawnData = new HashMap<>();
-
+public final class RespawnDataHolder
+{
+    private Map<String, RespawnSettings> respawnData;
+    
+    public RespawnDataHolder() {
+        this.respawnData = new HashMap<String, RespawnSettings>();
+    }
+    
     public void loadData() {
-        respawnData.clear();
-
-        RespawnDataReader.loadData(respawnData);
+        this.respawnData.clear();
+        RespawnDataReader.loadData(this.respawnData);
     }
-
-    public RespawnSettings getSettings(String mobName) {
-        return respawnData.get(mobName);
+    
+    public RespawnSettings getSettings(final String mobName) {
+        return this.respawnData.get(mobName);
     }
-
+    
     public Map<String, RespawnSettings> getRespawnData() {
-        return Collections.unmodifiableMap(respawnData);
+        return Collections.unmodifiableMap((Map<? extends String, ? extends RespawnSettings>)this.respawnData);
     }
-
-    public static class RespawnSettings implements IRespawnEditor.IRespawnSettings {
-
+    
+    public static class RespawnSettings implements IRespawnEditor.IRespawnSettings
+    {
         public final Location location;
         public final long respawnTime;
-
-        public RespawnSettings(Location location, long respawnTime) {
+        
+        public RespawnSettings(final Location location, final long respawnTime) {
             this.location = location;
             this.respawnTime = respawnTime;
         }
-
+        
         @Override
         public Location getLocation() {
-            return location;
+            return this.location;
         }
-
+        
         @Override
         public long getRespawnDelay() {
-            return respawnTime;
+            return this.respawnTime;
         }
     }
 }

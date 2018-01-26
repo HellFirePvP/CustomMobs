@@ -1,55 +1,44 @@
 package de.hellfirepvp.file.read;
 
-import de.hellfirepvp.CustomMobs;
-import de.hellfirepvp.data.SpawnSettingsHolder;
-import de.hellfirepvp.lib.LibConfiguration;
-import org.bukkit.block.Biome;
-import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.configuration.file.YamlConfiguration;
-
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+import org.bukkit.configuration.ConfigurationSection;
+import java.util.Iterator;
 import java.util.Set;
+import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.block.Biome;
+import java.util.ArrayList;
+import de.hellfirepvp.CustomMobs;
+import de.hellfirepvp.lib.LibConfiguration;
+import de.hellfirepvp.data.SpawnSettingsHolder;
+import java.util.Map;
 
-import static de.hellfirepvp.lib.LibConstantKeys.*;
-
-/**
- * This class is part of the CustomMobs Plugin
- * The plugin can be found at: https://www.spigotmc.org/resources/custommobs.7339
- * Class: SpawnSettingsReader
- * Created by HellFirePvP
- * Date: (Header change) 27.05.2016 / 4:03
- */
-public class SpawnSettingsReader {
-
-    public static void readAllSettings(Map<String, SpawnSettingsHolder.SpawnSettings> out) {
-        YamlConfiguration config = LibConfiguration.getSpawnSettingsConfiguration();
-        Set<String> configuredMobs = config.getKeys(false);
-        for(String name : configuredMobs) {
-            if(CustomMobs.instance.getMobDataHolder().getCustomMob(name) == null) {
-                config.set(name, null);
-                continue;
+public class SpawnSettingsReader
+{
+    public static void readAllSettings(final Map<String, SpawnSettingsHolder.SpawnSettings> out) {
+        final YamlConfiguration config = LibConfiguration.getSpawnSettingsConfiguration();
+        final Set<String> configuredMobs = (Set<String>)config.getKeys(false);
+        for (final String name : configuredMobs) {
+            if (CustomMobs.instance.getMobDataHolder().getCustomMob(name) == null) {
+                config.set(name, (Object)null);
             }
-
-            ConfigurationSection section = config.getConfigurationSection(name);
-
-            boolean groupSpawn = section.getBoolean(SPAWNSETTINGS_DATA_GROUPSPAWN_BOOL, false);
-            int groupAmount = section.getInt(SPAWNSETTINGS_DATA_GROUPSPAWN_AMOUNT, 0);
-            double spawnRate = section.getDouble(SPAWNSETTINGS_DATA_SPAWNRATE, 1.0);
-
-            List<String> biomeStrings = section.getStringList(SPAWNSETTINGS_DATA_BIOMES);
-            List<String> worlds = section.getStringList(SPAWNSETTINGS_DATA_WORLDS);
-            List<String> regions = section.getStringList(SPAWNSETTINGS_DATA_REGIONS);
-
-            List<Biome> biomes = new ArrayList<>();
-            for(String biomeStr : biomeStrings) {
-                Biome b = Biome.valueOf(biomeStr);
-                if(b != null) biomes.add(b);
+            else {
+                final ConfigurationSection section = config.getConfigurationSection(name);
+                final boolean groupSpawn = section.getBoolean("groupSpawn", false);
+                final int groupAmount = section.getInt("groupAmount", 0);
+                final double spawnRate = section.getDouble("spawnRate", 1.0);
+                final List<String> biomeStrings = (List<String>)section.getStringList("biomes");
+                final List<String> worlds = (List<String>)section.getStringList("worlds");
+                final List<String> regions = (List<String>)section.getStringList("regions");
+                final List<Biome> biomes = new ArrayList<Biome>();
+                for (final String biomeStr : biomeStrings) {
+                    final Biome b = Biome.valueOf(biomeStr);
+                    if (b != null) {
+                        biomes.add(b);
+                    }
+                }
+                final SpawnSettingsHolder.SpawnSettings settings = new SpawnSettingsHolder.SpawnSettings(groupSpawn, !biomes.isEmpty(), !worlds.isEmpty(), !regions.isEmpty(), groupAmount, biomes, worlds, regions, spawnRate);
+                out.put(name, settings);
             }
-
-            SpawnSettingsHolder.SpawnSettings settings = new SpawnSettingsHolder.SpawnSettings(groupSpawn, !biomes.isEmpty(), !worlds.isEmpty(), !regions.isEmpty(), groupAmount, biomes, worlds, regions, spawnRate);
-            out.put(name, settings);
         }
     }
 }

@@ -1,81 +1,73 @@
 package de.hellfirepvp.spawning;
 
-import de.hellfirepvp.CustomMobs;
-import de.hellfirepvp.api.data.ICustomMob;
 import de.hellfirepvp.data.mob.CustomMob;
-import org.bukkit.Bukkit;
-import org.bukkit.World;
+import java.util.Iterator;
 import org.bukkit.entity.Entity;
+import org.bukkit.World;
+import org.bukkit.Bukkit;
+import de.hellfirepvp.CustomMobs;
 import org.bukkit.entity.LivingEntity;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * This class is part of the CustomMobs Plugin
- * The plugin can be found at: https://www.spigotmc.org/resources/custommobs.7339
- * Class: SpawnLimit
- * Created by HellFirePvP
- * Date: (Header change) 27.05.2016 / 4:02
- */
-public final class SpawnLimit {
-
-    private Map<String, Integer> fixedLimit = new HashMap<>();
-    private List<String> noLimit = new ArrayList<>();
-
-    private Map<String, List<Integer>> currentlyActive = new HashMap<>();
-
-    //CHECK IF YOU CHECKED FOR ALLOWED OF SPAWNING BEFORE DOING THAT
-    public boolean spawnedIncrement(String mobName, LivingEntity entity) {
-        if(!canSpawn(mobName)) {
+public final class SpawnLimit
+{
+    private Map<String, Integer> fixedLimit;
+    private List<String> noLimit;
+    private Map<String, List<Integer>> currentlyActive;
+    
+    public SpawnLimit() {
+        this.fixedLimit = new HashMap<String, Integer>();
+        this.noLimit = new ArrayList<String>();
+        this.currentlyActive = new HashMap<String, List<Integer>>();
+    }
+    
+    public boolean spawnedIncrement(final String mobName, final LivingEntity entity) {
+        if (!this.canSpawn(mobName)) {
             CustomMobs.logger.severe("Call to .increment eventhough it wasn't allowed for " + mobName + "!");
             return false;
         }
-        if(!currentlyActive.containsKey(mobName)) {
-            currentlyActive.put(mobName, new ArrayList<>());
+        if (!this.currentlyActive.containsKey(mobName)) {
+            this.currentlyActive.put(mobName, new ArrayList<Integer>());
         }
-        if(!currentlyActive.get(mobName).contains(entity.getEntityId())) {
-            currentlyActive.get(mobName).add(entity.getEntityId());
+        if (!this.currentlyActive.get(mobName).contains(entity.getEntityId())) {
+            this.currentlyActive.get(mobName).add(entity.getEntityId());
         }
         return true;
     }
-
-    public boolean decrement(String mobName, LivingEntity entity) {
-        if(!currentlyActive.containsKey(mobName)) {
-            currentlyActive.put(mobName, new ArrayList<>());
+    
+    public boolean decrement(final String mobName, final LivingEntity entity) {
+        if (!this.currentlyActive.containsKey(mobName)) {
+            this.currentlyActive.put(mobName, new ArrayList<Integer>());
         }
-        if(!currentlyActive.get(mobName).contains(Integer.valueOf(entity.getEntityId())))
-            return false;
-        return currentlyActive.get(mobName).remove(Integer.valueOf(entity.getEntityId()));
+        return this.currentlyActive.get(mobName).contains(entity.getEntityId()) && this.currentlyActive.get(mobName).remove((Object)entity.getEntityId());
     }
-
-    public boolean canSpawn(String mobName) {
-        if(noLimit.contains(mobName)) {
-            return true; //FREE
+    
+    public boolean canSpawn(final String mobName) {
+        if (this.noLimit.contains(mobName)) {
+            return true;
         }
-        if(fixedLimit.get(mobName) == null) {
-            return true; //Not registered -> FREE
+        if (this.fixedLimit.get(mobName) == null) {
+            return true;
         }
-
-        if(!currentlyActive.containsKey(mobName)) {
-            currentlyActive.put(mobName, new ArrayList<>());
+        if (!this.currentlyActive.containsKey(mobName)) {
+            this.currentlyActive.put(mobName, new ArrayList<Integer>());
         }
-
-        int limit = fixedLimit.get(mobName); //Max. allowed. 0, 1, ... ,n
-        int alive = currentlyActive.get(mobName).size();
+        final int limit = this.fixedLimit.get(mobName);
+        final int alive = this.currentlyActive.get(mobName).size();
         return alive + 1 <= limit;
     }
-
+    
     private void flush() {
-        fixedLimit.clear();
-        noLimit.clear();
-        currentlyActive.clear();
-        for(World w : Bukkit.getWorlds()) {
-            for(Entity e : w.getEntities()) {
-                for(List<Integer> ids : currentlyActive.values()) {
-                    if(ids.contains(e.getEntityId())) {
+        this.fixedLimit.clear();
+        this.noLimit.clear();
+        this.currentlyActive.clear();
+        for (final World w : Bukkit.getWorlds()) {
+            for (final Entity e : w.getEntities()) {
+                for (final List<Integer> ids : this.currentlyActive.values()) {
+                    if (ids.contains(e.getEntityId())) {
                         e.remove();
                         break;
                     }
@@ -83,30 +75,27 @@ public final class SpawnLimit {
             }
         }
     }
-
+    
     public void loadData() {
-        flush();
-
-        CustomMobs.instance.getMobDataHolder().getAllLoadedMobs().forEach(mob -> reloadMob(mob.getMobFileName(), mob.getDataAdapter().getSpawnLimit()));
+        this.flush();
+        CustomMobs.instance.getMobDataHolder().getAllLoadedMobs().forEach(mob -> this.reloadMob(mob.getMobFileName(), mob.getDataAdapter().getSpawnLimit()));
     }
-
-    public void reloadSingleMob(String name, int newSpawnLimit) {
+    
+    public void reloadSingleMob(final String name, final int newSpawnLimit) {
         CustomMob.killAll(name);
-
-        fixedLimit.remove(name);
-        noLimit.remove(name);
-        currentlyActive.remove(name);
-
-        reloadMob(name, newSpawnLimit);
+        this.fixedLimit.remove(name);
+        this.noLimit.remove(name);
+        this.currentlyActive.remove(name);
+        this.reloadMob(name, newSpawnLimit);
     }
-
-    public void reloadMob(String name, int newSpawnLimit) {
-        if(newSpawnLimit > -1) {
-            fixedLimit.put(name, newSpawnLimit);
-        } else {
-            noLimit.add(name);
+    
+    public void reloadMob(final String name, final int newSpawnLimit) {
+        if (newSpawnLimit > -1) {
+            this.fixedLimit.put(name, newSpawnLimit);
         }
-        currentlyActive.put(name, new ArrayList<>());
+        else {
+            this.noLimit.add(name);
+        }
+        this.currentlyActive.put(name, new ArrayList<Integer>());
     }
-
 }

@@ -1,64 +1,55 @@
 package de.hellfirepvp.api.data.nbt;
 
+import javax.annotation.Nullable;
 import org.bukkit.inventory.ItemStack;
 
-import javax.annotation.Nullable;
-
-/**
- * This class is part of the CustomMobs Plugin
- * The plugin can be found at: https://www.spigotmc.org/resources/custommobs.7339
- * Class: WrappedNBTTag
- * Created by HellFirePvP
- * Date: 24.05.2016 / 00:08
- */
-public interface WrappedNBTTagCompound {
-
-    public Object getRawNMSTagCompound();
-
-    public void removeKey(String key);
-
-    public boolean hasKey(String key);
-
-    public void set(String key, Object value) throws UnsupportedNBTTypeException;
-
-    public void setInt(String key, int value);
-
-    public void setByte(String key, byte value);
-
-    public void setShort(String key, short value);
-
-    public void setLong(String key, long value);
-
-    public void setFloat(String key, float value);
-
-    public void setDouble(String key, double value);
-
-    public void setBoolean(String key, boolean value);
-
-    public void setString(String key, String value);
-
-    public void setIntArray(String key, int[] value);
-
-    public void setByteArray(String key, byte[] value);
-
-    public void setSubTag(String key, WrappedNBTTagCompound subTag);
-
-    public void setSubList(String key, WrappedNBTTagList subList);
-
+public interface WrappedNBTTagCompound
+{
+    Object getRawNMSTagCompound();
+    
+    void removeKey(final String p0);
+    
+    boolean hasKey(final String p0);
+    
+    void set(final String p0, final Object p1) throws UnsupportedNBTTypeException;
+    
+    void setInt(final String p0, final int p1);
+    
+    void setByte(final String p0, final byte p1);
+    
+    void setShort(final String p0, final short p1);
+    
+    void setLong(final String p0, final long p1);
+    
+    void setFloat(final String p0, final float p1);
+    
+    void setDouble(final String p0, final double p1);
+    
+    void setBoolean(final String p0, final boolean p1);
+    
+    void setString(final String p0, final String p1);
+    
+    void setIntArray(final String p0, final int[] p1);
+    
+    void setByteArray(final String p0, final byte[] p1);
+    
+    void setSubTag(final String p0, final WrappedNBTTagCompound p1);
+    
+    void setSubList(final String p0, final WrappedNBTTagList p1);
+    
     @Nullable
-    public ItemStack getItemStack(String key);
-
-    public void setItemStack(String key, ItemStack stack);
-
+    ItemStack getItemStack(final String p0);
+    
+    void setItemStack(final String p0, final ItemStack p1);
+    
     @Nullable
-    public WrappedNBTTagCompound getTagCompound(String key);
-
+    WrappedNBTTagCompound getTagCompound(final String p0);
+    
     @Nullable
-    public WrappedNBTTagList getTagList(String key, NBTTagType expectedListElements);
-
+    WrappedNBTTagList getTagList(final String p0, final NBTTagType p1);
+    
     @Nullable
-    public Object getValue(String key);
-
-    public WrappedNBTTagCompound unmodifiable();
-
+    Object getValue(final String p0);
+    
+    WrappedNBTTagCompound unmodifiable();
 }

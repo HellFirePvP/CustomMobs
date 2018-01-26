@@ -1,25 +1,14 @@
 package de.hellfirepvp.cmd;
 
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.command.CommandSender;
 
-import java.util.ArrayList;
-import java.util.List;
-
-/**
- * This class is part of the CustomMobs Plugin
- * The plugin can be found at: https://www.spigotmc.org/resources/custommobs.7339
- * Class: PlayerCmobCommand
- * Created by HellFirePvP
- * Date: (Header change) 27.05.2016 / 4:00
- */
-public abstract class PlayerCmobCommand extends AbstractCmobCommand {
-
+public abstract class PlayerCmobCommand extends AbstractCmobCommand
+{
     @Override
-    public final void execute(CommandSender cs, String[] args) {
-        execute(((Player) cs), args);
+    public final void execute(final CommandSender cs, final String[] args) {
+        this.execute((Player)cs, args);
     }
-
-    public abstract void execute(Player p, String[] args);
-
+    
+    public abstract void execute(final Player p0, final String[] p1);
 }

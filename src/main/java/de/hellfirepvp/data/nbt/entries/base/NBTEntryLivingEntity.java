@@ -1,45 +1,33 @@
 package de.hellfirepvp.data.nbt.entries.base;
 
-import de.hellfirepvp.data.nbt.AbstractNBTEntry;
+import de.hellfirepvp.data.nbt.NBTEntryParser;
 import de.hellfirepvp.data.nbt.NBTRegister;
+import de.hellfirepvp.data.nbt.AbstractNBTEntry;
 
-import static de.hellfirepvp.data.nbt.NBTEntryParser.*;
-
-/**
- * This class is part of the CustomMobs Plugin
- * The plugin can be found at: https://www.spigotmc.org/resources/custommobs.7339
- * Class: NBTEntryLivingEntity
- * Created by HellFirePvP
- * Date: 29.05.2016 / 14:33
- */
-public abstract class NBTEntryLivingEntity extends AbstractNBTEntry {
-
-    protected NBTEntryLivingEntity(NBTRegister.TypeRegister context) {
+public abstract class NBTEntryLivingEntity extends AbstractNBTEntry
+{
+    protected NBTEntryLivingEntity(final NBTRegister.TypeRegister context) {
         super(context);
     }
-
+    
     @Override
     public void registerEntries() {
-        //Std. Entity Entries.
-        offerEntry("FallDistance", FLOAT_PARSER);
-        offerEntry("Fire", SHORT_PARSER);
-        offerEntry("Air", SHORT_PARSER);
-        offerEntry("OnGround", BOOLEAN_PARSER);
-        offerEntry("Invulnerable", BOOLEAN_PARSER);
-        offerEntry("PortalCooldown", INT_PARSER);
-        offerEntry("CustomName", STRING_PARSER);
-        offerEntry("CustomNameVisible", BOOLEAN_PARSER);
-        offerEntry("Silent", BOOLEAN_PARSER);
-        offerEntry("Glowing", BOOLEAN_PARSER);
-
-        //Std. LivingEntity Entries.
-        offerEntry("Health", FLOAT_PARSER);
-        offerEntry("AbsorptionAmount", FLOAT_PARSER);
-        offerEntry("HurtTime", SHORT_PARSER);
-        offerEntry("NoAI", BOOLEAN_PARSER);
-        offerEntry("PersistenceRequired", BOOLEAN_PARSER);
-        offerEntry("LeftHanded", BOOLEAN_PARSER);
-        offerEntry("Team", STRING_PARSER);
+        this.offerEntry("FallDistance", NBTEntryParser.FLOAT_PARSER);
+        this.offerEntry("Fire", NBTEntryParser.SHORT_PARSER);
+        this.offerEntry("Air", NBTEntryParser.SHORT_PARSER);
+        this.offerEntry("OnGround", NBTEntryParser.BOOLEAN_PARSER);
+        this.offerEntry("Invulnerable", NBTEntryParser.BOOLEAN_PARSER);
+        this.offerEntry("PortalCooldown", NBTEntryParser.INT_PARSER);
+        this.offerEntry("CustomName", NBTEntryParser.STRING_PARSER);
+        this.offerEntry("CustomNameVisible", NBTEntryParser.BOOLEAN_PARSER);
+        this.offerEntry("Silent", NBTEntryParser.BOOLEAN_PARSER);
+        this.offerEntry("Glowing", NBTEntryParser.BOOLEAN_PARSER);
+        this.offerEntry("Health", NBTEntryParser.FLOAT_PARSER);
+        this.offerEntry("AbsorptionAmount", NBTEntryParser.FLOAT_PARSER);
+        this.offerEntry("HurtTime", NBTEntryParser.SHORT_PARSER);
+        this.offerEntry("NoAI", NBTEntryParser.BOOLEAN_PARSER);
+        this.offerEntry("PersistenceRequired", NBTEntryParser.BOOLEAN_PARSER);
+        this.offerEntry("LeftHanded", NBTEntryParser.BOOLEAN_PARSER);
+        this.offerEntry("Team", NBTEntryParser.STRING_PARSER);
     }
-
 }

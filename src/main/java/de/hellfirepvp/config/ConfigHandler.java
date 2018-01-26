@@ -1,115 +1,116 @@
 package de.hellfirepvp.config;
 
-import de.hellfirepvp.CustomMobs;
-
 import java.util.Arrays;
+import de.hellfirepvp.CustomMobs;
 import java.util.List;
 
-/**
- * This class is part of the CustomMobs Plugin
- * The plugin can be found at: https://www.spigotmc.org/resources/custommobs.7339
- * Class: ConfigHandler
- * Created by HellFirePvP
- * Date: 23.05.2016 / 23:34
- */
-public class ConfigHandler {
-
-    protected int frequency, spawnAtStartupDelay, spawnerRange,
-            leashViolationTolerance, worldSpawnerTickSpeed, spawnThreshold;
-    protected boolean spawnAtStartup, fullcontrolUsage, enableMetrics,
-            removeLimitedMobsAtChUnload, removeCustomMobsOnChunkUnload,
-            respectWGDenySpawnFlag, respectWGMobSpawningTypesFlag, debug;
-    protected List<String> bannedMobCommands, spawnLimitResetCommands;
+public class ConfigHandler
+{
+    protected int frequency;
+    protected int spawnAtStartupDelay;
+    protected int spawnerRange;
+    protected int leashViolationTolerance;
+    protected int worldSpawnerTickSpeed;
+    protected int spawnThreshold;
+    protected boolean spawnAtStartup;
+    protected boolean fullcontrolUsage;
+    protected boolean enableMetrics;
+    protected boolean removeLimitedMobsAtChUnload;
+    protected boolean removeCustomMobsOnChunkUnload;
+    protected boolean respectWGDenySpawnFlag;
+    protected boolean respectWGMobSpawningTypesFlag;
+    protected boolean debug;
+    protected List<String> bannedMobCommands;
+    protected List<String> spawnLimitResetCommands;
     protected String languageFile;
-
+    
     public void loadFromFile() {
         ConfigReader.readAndUpdateConfig(this);
-
         CustomMobs.logger.info("Loaded configuration!");
-        CustomMobs.logger.debug("LanguageFile: " + languageFile);
-        CustomMobs.logger.debug("Debug: " + debug);
-        CustomMobs.logger.debug("SpawnThreshold: " + spawnThreshold);
-        CustomMobs.logger.debug("SpawnFrequency: " + frequency + "/100");
-        CustomMobs.logger.debug("WorldSpawnerTickSpeed: " + worldSpawnerTickSpeed);
-        CustomMobs.logger.debug("SpawnAtStartup: " + spawnAtStartup);
-        CustomMobs.logger.debug("SpawnAtStartupDelay: " + spawnAtStartupDelay);
-        CustomMobs.logger.debug("SpawnerRange: " + spawnerRange);
-        CustomMobs.logger.debug("EnablePluginMetrics: " + enableMetrics);
-        CustomMobs.logger.debug("LeashViolationTolerance: " + leashViolationTolerance);
-        CustomMobs.logger.debug("UseFullcontrol: " + fullcontrolUsage);
-        CustomMobs.logger.debug("RespectWGDenySpawn: " + respectWGDenySpawnFlag);
-        CustomMobs.logger.debug("RespectWGMobSpawningTypes: " + respectWGMobSpawningTypesFlag);
-        CustomMobs.logger.debug("RemoveCustomMobsOnChunkUnload: " + removeCustomMobsOnChunkUnload);
-        CustomMobs.logger.debug("RemoveLimitedMobsOnChunkUnload: " + removeLimitedMobsAtChUnload);
-        CustomMobs.logger.debug("BannedMobCommands: " + Arrays.toString(bannedMobCommands.toArray()));
-        CustomMobs.logger.debug("SpawnlimitResetCommand: " + Arrays.toString(spawnLimitResetCommands.toArray()));
+        CustomMobs.logger.debug("LanguageFile: " + this.languageFile);
+        CustomMobs.logger.debug("Debug: " + this.debug);
+        CustomMobs.logger.debug("SpawnThreshold: " + this.spawnThreshold);
+        CustomMobs.logger.debug("SpawnFrequency: " + this.frequency + "/100");
+        CustomMobs.logger.debug("WorldSpawnerTickSpeed: " + this.worldSpawnerTickSpeed);
+        CustomMobs.logger.debug("SpawnAtStartup: " + this.spawnAtStartup);
+        CustomMobs.logger.debug("SpawnAtStartupDelay: " + this.spawnAtStartupDelay);
+        CustomMobs.logger.debug("SpawnerRange: " + this.spawnerRange);
+        CustomMobs.logger.debug("EnablePluginMetrics: " + this.enableMetrics);
+        CustomMobs.logger.debug("LeashViolationTolerance: " + this.leashViolationTolerance);
+        CustomMobs.logger.debug("UseFullcontrol: " + this.fullcontrolUsage);
+        CustomMobs.logger.debug("RespectWGDenySpawn: " + this.respectWGDenySpawnFlag);
+        CustomMobs.logger.debug("RespectWGMobSpawningTypes: " + this.respectWGMobSpawningTypesFlag);
+        CustomMobs.logger.debug("RemoveCustomMobsOnChunkUnload: " + this.removeCustomMobsOnChunkUnload);
+        CustomMobs.logger.debug("RemoveLimitedMobsOnChunkUnload: " + this.removeLimitedMobsAtChUnload);
+        CustomMobs.logger.debug("BannedMobCommands: " + Arrays.toString(this.bannedMobCommands.toArray()));
+        CustomMobs.logger.debug("SpawnlimitResetCommand: " + Arrays.toString(this.spawnLimitResetCommands.toArray()));
     }
-
+    
     public boolean debug() {
-        return debug;
+        return this.debug;
     }
-
+    
     public boolean useFullControl() {
-        return fullcontrolUsage;
+        return this.fullcontrolUsage;
     }
-
+    
     public int spawnThreshold() {
-        return spawnThreshold;
+        return this.spawnThreshold;
     }
-
+    
     public boolean spawnRespawnMobsAtStartup() {
-        return spawnAtStartup;
+        return this.spawnAtStartup;
     }
-
+    
     public boolean removeLimitedMobsOnChunkUnload() {
-        return removeLimitedMobsAtChUnload;
+        return this.removeLimitedMobsAtChUnload;
     }
-
+    
     public boolean removeCustomMobOnChunkUnload() {
-        return removeCustomMobsOnChunkUnload;
+        return this.removeCustomMobsOnChunkUnload;
     }
-
+    
     public boolean respectWGMobSpawningFlag() {
-        return respectWGMobSpawningTypesFlag;
+        return this.respectWGMobSpawningTypesFlag;
     }
-
+    
     public boolean respectWGDenySpawnFlag() {
-        return respectWGDenySpawnFlag;
+        return this.respectWGDenySpawnFlag;
     }
-
+    
     public boolean enablePluginMetrics() {
-        return enableMetrics;
+        return this.enableMetrics;
     }
-
+    
     public int spawnRespawnMobsAtStartupDelay() {
-        return spawnAtStartupDelay;
+        return this.spawnAtStartupDelay;
     }
-
+    
     public int spawnFrequency() {
-        return frequency;
+        return this.frequency;
     }
-
+    
     public String getLanguageFileConfiguration() {
-        return languageFile;
+        return this.languageFile;
     }
-
+    
     public int worldSpawnerTickSpeed() {
-        return worldSpawnerTickSpeed;
+        return this.worldSpawnerTickSpeed;
     }
-
+    
     public int spawnerRange() {
-        return spawnerRange;
+        return this.spawnerRange;
     }
-
+    
     public int leashViolationTolerance() {
-        return leashViolationTolerance;
+        return this.leashViolationTolerance;
     }
-
+    
     public List<String> bannedMobCommands() {
-        return bannedMobCommands;
+        return this.bannedMobCommands;
     }
-
+    
     public List<String> spawnLimitFlushCommands() {
-        return spawnLimitResetCommands;
+        return this.spawnLimitResetCommands;
     }
 }

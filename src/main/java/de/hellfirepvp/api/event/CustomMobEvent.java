@@ -1,37 +1,31 @@
 package de.hellfirepvp.api.event;
 
 import de.hellfirepvp.api.data.ICustomMob;
-import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
+import org.bukkit.event.Event;
 
-/**
- * This class is part of the CustomMobs Plugin
- * The plugin can be found at: https://www.spigotmc.org/resources/custommobs.7339
- * Class: CustomMobEvent
- * Created by HellFirePvP
- * Date: 24.05.2016 / 22:34
- */
-public class CustomMobEvent extends Event {
-
-    public static HandlerList handlers = new HandlerList();
-
+public class CustomMobEvent extends Event
+{
+    public static HandlerList handlers;
     private ICustomMob mob;
-
-    public CustomMobEvent(ICustomMob mob) {
+    
+    public CustomMobEvent(final ICustomMob mob) {
         this.mob = mob;
     }
-
+    
     public ICustomMob getMob() {
-        return mob;
+        return this.mob;
     }
-
-    @Override
+    
     public HandlerList getHandlers() {
-        return handlers;
+        return CustomMobEvent.handlers;
     }
-
+    
     public static HandlerList getHandlerList() {
-        return handlers;
+        return CustomMobEvent.handlers;
     }
-
+    
+    static {
+        CustomMobEvent.handlers = new HandlerList();
+    }
 }

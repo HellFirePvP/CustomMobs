@@ -1,73 +1,75 @@
 package de.hellfirepvp.spawning;
 
-import de.hellfirepvp.CustomMobs;
-import de.hellfirepvp.data.SpawnSettingsHolder;
 import de.hellfirepvp.data.mob.CustomMob;
-import org.bukkit.block.Biome;
-
-import java.util.ArrayList;
+import java.util.Iterator;
+import de.hellfirepvp.data.SpawnSettingsHolder;
 import java.util.Collection;
+import de.hellfirepvp.CustomMobs;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import org.bukkit.block.Biome;
 import java.util.Map;
 
-/**
- * This class is part of the CustomMobs Plugin
- * The plugin can be found at: https://www.spigotmc.org/resources/custommobs.7339
- * Class: SpawnSettingsResolver
- * Created by HellFirePvP
- * Date: (Header change) 27.05.2016 / 4:02
- */
-public final class SpawnSettingsResolver {
-
+public final class SpawnSettingsResolver
+{
     public boolean areThereMobs;
-
-    public Map<Biome, List<String>> biomeBound = new HashMap<>();
-    public Map<String, List<String>> worldBound = new HashMap<>(), regionBound = new HashMap<>();
-
-    public List<String> undefBiome = new ArrayList<>(), undefWorld = new ArrayList<>(), undefRegion = new ArrayList<>();
-
-    public void resolveSpawnSettings() {
-        undefBiome.clear();
-        undefWorld.clear();
-        undefRegion.clear(); //No Operation
-        biomeBound.clear();
-        worldBound.clear();
-        regionBound.clear(); //No Operation
-
-        SpawnSettingsHolder holder = CustomMobs.instance.getSpawnSettings();
-
-        areThereMobs = !holder.getMobNamesWithSettings().isEmpty();
-
-        for(String mobName : holder.getMobNamesWithSettings()) {
-            SpawnSettingsHolder.SpawnSettings settings = holder.getSettings(mobName);
-            CustomMob mob = CustomMobs.instance.getMobDataHolder().getCustomMob(mobName);
-            if(mob == null) continue; //Settings for no mob? GTFO
-
-            addToList(settings.biomeSpecified, settings.biomes, biomeBound, undefBiome, mob.getMobFileName());
-            addToList(settings.worldsSpecified, settings.worlds, worldBound, undefWorld, mob.getMobFileName());
-            addToList(settings.regionsSpecified, settings.regions, regionBound, undefRegion, mob.getMobFileName());
-        }
-
+    public Map<Biome, List<String>> biomeBound;
+    public Map<String, List<String>> worldBound;
+    public Map<String, List<String>> regionBound;
+    public List<String> undefBiome;
+    public List<String> undefWorld;
+    public List<String> undefRegion;
+    
+    public SpawnSettingsResolver() {
+        this.biomeBound = new HashMap<Biome, List<String>>();
+        this.worldBound = new HashMap<String, List<String>>();
+        this.regionBound = new HashMap<String, List<String>>();
+        this.undefBiome = new ArrayList<String>();
+        this.undefWorld = new ArrayList<String>();
+        this.undefRegion = new ArrayList<String>();
     }
-
-    private <I, V> void addToList(boolean condition, Collection<I> iteratingCollection, Map<I, List<V>> boundMap, List<V> condFalseAdd, V toTryAdd) {
-        if(condition) {
-            for(I it : iteratingCollection) {
-                if(boundMap.containsKey(it)) {
-                    List<V> values = boundMap.get(it);
-                    if(!values.contains(toTryAdd)) values.add(toTryAdd);
-                } else {
-                    List<V> list = new ArrayList<>();
+    
+    public void resolveSpawnSettings() {
+        this.undefBiome.clear();
+        this.undefWorld.clear();
+        this.undefRegion.clear();
+        this.biomeBound.clear();
+        this.worldBound.clear();
+        this.regionBound.clear();
+        final SpawnSettingsHolder holder = CustomMobs.instance.getSpawnSettings();
+        this.areThereMobs = !holder.getMobNamesWithSettings().isEmpty();
+        for (final String mobName : holder.getMobNamesWithSettings()) {
+            final SpawnSettingsHolder.SpawnSettings settings = holder.getSettings(mobName);
+            final CustomMob mob = CustomMobs.instance.getMobDataHolder().getCustomMob(mobName);
+            if (mob == null) {
+                continue;
+            }
+            this.addToList(settings.biomeSpecified, settings.biomes, this.biomeBound, this.undefBiome, mob.getMobFileName());
+            this.addToList(settings.worldsSpecified, settings.worlds, this.worldBound, this.undefWorld, mob.getMobFileName());
+            this.addToList(settings.regionsSpecified, settings.regions, this.regionBound, this.undefRegion, mob.getMobFileName());
+        }
+    }
+    
+    private <I, V> void addToList(final boolean condition, final Collection<I> iteratingCollection, final Map<I, List<V>> boundMap, final List<V> condFalseAdd, final V toTryAdd) {
+        if (condition) {
+            for (final I it : iteratingCollection) {
+                if (boundMap.containsKey(it)) {
+                    final List<V> values = boundMap.get(it);
+                    if (values.contains(toTryAdd)) {
+                        continue;
+                    }
+                    values.add(toTryAdd);
+                }
+                else {
+                    final List<V> list = new ArrayList<V>();
                     list.add(toTryAdd);
                     boundMap.put(it, list);
                 }
             }
-        } else {
-            if(!condFalseAdd.contains(toTryAdd)) {
-                condFalseAdd.add(toTryAdd);
-            }
+        }
+        else if (!condFalseAdd.contains(toTryAdd)) {
+            condFalseAdd.add(toTryAdd);
         }
     }
-
 }

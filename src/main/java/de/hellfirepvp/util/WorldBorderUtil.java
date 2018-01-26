@@ -2,67 +2,59 @@ package de.hellfirepvp.util;
 
 import org.bukkit.WorldBorder;
 
-/**
- * This class is part of the CustomMobs Plugin
- * The plugin can be found at: https://www.spigotmc.org/resources/custommobs.7339
- * Class: WorldBorderUtil
- * Created by HellFirePvP
- * Date: 26.05.2016 / 18:42
- */
-public class WorldBorderUtil {
-
+public class WorldBorderUtil
+{
     private WorldBorder worldBorder;
-
-    public WorldBorderUtil(WorldBorder worldBorder) {
+    
+    public WorldBorderUtil(final WorldBorder worldBorder) {
         this.worldBorder = worldBorder;
     }
-
-    public boolean isInside(int chX, int chZ) {
-        return ((chX << 4) + 15 > minX()) && (chX << 4 < maxX()) && ((chZ << 4) + 15 > minZ()) && (chX << 4 < maxZ());
+    
+    public boolean isInside(final int chX, final int chZ) {
+        return (chX << 4) + 15 > this.minX() && chX << 4 < this.maxX() && (chZ << 4) + 15 > this.minZ() && chX << 4 < this.maxZ();
     }
-
+    
     public double getCenterX() {
-        return worldBorder.getCenter().getX();
+        return this.worldBorder.getCenter().getX();
     }
-
+    
     public double getCenterZ() {
-        return worldBorder.getCenter().getZ();
+        return this.worldBorder.getCenter().getZ();
     }
-
+    
     public double getSize() {
-        return worldBorder.getSize();
+        return this.worldBorder.getSize();
     }
-
+    
     public double minX() {
-        double d0 = getCenterX() - getSize() / 2.0D;
-        if (d0 < -29999984) {
-            d0 = -29999984;
+        double d0 = this.getCenterX() - this.getSize() / 2.0;
+        if (d0 < -2.9999984E7) {
+            d0 = -2.9999984E7;
         }
         return d0;
     }
-
+    
     public double minZ() {
-        double d0 = getCenterZ() - getSize() / 2.0D;
-        if (d0 < -29999984) {
-            d0 = -29999984;
+        double d0 = this.getCenterZ() - this.getSize() / 2.0;
+        if (d0 < -2.9999984E7) {
+            d0 = -2.9999984E7;
         }
         return d0;
     }
-
+    
     public double maxX() {
-        double d0 = getCenterX() + getSize() / 2.0D;
-        if (d0 > 29999984) {
-            d0 = 29999984;
+        double d0 = this.getCenterX() + this.getSize() / 2.0;
+        if (d0 > 2.9999984E7) {
+            d0 = 2.9999984E7;
         }
         return d0;
     }
-
+    
     public double maxZ() {
-        double d0 = getCenterZ() + getSize() / 2.0D;
-        if (d0 > 29999984) {
-            d0 = 29999984;
+        double d0 = this.getCenterZ() + this.getSize() / 2.0;
+        if (d0 > 2.9999984E7) {
+            d0 = 2.9999984E7;
         }
         return d0;
     }
-
 }

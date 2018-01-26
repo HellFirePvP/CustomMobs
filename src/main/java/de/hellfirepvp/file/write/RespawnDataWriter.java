@@ -1,72 +1,53 @@
 package de.hellfirepvp.file.write;
 
-import de.hellfirepvp.CustomMobs;
-import de.hellfirepvp.data.RespawnDataHolder;
-import de.hellfirepvp.api.data.callback.RespawnDataCallback;
-import de.hellfirepvp.lib.LibConfiguration;
-import de.hellfirepvp.util.LocationUtils;
-import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.Location;
+import de.hellfirepvp.util.LocationUtils;
+import de.hellfirepvp.data.RespawnDataHolder;
 import org.bukkit.configuration.file.YamlConfiguration;
-
+import de.hellfirepvp.CustomMobs;
 import java.io.IOException;
+import de.hellfirepvp.lib.LibConfiguration;
+import de.hellfirepvp.api.data.callback.RespawnDataCallback;
 
-import static de.hellfirepvp.lib.LibConstantKeys.*;
-
-/**
- * This class is part of the CustomMobs Plugin
- * The plugin can be found at: https://www.spigotmc.org/resources/custommobs.7339
- * Class: RespawnDataWriter
- * Created by HellFirePvP
- * Date: (Header change) 27.05.2016 / 4:03
- */
-public class RespawnDataWriter {
-
-    public static RespawnDataCallback resetRespawnSettings(String name) {
-        YamlConfiguration config = LibConfiguration.getRespawnSettingsConfiguration();
-
-        if(!config.contains(name))
+public class RespawnDataWriter
+{
+    public static RespawnDataCallback resetRespawnSettings(final String name) {
+        final YamlConfiguration config = LibConfiguration.getRespawnSettingsConfiguration();
+        if (!config.contains(name)) {
             return RespawnDataCallback.MOB_DOESNT_EXIST;
-
-        config.set(name, null);
-
+        }
+        config.set(name, (Object)null);
         try {
             config.save(LibConfiguration.getRespawnSettingsFile());
-        } catch (IOException ignored) {
+        }
+        catch (IOException ignored) {
             return RespawnDataCallback.IO_EXCEPTION;
         }
-
         CustomMobs.instance.getMobDataHolder().reloadAllMobs();
         CustomMobs.instance.getRespawnSettings().loadData();
-
         return RespawnDataCallback.SUCCESS;
     }
-
-    public static RespawnDataCallback setRespawnSettings(String name, RespawnDataHolder.RespawnSettings settings) {
-        YamlConfiguration config = LibConfiguration.getRespawnSettingsConfiguration();
-
-        if(config.contains(name))
+    
+    public static RespawnDataCallback setRespawnSettings(final String name, final RespawnDataHolder.RespawnSettings settings) {
+        final YamlConfiguration config = LibConfiguration.getRespawnSettingsConfiguration();
+        if (config.contains(name)) {
             return RespawnDataCallback.MOB_ALREADY_EXISTS;
-
-        Location toSave = settings.location;
-        String serializedLocation = LocationUtils.serializeExactLoc(toSave);
-        Long time = settings.respawnTime;
-
-        ConfigurationSection section = config.createSection(name);
-
-        section.set(RESPAWN_DATA_LOCATION, serializedLocation);
-        section.set(RESPAWN_DATA_RESPAWNTIME, time);
-
+        }
+        final Location toSave = settings.location;
+        final String serializedLocation = LocationUtils.serializeExactLoc(toSave);
+        final Long time = settings.respawnTime;
+        final ConfigurationSection section = config.createSection(name);
+        section.set("loc", (Object)serializedLocation);
+        section.set("time", (Object)time);
         try {
             config.save(LibConfiguration.getRespawnSettingsFile());
-        } catch (IOException ignored) {
+        }
+        catch (IOException ignored) {
             return RespawnDataCallback.IO_EXCEPTION;
         }
-
         CustomMobs.instance.getMobDataHolder().reloadAllMobs();
         CustomMobs.instance.getRespawnSettings().loadData();
-
         return RespawnDataCallback.SUCCESS;
     }
-
 }
