@@ -11,3 +11,7 @@
  - spigot-1.12.2
   
   You can get these files at [Yves Mirror](https://yivesmirror.com/downloads/spigot) or with [Spigot BuildTools](https://www.spigotmc.org/wiki/buildtools/)
+
+  You can directly open this source in NetBeans (I use 8.2) if you have the Gradle plugin installed
+  
+  Look here: https://github.com/kelemen/netbeans-gradle-project
