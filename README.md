@@ -3,7 +3,7 @@
 
 ## Building instructions
 
-  In order to build this project you will need to add 4 libraries to the /lib folder:
+  In order to build this project you will need to add 4 libraries to the `/lib` folder:
  - spigot-1.9
  - spigot-1.9.4
  - spigot-1.10.2
