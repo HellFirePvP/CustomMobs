@@ -17,6 +17,7 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 
 import java.util.HashSet;
+import java.util.Set;
 
 /**
  * This class is part of the CustomMobs Plugin
@@ -129,12 +130,8 @@ public class CommandCmobSpawn extends PlayerCmobCommand {
         try {
             return p.getTargetBlock(LibMisc.TARGET_TRANSPARENT, 80);
         } catch (Throwable tr) {
-            return p.getTargetBlock(getNullByteSet(), 80);
+            return null;
         }
-    }
-
-    private HashSet<Byte> getNullByteSet() {
-        return null;
     }
 
 }

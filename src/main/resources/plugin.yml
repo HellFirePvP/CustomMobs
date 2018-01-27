@@ -1,6 +1,6 @@
 name: CustomMobs
-version: 4.16
-author: HellFirePvP
+version: 4.2
+authors: [HellFirePvP, VitorMac10]
 softdepend: [WorldEdit, WorldGuard, Multiverse-Core, MultiWorld]
 
 main: de.hellfirepvp.CustomMobs

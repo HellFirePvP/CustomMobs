@@ -1,36 +1,26 @@
 package de.hellfirepvp.nms;
 
-import de.hellfirepvp.spawning.worldSpawning.WorldSpawner;
-import org.bukkit.Location;
-import org.bukkit.World;
-import org.bukkit.block.Block;
-import org.bukkit.entity.LivingEntity;
 import org.bukkit.util.Vector;
-import org.spigotmc.SpigotWorldConfig;
-
+import org.bukkit.block.Block;
+import org.bukkit.Location;
 import java.util.List;
+import de.hellfirepvp.spawning.worldSpawning.WorldSpawner;
+import org.bukkit.World;
+import org.bukkit.entity.LivingEntity;
 
-/**
- * This class is part of the CustomMobs Plugin
- * The plugin can be found at: https://www.spigotmc.org/resources/custommobs.7339
- * Class: NMSEntityUtils
- * Created by HellFirePvP
- * Date: 26.05.2016 / 17:30
- */
-public interface NMSUtils {
-
-    public void setName(LivingEntity entity, String name);
-
-    public String getName(LivingEntity entity);
-
-    public byte[] getMobSpawnRangeAndViewDistance(World world);
-
-    public int getLivingCount(WorldSpawner.CreatureType creatureType, List<WorldSpawner.ChunkCoordPair> chCoords, World world);
-
-    public boolean isPlayerInRange(Location location, double range);
-
-    public void clearSpawner(Block block);
-
-    public boolean isNormalCube(World world, Vector at);
-
+public interface NMSUtils
+{
+    void setName(final LivingEntity p0, final String p1);
+    
+    String getName(final LivingEntity p0);
+    
+    byte[] getMobSpawnRangeAndViewDistance(final World p0);
+    
+    int getLivingCount(final WorldSpawner.CreatureType p0, final List<WorldSpawner.ChunkCoordPair> p1, final World p2);
+    
+    boolean isPlayerInRange(final Location p0, final double p1);
+    
+    void clearSpawner(final Block p0);
+    
+    boolean isNormalCube(final World p0, final Vector p1);
 }

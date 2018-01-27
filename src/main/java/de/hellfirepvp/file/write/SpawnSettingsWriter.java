@@ -1,87 +1,65 @@
 package de.hellfirepvp.file.write;
 
-import de.hellfirepvp.CustomMobs;
-import de.hellfirepvp.api.data.ISpawnSettings;
-import de.hellfirepvp.api.data.callback.SpawnSettingsCallback;
-import de.hellfirepvp.lib.LibConfiguration;
-import org.bukkit.block.Biome;
-import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.configuration.file.YamlConfiguration;
-
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
+import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.block.Biome;
+import java.util.ArrayList;
+import de.hellfirepvp.api.data.ISpawnSettings;
+import org.bukkit.configuration.file.YamlConfiguration;
+import de.hellfirepvp.CustomMobs;
+import java.io.IOException;
+import de.hellfirepvp.lib.LibConfiguration;
+import de.hellfirepvp.api.data.callback.SpawnSettingsCallback;
 
-import static de.hellfirepvp.lib.LibConstantKeys.*;
-
-/**
- * This class is part of the CustomMobs Plugin
- * The plugin can be found at: https://www.spigotmc.org/resources/custommobs.7339
- * Class: SpawnSettingsWriter
- * Created by HellFirePvP
- * Date: (Header change) 27.05.2016 / 4:03
- */
-public class SpawnSettingsWriter {
-
-    public static SpawnSettingsCallback resetSpawnSettings(String name) {
-        YamlConfiguration config = LibConfiguration.getSpawnSettingsConfiguration();
-
-        if(!config.contains(name))
+public class SpawnSettingsWriter
+{
+    public static SpawnSettingsCallback resetSpawnSettings(final String name) {
+        final YamlConfiguration config = LibConfiguration.getSpawnSettingsConfiguration();
+        if (!config.contains(name)) {
             return SpawnSettingsCallback.MOB_DOESNT_EXIST;
-
-        config.set(name, null);
-
+        }
+        config.set(name, (Object)null);
         try {
             config.save(LibConfiguration.getSpawnSettingsFile());
-        } catch (IOException ignored) {
+        }
+        catch (IOException ignored) {
             return SpawnSettingsCallback.IO_EXCEPTION;
         }
-
         CustomMobs.instance.getMobDataHolder().reloadAllMobs();
         CustomMobs.instance.getSpawnSettings().resolveSettings();
         CustomMobs.instance.getWorldSpawnExecutor().loadData();
-
         return SpawnSettingsCallback.SUCCESS;
     }
-
-    public static SpawnSettingsCallback setSpawnSettings(String name, ISpawnSettings settings) {
-        YamlConfiguration config = LibConfiguration.getSpawnSettingsConfiguration();
-
-        if(config.contains(name))
+    
+    public static SpawnSettingsCallback setSpawnSettings(final String name, final ISpawnSettings settings) {
+        final YamlConfiguration config = LibConfiguration.getSpawnSettingsConfiguration();
+        if (config.contains(name)) {
             return SpawnSettingsCallback.MOB_ALREADY_EXISTS;
-
-        ConfigurationSection section = config.createSection(name);
-
-        boolean grpSpawn = settings.doesSpawnInGroup();
-        int grpAmount = settings.averageGroupAmount();
-        double spawnRate = settings.getSpawnRate();
-
-        List<Biome> biomes = settings.areBiomesSpecified() ? settings.getSpecifiedBiomes() : new ArrayList<>();
-        List<String> worlds = settings.areWorldsSpecified() ? settings.getSpecifiedWorlds() : new ArrayList<>();
-        List<String> regions = settings.areRegionsSpecified() ? settings.getSpecifiedRegions() : new ArrayList<>();
-
-        List<String> stringBiomes = new ArrayList<>();
+        }
+        final ConfigurationSection section = config.createSection(name);
+        final boolean grpSpawn = settings.doesSpawnInGroup();
+        final int grpAmount = settings.averageGroupAmount();
+        final double spawnRate = settings.getSpawnRate();
+        final List<Biome> biomes = settings.areBiomesSpecified() ? settings.getSpecifiedBiomes() : new ArrayList<Biome>();
+        final List<String> worlds = settings.areWorldsSpecified() ? settings.getSpecifiedWorlds() : new ArrayList<String>();
+        final List<String> regions = settings.areRegionsSpecified() ? settings.getSpecifiedRegions() : new ArrayList<String>();
+        final List<String> stringBiomes = new ArrayList<String>();
         biomes.stream().filter(b -> !stringBiomes.contains(b.name())).forEach(b -> stringBiomes.add(b.name()));
-
-        section.set(SPAWNSETTINGS_DATA_GROUPSPAWN_BOOL, grpSpawn);
-        section.set(SPAWNSETTINGS_DATA_GROUPSPAWN_AMOUNT, grpAmount);
-        section.set(SPAWNSETTINGS_DATA_SPAWNRATE, spawnRate);
-
-        section.set(SPAWNSETTINGS_DATA_WORLDS, worlds);
-        section.set(SPAWNSETTINGS_DATA_BIOMES, stringBiomes);
-        section.set(SPAWNSETTINGS_DATA_REGIONS, regions);
-
+        section.set("groupSpawn", (Object)grpSpawn);
+        section.set("groupAmount", (Object)grpAmount);
+        section.set("spawnRate", (Object)spawnRate);
+        section.set("worlds", (Object)worlds);
+        section.set("biomes", (Object)stringBiomes);
+        section.set("regions", (Object)regions);
         try {
             config.save(LibConfiguration.getSpawnSettingsFile());
-        } catch (IOException ignored) {
+        }
+        catch (IOException ignored) {
             return SpawnSettingsCallback.IO_EXCEPTION;
         }
-
         CustomMobs.instance.getMobDataHolder().reloadAllMobs();
         CustomMobs.instance.getSpawnSettings().resolveSettings();
         CustomMobs.instance.getWorldSpawnExecutor().loadData();
-
         return SpawnSettingsCallback.SUCCESS;
     }
-
 }

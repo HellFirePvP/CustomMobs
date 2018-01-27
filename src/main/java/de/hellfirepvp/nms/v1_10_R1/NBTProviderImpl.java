@@ -1,446 +1,507 @@
 package de.hellfirepvp.nms.v1_10_R1;
 
-import de.hellfirepvp.api.data.nbt.NBTTagType;
-import de.hellfirepvp.api.data.nbt.NullableIndexedElementIterator;
-import de.hellfirepvp.api.data.nbt.UnsupportedNBTTypeException;
-import de.hellfirepvp.api.data.nbt.WrappedNBTTagCompound;
-import de.hellfirepvp.api.data.nbt.WrappedNBTTagList;
-import de.hellfirepvp.data.nbt.base.NBTProvider;
 import de.hellfirepvp.data.nbt.base.UnmodWrappedNBTTagCompound;
+import de.hellfirepvp.api.data.nbt.UnsupportedNBTTypeException;
+import javax.annotation.Nullable;
+import java.util.Iterator;
 import de.hellfirepvp.data.nbt.base.UnmodWrappedNBTTagList;
-import de.hellfirepvp.nms.NMSReflector;
-import net.minecraft.server.v1_10_R1.NBTBase;
-import net.minecraft.server.v1_10_R1.NBTCompressedStreamTools;
-import net.minecraft.server.v1_10_R1.NBTTagByte;
-import net.minecraft.server.v1_10_R1.NBTTagByteArray;
-import net.minecraft.server.v1_10_R1.NBTTagCompound;
-import net.minecraft.server.v1_10_R1.NBTTagDouble;
 import net.minecraft.server.v1_10_R1.NBTTagEnd;
-import net.minecraft.server.v1_10_R1.NBTTagFloat;
-import net.minecraft.server.v1_10_R1.NBTTagInt;
+import de.hellfirepvp.api.data.nbt.NullableIndexedElementIterator;
+import de.hellfirepvp.nms.NMSReflector;
+import de.hellfirepvp.api.data.nbt.NBTTagType;
 import net.minecraft.server.v1_10_R1.NBTTagIntArray;
-import net.minecraft.server.v1_10_R1.NBTTagList;
+import net.minecraft.server.v1_10_R1.NBTTagByteArray;
+import net.minecraft.server.v1_10_R1.NBTTagString;
+import net.minecraft.server.v1_10_R1.NBTTagDouble;
+import net.minecraft.server.v1_10_R1.NBTTagFloat;
 import net.minecraft.server.v1_10_R1.NBTTagLong;
 import net.minecraft.server.v1_10_R1.NBTTagShort;
-import net.minecraft.server.v1_10_R1.NBTTagString;
-import org.bukkit.craftbukkit.v1_10_R1.inventory.CraftItemStack;
-import org.bukkit.inventory.ItemStack;
-
-import javax.annotation.Nullable;
-import java.io.IOException;
+import net.minecraft.server.v1_10_R1.NBTTagByte;
+import net.minecraft.server.v1_10_R1.NBTTagInt;
+import net.minecraft.server.v1_10_R1.NBTBase;
 import java.io.InputStream;
+import java.io.IOException;
+import net.minecraft.server.v1_10_R1.NBTCompressedStreamTools;
 import java.io.OutputStream;
-import java.util.Iterator;
+import net.minecraft.server.v1_10_R1.NBTTagList;
+import de.hellfirepvp.api.data.nbt.WrappedNBTTagList;
+import net.minecraft.server.v1_10_R1.NBTTagCompound;
+import org.bukkit.craftbukkit.v1_10_R1.inventory.CraftItemStack;
+import de.hellfirepvp.api.data.nbt.WrappedNBTTagCompound;
+import org.bukkit.inventory.ItemStack;
+import de.hellfirepvp.data.nbt.base.NBTProvider;
 
-/**
- * This class is part of the CustomMobs Plugin
- * The plugin can be found at: https://www.spigotmc.org/resources/custommobs.7339
- * Class: NBTProviderImpl
- * Created by HellFirePvP
- * Date: 23.06.2016 / 16:24
- */
-public class NBTProviderImpl implements NBTProvider {
-
+public class NBTProviderImpl implements NBTProvider
+{
     @Override
-    public void saveStack(ItemStack stack, WrappedNBTTagCompound target) {
-        if(stack == null || target == null) return;
-        CraftItemStack.asNMSCopy(stack).save((NBTTagCompound) target.getRawNMSTagCompound());
+    public void saveStack(final ItemStack stack, final WrappedNBTTagCompound target) {
+        if (stack == null || target == null) {
+            return;
+        }
+        CraftItemStack.asNMSCopy(stack).save((NBTTagCompound)target.getRawNMSTagCompound());
     }
-
+    
     @Override
-    public ItemStack loadStack(WrappedNBTTagCompound savedStack) {
-        if(savedStack == null) return null;
-        return CraftItemStack.asBukkitCopy(
-                net.minecraft.server.v1_10_R1.ItemStack.createStack(
-                        (NBTTagCompound) savedStack.getRawNMSTagCompound()));
+    public ItemStack loadStack(final WrappedNBTTagCompound savedStack) {
+        if (savedStack == null) {
+            return null;
+        }
+        return CraftItemStack.asBukkitCopy(net.minecraft.server.v1_10_R1.ItemStack.createStack((NBTTagCompound)savedStack.getRawNMSTagCompound()));
     }
-
+    
     @Override
     public WrappedNBTTagCompound newTagCompound() {
         return new TagCompoundImpl(new NBTTagCompound());
     }
-
+    
     @Override
     public WrappedNBTTagList newTagList() {
         return new TagListImpl(new NBTTagList());
     }
-
+    
     @Override
-    public void write(OutputStream stream, WrappedNBTTagCompound tag) throws IOException {
-        NBTCompressedStreamTools.a((NBTTagCompound) tag.getRawNMSTagCompound(), stream);
+    public void write(final OutputStream stream, final WrappedNBTTagCompound tag) throws IOException {
+        NBTCompressedStreamTools.a((NBTTagCompound)tag.getRawNMSTagCompound(), stream);
     }
-
+    
     @Override
-    public WrappedNBTTagCompound read(InputStream stream) throws IOException {
+    public WrappedNBTTagCompound read(final InputStream stream) throws IOException {
         return new TagCompoundImpl(NBTCompressedStreamTools.a(stream));
     }
-
-    public static class TagListImpl implements WrappedNBTTagList {
-
+    
+    protected static NBTBase wrapValue(final Object value) {
+        if (value == null) {
+            return null;
+        }
+        if (value instanceof Integer) {
+            return (NBTBase)new NBTTagInt((int)value);
+        }
+        if (value instanceof Boolean) {
+            return (NBTBase)new NBTTagByte((byte)(((boolean)value) ? 1 : 0));
+        }
+        if (value instanceof Byte) {
+            return (NBTBase)new NBTTagByte((byte)value);
+        }
+        if (value instanceof Short) {
+            return (NBTBase)new NBTTagShort((short)value);
+        }
+        if (value instanceof Long) {
+            return (NBTBase)new NBTTagLong((long)value);
+        }
+        if (value instanceof Float) {
+            return (NBTBase)new NBTTagFloat((float)value);
+        }
+        if (value instanceof Double) {
+            return (NBTBase)new NBTTagDouble((double)value);
+        }
+        if (value instanceof String) {
+            return (NBTBase)new NBTTagString((String)value);
+        }
+        if (value instanceof byte[]) {
+            return (NBTBase)new NBTTagByteArray((byte[])value);
+        }
+        if (value instanceof int[]) {
+            return (NBTBase)new NBTTagIntArray((int[])value);
+        }
+        return null;
+    }
+    
+    protected static Object extractValue(final NBTBase nbtBase) {
+        if (nbtBase == null) {
+            return null;
+        }
+        switch (nbtBase.getTypeId()) {
+            case 1: {
+                return ((NBTTagByte)nbtBase).g();
+            }
+            case 2: {
+                return ((NBTTagShort)nbtBase).f();
+            }
+            case 3: {
+                return ((NBTTagInt)nbtBase).e();
+            }
+            case 4: {
+                return ((NBTTagLong)nbtBase).d();
+            }
+            case 5: {
+                return ((NBTTagFloat)nbtBase).i();
+            }
+            case 6: {
+                return ((NBTTagDouble)nbtBase).h();
+            }
+            case 7: {
+                return ((NBTTagByteArray)nbtBase).c();
+            }
+            case 8: {
+                return ((NBTTagString)nbtBase).c_();
+            }
+            case 11: {
+                return ((NBTTagIntArray)nbtBase).d();
+            }
+            default: {
+                return null;
+            }
+        }
+    }
+    
+    public static class TagListImpl implements WrappedNBTTagList
+    {
         private NBTTagList parentList;
-
-        public TagListImpl(NBTTagList parentList) {
+        
+        public TagListImpl(final NBTTagList parentList) {
             this.parentList = parentList;
         }
-
+        
         @Override
         public Object getRawNMSTagList() {
-            return parentList;
+            return this.parentList;
         }
-
+        
         @Override
-        public boolean appendItemStack(ItemStack stack) {
-            if(stack == null) return false;
-            if(hasElementType() && NBTTagType.TAG_COMPOUND != getElementType()) return false;
-
-            WrappedNBTTagCompound cmp = NMSReflector.nbtProvider.newTagCompound();
+        public boolean appendItemStack(final ItemStack stack) {
+            if (stack == null) {
+                return false;
+            }
+            if (this.hasElementType() && NBTTagType.TAG_COMPOUND != this.getElementType()) {
+                return false;
+            }
+            final WrappedNBTTagCompound cmp = NMSReflector.nbtProvider.newTagCompound();
             NMSReflector.nbtProvider.saveStack(stack, cmp);
-            parentList.add((NBTBase) cmp.getRawNMSTagCompound());
+            this.parentList.add((NBTBase)cmp.getRawNMSTagCompound());
             return true;
         }
-
+        
         @Override
-        public boolean appendNewElement(Object element) {
-            NBTBase wrapped = wrapValue(element);
-            if(wrapped == null) return false;
-            NBTTagType wrappedType = NBTTagType.getById((int) wrapped.getTypeId());
-            if(hasElementType() && wrappedType != getElementType()) return false;
-            parentList.add(wrapped);
+        public boolean appendNewElement(final Object element) {
+            final NBTBase wrapped = NBTProviderImpl.wrapValue(element);
+            if (wrapped == null) {
+                return false;
+            }
+            final NBTTagType wrappedType = NBTTagType.getById((int)wrapped.getTypeId());
+            if (this.hasElementType() && wrappedType != this.getElementType()) {
+                return false;
+            }
+            this.parentList.add(wrapped);
             return true;
         }
-
+        
         @Override
-        public boolean appendTagCompound(WrappedNBTTagCompound compound) {
-            if(hasElementType() && getElementType() != NBTTagType.TAG_COMPOUND) return false;
-            parentList.add((NBTBase) compound.getRawNMSTagCompound());
+        public boolean appendTagCompound(final WrappedNBTTagCompound compound) {
+            if (this.hasElementType() && this.getElementType() != NBTTagType.TAG_COMPOUND) {
+                return false;
+            }
+            this.parentList.add((NBTBase)compound.getRawNMSTagCompound());
             return true;
         }
-
+        
         @Override
-        public boolean appendTagList(WrappedNBTTagList list) {
-            if(hasElementType() && getElementType() != NBTTagType.TAG_LIST) return false;
-            parentList.add((NBTBase) list.getRawNMSTagList());
+        public boolean appendTagList(final WrappedNBTTagList list) {
+            if (this.hasElementType() && this.getElementType() != NBTTagType.TAG_LIST) {
+                return false;
+            }
+            this.parentList.add((NBTBase)list.getRawNMSTagList());
             return true;
         }
-
+        
         @Override
         public boolean hasElementType() {
-            return parentList.g() != 0;
+            return this.parentList.g() != 0;
         }
-
+        
         @Override
         public NBTTagType getElementType() {
-            return NBTTagType.getById(parentList.g()); //.g() ^= return type;
+            return NBTTagType.getById(this.parentList.g());
         }
-
+        
         @Override
-        public NullableIndexedElementIterator<Object> getElementIterator(boolean unmodifiable) {
-            return new ForIntIterator(parentList, unmodifiable);
+        public NullableIndexedElementIterator<Object> getElementIterator(final boolean unmodifiable) {
+            return new ForIntIterator(this.parentList, unmodifiable);
         }
-
+        
         @Override
         public NullableIndexedElementIterator<Object> getElementIterator() {
-            return getElementIterator(false);
+            return this.getElementIterator(false);
         }
-
+        
         @Override
-        public Object getElementAtIndex(int index) {
-            NBTBase element = parentList.h(index);
-
-            Object value = extractValue(element);
-            if(value != null) return value;
-            if(element instanceof NBTTagEnd) return null;
-            if(element instanceof NBTTagCompound) {
-                return new TagCompoundImpl((NBTTagCompound) element);
-            } else if(element instanceof NBTTagList) {
-                return new TagListImpl((NBTTagList) element);
+        public Object getElementAtIndex(final int index) {
+            final NBTBase element = this.parentList.h(index);
+            final Object value = NBTProviderImpl.extractValue(element);
+            if (value != null) {
+                return value;
             }
-            return element; //Awkward huh...
+            if (element instanceof NBTTagEnd) {
+                return null;
+            }
+            if (element instanceof NBTTagCompound) {
+                return new TagCompoundImpl((NBTTagCompound)element);
+            }
+            if (element instanceof NBTTagList) {
+                return new TagListImpl((NBTTagList)element);
+            }
+            return element;
         }
-
+        
         @Override
         public WrappedNBTTagList unmodifiable() {
             return new UnmodWrappedNBTTagList(this);
         }
-
+        
         @Override
         public int size() {
-            return parentList.size();
+            return this.parentList.size();
         }
-
+        
         @Override
         public Iterator<Object> iterator() {
-            return getElementIterator();
+            return this.getElementIterator();
         }
     }
-
-    public static class ForIntIterator implements NullableIndexedElementIterator<Object> {
-
+    
+    public static class ForIntIterator implements NullableIndexedElementIterator<Object>
+    {
         private NBTTagList list;
         private int entryPointer;
-        private boolean unmodifiable, removeCalledThisIteration = false;
-
-        public ForIntIterator(NBTTagList list, boolean unmodifiable) {
+        private boolean unmodifiable;
+        private boolean removeCalledThisIteration;
+        
+        public ForIntIterator(final NBTTagList list, final boolean unmodifiable) {
+            this.removeCalledThisIteration = false;
             this.list = list;
             this.entryPointer = -1;
             this.unmodifiable = unmodifiable;
         }
-
+        
         @Override
         public boolean hasNext() {
-            return (entryPointer + 1) < list.size();
+            return this.entryPointer + 1 < this.list.size();
         }
-
+        
         @Nullable
         @Override
         public Object next() {
-            entryPointer++;
-            removeCalledThisIteration = false;
-            NBTBase element = list.h(entryPointer);
-            Object value = extractValue(element);
-            if(value != null) return value;
-
-            if(element instanceof NBTTagCompound) {
-                WrappedNBTTagCompound cmp = new TagCompoundImpl((NBTTagCompound) element);
-                if(unmodifiable) cmp = cmp.unmodifiable();
+            ++this.entryPointer;
+            this.removeCalledThisIteration = false;
+            final NBTBase element = this.list.h(this.entryPointer);
+            final Object value = NBTProviderImpl.extractValue(element);
+            if (value != null) {
+                return value;
+            }
+            if (element instanceof NBTTagCompound) {
+                WrappedNBTTagCompound cmp = new TagCompoundImpl((NBTTagCompound)element);
+                if (this.unmodifiable) {
+                    cmp = cmp.unmodifiable();
+                }
                 return cmp;
-            } else if(element instanceof NBTTagList) {
-                WrappedNBTTagList list = new TagListImpl((NBTTagList) element);
-                if(unmodifiable) list = list.unmodifiable();
+            }
+            if (element instanceof NBTTagList) {
+                WrappedNBTTagList list = new TagListImpl((NBTTagList)element);
+                if (this.unmodifiable) {
+                    list = list.unmodifiable();
+                }
                 return list;
             }
-
-            return element; //Awkward huh...
+            return element;
         }
-
+        
         @Override
         public void remove() {
-            if(unmodifiable) throw new UnsupportedOperationException("remove (unmodifiable NBTIterator)");
-            if(removeCalledThisIteration) throw new IllegalStateException("remove already called for this element");
-
-            list.remove(entryPointer);
-
-            entryPointer--;
-            removeCalledThisIteration = true;
+            if (this.unmodifiable) {
+                throw new UnsupportedOperationException("remove (unmodifiable NBTIterator)");
+            }
+            if (this.removeCalledThisIteration) {
+                throw new IllegalStateException("remove already called for this element");
+            }
+            this.list.remove(this.entryPointer);
+            --this.entryPointer;
+            this.removeCalledThisIteration = true;
         }
-
+        
         @Override
         public int getCurrentIndex() {
-            return entryPointer;
+            return this.entryPointer;
         }
     }
-
-    public static class TagCompoundImpl implements WrappedNBTTagCompound {
-
+    
+    public static class TagCompoundImpl implements WrappedNBTTagCompound
+    {
         private NBTTagCompound parent;
-
-        private TagCompoundImpl(NBTTagCompound compound) {
+        
+        private TagCompoundImpl(final NBTTagCompound compound) {
             this.parent = compound;
         }
-
+        
         @Override
         public Object getRawNMSTagCompound() {
-            return parent;
+            return this.parent;
         }
-
+        
         @Override
-        public void removeKey(String key) {
-            parent.remove(key);
+        public void removeKey(final String key) {
+            this.parent.remove(key);
         }
-
+        
         @Override
-        public boolean hasKey(String key) {
-            return parent.hasKey(key);
+        public boolean hasKey(final String key) {
+            return this.parent.hasKey(key);
         }
-
+        
         @Override
-        public void setSubTag(String key, WrappedNBTTagCompound subTag) {
-            parent.set(key, (NBTTagCompound) subTag.getRawNMSTagCompound());
+        public void setSubTag(final String key, final WrappedNBTTagCompound subTag) {
+            this.parent.set(key, (NBTBase)subTag.getRawNMSTagCompound());
         }
-
+        
         @Override
-        public void setSubList(String key, WrappedNBTTagList listTag) {
-            parent.set(key, (NBTTagList) listTag.getRawNMSTagList());
+        public void setSubList(final String key, final WrappedNBTTagList listTag) {
+            this.parent.set(key, (NBTBase)listTag.getRawNMSTagList());
         }
-
+        
         @Nullable
         @Override
-        public ItemStack getItemStack(String key) {
-            if(!hasKey(key)) return null;
-
-            return NMSReflector.nbtProvider.loadStack(getTagCompound(key));
+        public ItemStack getItemStack(final String key) {
+            if (!this.hasKey(key)) {
+                return null;
+            }
+            return NMSReflector.nbtProvider.loadStack(this.getTagCompound(key));
         }
-
+        
         @Override
-        public void setItemStack(String key, ItemStack stack) {
-            if(stack == null) return;
-            WrappedNBTTagCompound tag = NMSReflector.nbtProvider.newTagCompound();
+        public void setItemStack(final String key, final ItemStack stack) {
+            if (stack == null) {
+                return;
+            }
+            final WrappedNBTTagCompound tag = NMSReflector.nbtProvider.newTagCompound();
             NMSReflector.nbtProvider.saveStack(stack, tag);
-            parent.set(key, (NBTBase) tag.getRawNMSTagCompound());
+            this.parent.set(key, (NBTBase)tag.getRawNMSTagCompound());
         }
-
-        //TODO NOPE.
+        
         @Override
-        public void set(String key, Object value) throws UnsupportedNBTTypeException {
-            if(value instanceof Integer) {
-                parent.setInt(key, (Integer) value);
+        public void set(final String key, final Object value) throws UnsupportedNBTTypeException {
+            if (value instanceof Integer) {
+                this.parent.setInt(key, (int)value);
                 return;
-            } else if(value instanceof Boolean) {
-                parent.setBoolean(key, (Boolean) value);
+            }
+            if (value instanceof Boolean) {
+                this.parent.setBoolean(key, (boolean)value);
                 return;
-            } else if(value instanceof Byte) {
-                parent.setByte(key, (Byte) value);
+            }
+            if (value instanceof Byte) {
+                this.parent.setByte(key, (byte)value);
                 return;
-            } else if(value instanceof Short) {
-                parent.setShort(key, (Short) value);
+            }
+            if (value instanceof Short) {
+                this.parent.setShort(key, (short)value);
                 return;
-            } else if(value instanceof Long) {
-                parent.setLong(key, (Long) value);
+            }
+            if (value instanceof Long) {
+                this.parent.setLong(key, (long)value);
                 return;
-            } else if(value instanceof Float) {
-                parent.setFloat(key, (Float) value);
+            }
+            if (value instanceof Float) {
+                this.parent.setFloat(key, (float)value);
                 return;
-            } else if(value instanceof Double) {
-                parent.setDouble(key, (Double) value);
+            }
+            if (value instanceof Double) {
+                this.parent.setDouble(key, (double)value);
                 return;
-            } else if(value instanceof String) {
-                parent.setString(key, (String) value);
+            }
+            if (value instanceof String) {
+                this.parent.setString(key, (String)value);
                 return;
-            } else if(value instanceof byte[]) {
-                parent.setByteArray(key, (byte[]) value);
+            }
+            if (value instanceof byte[]) {
+                this.parent.setByteArray(key, (byte[])value);
                 return;
-            } else if(value instanceof int[]) {
-                parent.setIntArray(key, (int[]) value);
+            }
+            if (value instanceof int[]) {
+                this.parent.setIntArray(key, (int[])value);
                 return;
             }
             throw new UnsupportedNBTTypeException();
         }
-
+        
         @Override
-        public void setInt(String key, int value) {
-            parent.setInt(key, value);
+        public void setInt(final String key, final int value) {
+            this.parent.setInt(key, value);
         }
-
+        
         @Override
-        public void setByte(String key, byte value) {
-            parent.setByte(key, value);
+        public void setByte(final String key, final byte value) {
+            this.parent.setByte(key, value);
         }
-
+        
         @Override
-        public void setShort(String key, short value) {
-            parent.setShort(key, value);
+        public void setShort(final String key, final short value) {
+            this.parent.setShort(key, value);
         }
-
+        
         @Override
-        public void setLong(String key, long value) {
-            parent.setLong(key, value);
+        public void setLong(final String key, final long value) {
+            this.parent.setLong(key, value);
         }
-
+        
         @Override
-        public void setFloat(String key, float value) {
-            parent.setFloat(key, value);
+        public void setFloat(final String key, final float value) {
+            this.parent.setFloat(key, value);
         }
-
+        
         @Override
-        public void setDouble(String key, double value) {
-            parent.setDouble(key, value);
+        public void setDouble(final String key, final double value) {
+            this.parent.setDouble(key, value);
         }
-
+        
         @Override
-        public void setBoolean(String key, boolean value) {
-            parent.setBoolean(key, value);
+        public void setBoolean(final String key, final boolean value) {
+            this.parent.setBoolean(key, value);
         }
-
+        
         @Override
-        public void setString(String key, String value) {
-            parent.setString(key, value);
+        public void setString(final String key, final String value) {
+            this.parent.setString(key, value);
         }
-
+        
         @Override
-        public void setIntArray(String key, int[] value) {
-            parent.setIntArray(key, value);
+        public void setIntArray(final String key, final int[] value) {
+            this.parent.setIntArray(key, value);
         }
-
+        
         @Override
-        public void setByteArray(String key, byte[] value) {
-            parent.setByteArray(key, value);
+        public void setByteArray(final String key, final byte[] value) {
+            this.parent.setByteArray(key, value);
         }
-
+        
         @Override
-        public WrappedNBTTagCompound getTagCompound(String key) {
-            if(!parent.hasKeyOfType(key, NBTTagType.TAG_COMPOUND.getTypeId())) return null;
-            NBTTagCompound other = parent.getCompound(key);
-            if(other == null) return null;
+        public WrappedNBTTagCompound getTagCompound(final String key) {
+            if (!this.parent.hasKeyOfType(key, NBTTagType.TAG_COMPOUND.getTypeId())) {
+                return null;
+            }
+            final NBTTagCompound other = this.parent.getCompound(key);
+            if (other == null) {
+                return null;
+            }
             return new TagCompoundImpl(other);
         }
-
+        
         @Override
-        public WrappedNBTTagList getTagList(String key, NBTTagType expectedListElements) {
-            if(!parent.hasKeyOfType(key, NBTTagType.TAG_LIST.getTypeId())) return null;
-            NBTTagList list = parent.getList(key, expectedListElements.getTypeId());
-            if(list == null) return null;
+        public WrappedNBTTagList getTagList(final String key, final NBTTagType expectedListElements) {
+            if (!this.parent.hasKeyOfType(key, NBTTagType.TAG_LIST.getTypeId())) {
+                return null;
+            }
+            final NBTTagList list = this.parent.getList(key, expectedListElements.getTypeId());
+            if (list == null) {
+                return null;
+            }
             return new TagListImpl(list);
         }
-
+        
         @Override
-        public Object getValue(String key) {
-            return extractValue(parent.get(key));
+        public Object getValue(final String key) {
+            return NBTProviderImpl.extractValue(this.parent.get(key));
         }
-
+        
         @Override
         public WrappedNBTTagCompound unmodifiable() {
             return new UnmodWrappedNBTTagCompound(this);
         }
-    }
-
-    protected static NBTBase wrapValue(Object value) {
-        if(value == null) return null;
-        if(value instanceof Integer) {
-            return new NBTTagInt((Integer) value);
-        } else if(value instanceof Boolean) {
-            return new NBTTagByte(((Boolean) value) ? (byte) 1 : (byte) 0);
-        } else if(value instanceof Byte) {
-            return new NBTTagByte((Byte) value);
-        } else if(value instanceof Short) {
-            return new NBTTagShort((Short) value);
-        } else if(value instanceof Long) {
-            return new NBTTagLong((Long) value);
-        } else if(value instanceof Float) {
-            return new NBTTagFloat((Float) value);
-        } else if(value instanceof Double) {
-            return new NBTTagDouble((Double) value);
-        } else if(value instanceof String) {
-            return new NBTTagString((String) value);
-        } else if(value instanceof byte[]) {
-            return new NBTTagByteArray((byte[]) value);
-        } else if(value instanceof int[]) {
-            return new NBTTagIntArray((int[]) value);
-        }
-        return null;
-    }
-
-    protected static Object extractValue(NBTBase nbtBase) {
-        if(nbtBase == null) return null;
-        switch (nbtBase.getTypeId()) {
-            case 1:
-                return ((NBTTagByte) nbtBase).g();
-            case 2:
-                return ((NBTTagShort) nbtBase).f();
-            case 3:
-                return ((NBTTagInt) nbtBase).e();
-            case 4:
-                return ((NBTTagLong) nbtBase).d();
-            case 5:
-                return ((NBTTagFloat) nbtBase).i();
-            case 6:
-                return ((NBTTagDouble) nbtBase).h();
-            case 7:
-                return ((NBTTagByteArray) nbtBase).c();
-            case 8:
-                return ((NBTTagString) nbtBase).c_();
-            case 11:
-                return ((NBTTagIntArray) nbtBase).d();
-        }
-        return null;
     }
 }

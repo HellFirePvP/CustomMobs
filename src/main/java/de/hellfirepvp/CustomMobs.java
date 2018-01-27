@@ -1,339 +1,317 @@
 package de.hellfirepvp;
 
+import org.bukkit.block.Biome;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import de.hellfirepvp.data.mob.CustomMob;
+import java.io.IOException;
 import de.hellfirepvp.api.CustomMobsAPI;
-import de.hellfirepvp.chat.ChatController;
 import de.hellfirepvp.cmd.CommandRegistry;
-import de.hellfirepvp.config.ConfigHandler;
-import de.hellfirepvp.data.FullControlHandler;
+import de.hellfirepvp.event.ToolEventListener;
+import de.hellfirepvp.event.WorldEventListener;
+import org.bukkit.event.Listener;
+import de.hellfirepvp.event.GeneralEventListener;
+import org.bukkit.plugin.Plugin;
+import de.hellfirepvp.leash.LeashExecutor;
+import de.hellfirepvp.leash.LeashManager;
+import de.hellfirepvp.data.nbt.NBTRegister;
+import de.hellfirepvp.integration.IntegrationHandler;
+import de.hellfirepvp.nms.NMSReflector;
+import de.hellfirepvp.util.ServerType;
+import org.bukkit.Bukkit;
+import de.hellfirepvp.data.StackingDataHolder;
+import de.hellfirepvp.spawning.SpawnLimit;
 import de.hellfirepvp.data.RespawnDataHolder;
 import de.hellfirepvp.data.SpawnSettingsHolder;
 import de.hellfirepvp.data.SpawnerDataHolder;
-import de.hellfirepvp.data.StackingDataHolder;
-import de.hellfirepvp.data.drops.DropChatController;
-import de.hellfirepvp.data.mob.CustomMob;
 import de.hellfirepvp.data.mob.MobDataHolder;
-import de.hellfirepvp.data.nbt.NBTRegister;
-import de.hellfirepvp.event.GeneralEventListener;
-import de.hellfirepvp.event.ToolEventListener;
-import de.hellfirepvp.event.WorldEventListener;
-import de.hellfirepvp.integration.IntegrationHandler;
-import de.hellfirepvp.lang.LanguageHandler;
-import de.hellfirepvp.leash.LeashExecutor;
-import de.hellfirepvp.leash.LeashManager;
-import de.hellfirepvp.nms.NMSReflector;
-import de.hellfirepvp.spawning.worldSpawning.RandomWorldSpawnExecutor;
-import de.hellfirepvp.spawning.Respawner;
-import de.hellfirepvp.spawning.SpawnLimit;
-import de.hellfirepvp.spawning.SpawnerHandler;
+import de.hellfirepvp.chat.ChatController;
 import de.hellfirepvp.spawning.worldSpawning.WorldSpawner;
+import de.hellfirepvp.data.drops.DropChatController;
 import de.hellfirepvp.tool.ToolController;
-import de.hellfirepvp.util.ServerType;
+import de.hellfirepvp.data.FullControlHandler;
+import de.hellfirepvp.spawning.Respawner;
+import de.hellfirepvp.spawning.SpawnerHandler;
+import de.hellfirepvp.spawning.worldSpawning.RandomWorldSpawnExecutor;
+import de.hellfirepvp.lang.LanguageHandler;
+import de.hellfirepvp.config.ConfigHandler;
+import java.io.File;
 import de.hellfirepvp.util.SupportedVersions;
 import de.hellfirepvp.util.WrappedPrefixLogger;
-import org.bukkit.Bukkit;
-import org.bukkit.block.Biome;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.mcstats.Metrics;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-
-/**
- * This class is part of the CustomMobs Plugin
- * The plugin can be found at: https://www.spigotmc.org/resources/custommobs.7339
- * Class: CustomMobs
- * Created by HellFirePvP
- * Date: 23.05.2016 / 22:05
- */
-public class CustomMobs extends JavaPlugin {
-
+public class CustomMobs extends JavaPlugin
+{
     public static CustomMobs instance;
     public static WrappedPrefixLogger logger;
     public static String pluginYmlVersion;
-
     public static SupportedVersions currentVersion;
-
-    private File mobFolder, fullControlFolder, langFileFolder;
-    private ConfigHandler config = new ConfigHandler();
-    private LanguageHandler languageHandler = new LanguageHandler();
-
-    private RandomWorldSpawnExecutor worldSpawnExecutor = new RandomWorldSpawnExecutor();
-    private SpawnerHandler spawnerHandler = new SpawnerHandler();
-    private Respawner respawner = new Respawner();
-    private FullControlHandler fullControlHandler = new FullControlHandler();
-    private ToolController toolController = new ToolController();
-    private DropChatController dropController = new DropChatController();
-    private WorldSpawner worldSpawner = new WorldSpawner();
-
-    private ChatController chatHandler = new ChatController();
-
-    private MobDataHolder mobDataHolder = new MobDataHolder();
-    private SpawnerDataHolder spawnerDataHolder = new SpawnerDataHolder();
-    private SpawnSettingsHolder spawnSettings = new SpawnSettingsHolder();
-    private RespawnDataHolder respawnSettings = new RespawnDataHolder();
-    private SpawnLimit spawnLimiter = new SpawnLimit();
-    private StackingDataHolder stackingData = new StackingDataHolder();
-
+    private File mobFolder;
+    private File fullControlFolder;
+    private File langFileFolder;
+    private ConfigHandler config;
+    private LanguageHandler languageHandler;
+    private RandomWorldSpawnExecutor worldSpawnExecutor;
+    private SpawnerHandler spawnerHandler;
+    private Respawner respawner;
+    private FullControlHandler fullControlHandler;
+    private ToolController toolController;
+    private DropChatController dropController;
+    private WorldSpawner worldSpawner;
+    private ChatController chatHandler;
+    private MobDataHolder mobDataHolder;
+    private SpawnerDataHolder spawnerDataHolder;
+    private SpawnSettingsHolder spawnSettings;
+    private RespawnDataHolder respawnSettings;
+    private SpawnLimit spawnLimiter;
+    private StackingDataHolder stackingData;
+    
+    public CustomMobs() {
+        this.config = new ConfigHandler();
+        this.languageHandler = new LanguageHandler();
+        this.worldSpawnExecutor = new RandomWorldSpawnExecutor();
+        this.spawnerHandler = new SpawnerHandler();
+        this.respawner = new Respawner();
+        this.fullControlHandler = new FullControlHandler();
+        this.toolController = new ToolController();
+        this.dropController = new DropChatController();
+        this.worldSpawner = new WorldSpawner();
+        this.chatHandler = new ChatController();
+        this.mobDataHolder = new MobDataHolder();
+        this.spawnerDataHolder = new SpawnerDataHolder();
+        this.spawnSettings = new SpawnSettingsHolder();
+        this.respawnSettings = new RespawnDataHolder();
+        this.spawnLimiter = new SpawnLimit();
+        this.stackingData = new StackingDataHolder();
+    }
+    
     @Override
     public void onLoad() {
-        instance = this;
-        logger = new WrappedPrefixLogger(Bukkit.getLogger(), "CustomMobs");
-        logger.info("Starting loading phase...");
-
+        CustomMobs.instance = this;
+        (CustomMobs.logger = new WrappedPrefixLogger(Bukkit.getLogger(), "CustomMobs")).info("Starting loading phase...");
         ServerType.resolve();
-        logger.info("Assumed ServerType: " + ServerType.getResolvedType().name());
-        logger.info("Server version: " + NMSReflector.VERSION);
-
-        config.loadFromFile();
-        languageHandler.loadLanguageFile();
-        pluginYmlVersion = getDescription().getVersion();
-
-        logger.info("This Version of custom mobs supports the following server versions:");
-        logger.info(SupportedVersions.getSupportedVersions());
-        currentVersion = SupportedVersions.getCurrentVersion();
-
-        if(currentVersion != null) {
-            logger.info("Current server version is supported by CustomMobs!");
-        } else {
-            logger.info("Could not find supported server version! Is this server version not supported by CustomMobs?");
+        CustomMobs.logger.info("Assumed ServerType: " + ServerType.getResolvedType().name());
+        CustomMobs.logger.info("Server version: " + NMSReflector.VERSION);
+        this.config.loadFromFile();
+        this.languageHandler.loadLanguageFile();
+        CustomMobs.pluginYmlVersion = this.getDescription().getVersion();
+        CustomMobs.logger.info("This Version of custom mobs supports the following server versions:");
+        CustomMobs.logger.info(SupportedVersions.getSupportedVersions());
+        CustomMobs.currentVersion = SupportedVersions.getCurrentVersion();
+        if (CustomMobs.currentVersion != null) {
+            CustomMobs.logger.info("Current server version is supported by CustomMobs!");
         }
-
-        logger.info("Loading finished.");
+        else {
+            CustomMobs.logger.info("Could not find supported server version! Is this server version not supported by CustomMobs?");
+        }
+        CustomMobs.logger.info("Loading finished.");
     }
-
+    
     @Override
     public void onEnable() {
-        if(!NMSReflector.initialize()) {
-            logger.severe("Could not create link to Server version " + NMSReflector.VERSION + "!");
-            logger.severe("Are you using a supported server version?");
-            disable();
+        if (!NMSReflector.initialize()) {
+            CustomMobs.logger.severe("Could not create link to Server version " + NMSReflector.VERSION + "!");
+            CustomMobs.logger.severe("Are you using a supported server version?");
+            this.disable();
             return;
-        } else {
-            logger.info("Successfully created links to current server version!");
         }
-
-        logger.info("Enabling CustomMobs (" + pluginYmlVersion + ") on server version " + NMSReflector.VERSION);
-
-        /*
-            --- General loading stuff first ---
-         */
-        logger.info("Discovering MobTypes...");
-        NMSReflector.mobTypeProvider.discoverMobTypes(); //Loads/finds all mobTypes
-        logger.info("Found " + NMSReflector.mobTypeProvider.getTypeNames().size() + " MobTypes!");
-
+        CustomMobs.logger.info("Successfully created links to current server version!");
+        CustomMobs.logger.info("Enabling CustomMobs (" + CustomMobs.pluginYmlVersion + ") on server version " + NMSReflector.VERSION);
+        CustomMobs.logger.info("Discovering MobTypes...");
+        NMSReflector.mobTypeProvider.discoverMobTypes();
+        CustomMobs.logger.info("Found " + NMSReflector.mobTypeProvider.getTypeNames().size() + " MobTypes!");
         IntegrationHandler.loadIntegrations();
-
-        /*
-            --- Loading data ---
-         */
-
-        mobDataHolder.reloadAllMobs();
-        logger.info("Loaded " + mobDataHolder.getAllLoadedMobs().size() + " mobs!");
+        this.mobDataHolder.reloadAllMobs();
+        CustomMobs.logger.info("Loaded " + this.mobDataHolder.getAllLoadedMobs().size() + " mobs!");
         NBTRegister.initializeRegistry();
-
-        spawnSettings.resolveSettings();
-        spawnerDataHolder.loadData();
-        respawnSettings.loadData();
-        spawnLimiter.loadData();
+        this.spawnSettings.resolveSettings();
+        this.spawnerDataHolder.loadData();
+        this.respawnSettings.loadData();
+        this.spawnLimiter.loadData();
         LeashManager.load();
-        stackingData.load();
-
-        /*
-            --- Loading and starting Live handlers ---
-         */
-
-        worldSpawnExecutor.loadData();
-        spawnerHandler.start();
-        respawner.start();
+        this.stackingData.load();
+        this.worldSpawnExecutor.loadData();
+        this.spawnerHandler.start();
+        this.respawner.start();
         LeashExecutor.start();
-        fullControlHandler.readAndPushData();
-        worldSpawner.start();
-
-        chatHandler.init();
-
-        if(currentVersion != null)
-            getServer().getPluginManager().registerEvents(currentVersion.getAmbiguousEventListener(), this);
-
-        getServer().getPluginManager().registerEvents(new GeneralEventListener(), this);
-        getServer().getPluginManager().registerEvents(new WorldEventListener(), this);
-        getServer().getPluginManager().registerEvents(new ToolEventListener(), this);
-
-        CommandRegistry.initializeCommands();
-
-        /*
-            --- Cosmetic Stuff last ---
-         */
-
-        CustomMobsAPI.setApiHandler(new DefaultApiHandler());
-
-        createBiomeInfoFile();
-
-        if(config.enablePluginMetrics()) {
-            logger.info("Enabling PluginMetrics...");
-            loadPluginMetricsInformation();
-        } else {
-            logger.info("PluginMetrics not enabled.");
+        this.fullControlHandler.readAndPushData();
+        this.worldSpawner.start();
+        this.chatHandler.init();
+        if (CustomMobs.currentVersion != null) {
+            this.getServer().getPluginManager().registerEvents(CustomMobs.currentVersion.getAmbiguousEventListener(), (Plugin)this);
         }
-
-        /*
-            --- WE ARE DONE ---
-         */
-
-        logger.info("Please note that CustomMobs is !!_NOT_!! reloadable. It may lead to various bugs and data inconsistency.");
-        logger.info("Startup Completed. Have fun using CustomMobs to your hearts content.");
+        this.getServer().getPluginManager().registerEvents((Listener)new GeneralEventListener(), (Plugin)this);
+        this.getServer().getPluginManager().registerEvents((Listener)new WorldEventListener(), (Plugin)this);
+        this.getServer().getPluginManager().registerEvents((Listener)new ToolEventListener(), (Plugin)this);
+        CommandRegistry.initializeCommands();
+        CustomMobsAPI.setApiHandler(new DefaultApiHandler());
+        this.createBiomeInfoFile();
+        if (this.config.enablePluginMetrics()) {
+            CustomMobs.logger.info("Enabling PluginMetrics...");
+            this.loadPluginMetricsInformation();
+        }
+        else {
+            CustomMobs.logger.info("PluginMetrics not enabled.");
+        }
+        CustomMobs.logger.info("Please note that CustomMobs is !!_NOT_!! reloadable. It may lead to various bugs and data inconsistency.");
+        CustomMobs.logger.info("Startup Completed. Have fun using CustomMobs to your hearts content.");
     }
-
+    
     private void loadPluginMetricsInformation() {
         try {
-            Metrics metrics = new Metrics(this);
-            Metrics.Graph createdGraph = metrics.createGraph("Different Mobs created");
+            final Metrics metrics = new Metrics((Plugin)this);
+            final Metrics.Graph createdGraph = metrics.createGraph("Different Mobs created");
             createdGraph.addPlotter(new Metrics.Plotter() {
                 @Override
                 public int getValue() {
-                    return getMobDataHolder().getAllLoadedMobs().size();
+                    return CustomMobs.this.getMobDataHolder().getAllLoadedMobs().size();
                 }
             });
             metrics.start();
-            logger.info("Sending information to PluginMetrics.");
-            logger.info("Thank you for enabling PluginMetrics! (~HellFirePvP)");
-        } catch (IOException e) {
-            logger.info("Enabling PluginMetrics failed.");
+            CustomMobs.logger.info("Sending information to PluginMetrics.");
+            CustomMobs.logger.info("Thank you for enabling PluginMetrics! (~HellFirePvP)");
+        }
+        catch (IOException e) {
+            CustomMobs.logger.info("Enabling PluginMetrics failed.");
         }
     }
-
+    
     private void disable() {
-        logger.info("CustomMobs encountered an unexpected situation.");
-        logger.info("To prevent further errors, CustomMobs will deactivate itself.");
-        getPluginLoader().disablePlugin(this);
+        CustomMobs.logger.info("CustomMobs encountered an unexpected situation.");
+        CustomMobs.logger.info("To prevent further errors, CustomMobs will deactivate itself.");
+        this.getPluginLoader().disablePlugin((Plugin)this);
     }
-
+    
     @Override
     public void onDisable() {
-        logger.info("Cleaning up...");
-        int killed = CustomMob.killAllWithLimit();
-        logger.info(killed + " alive mobs with SpawnLimit killed.");
-        fullControlHandler.restoreMCDefault();
-        logger.info("Fullcontrol restored minecraft biome spawnsettings.");
-        logger.info("disabled!");
+        CustomMobs.logger.info("Cleaning up...");
+        final int killed = CustomMob.killAllWithLimit();
+        CustomMobs.logger.info(killed + " alive mobs with SpawnLimit killed.");
+        this.fullControlHandler.restoreMCDefault();
+        CustomMobs.logger.info("Fullcontrol restored minecraft biome spawnsettings.");
+        CustomMobs.logger.info("disabled!");
     }
-
+    
     public LanguageHandler getLanguageHandler() {
-        return languageHandler;
+        return this.languageHandler;
     }
-
+    
     public ConfigHandler getConfigHandler() {
-        return config;
+        return this.config;
     }
-
+    
     public ToolController getToolController() {
-        return toolController;
+        return this.toolController;
     }
-
+    
     public ChatController getChatHandler() {
-        return chatHandler;
+        return this.chatHandler;
     }
-
+    
     public DropChatController getDropController() {
-        return dropController;
+        return this.dropController;
     }
-
+    
     public SpawnerHandler getSpawnerHandler() {
-        return spawnerHandler;
+        return this.spawnerHandler;
     }
-
+    
     public Respawner getRespawner() {
-        return respawner;
+        return this.respawner;
     }
-
+    
     public MobDataHolder getMobDataHolder() {
-        return mobDataHolder;
+        return this.mobDataHolder;
     }
-
+    
     public SpawnLimit getSpawnLimiter() {
-        return spawnLimiter;
+        return this.spawnLimiter;
     }
-
+    
     public FullControlHandler getFullControlHandler() {
-        return fullControlHandler;
+        return this.fullControlHandler;
     }
-
+    
     public RandomWorldSpawnExecutor getWorldSpawnExecutor() {
-        return worldSpawnExecutor;
+        return this.worldSpawnExecutor;
     }
-
+    
     public SpawnSettingsHolder getSpawnSettings() {
-        return spawnSettings;
+        return this.spawnSettings;
     }
-
+    
     public RespawnDataHolder getRespawnSettings() {
-        return respawnSettings;
+        return this.respawnSettings;
     }
-
+    
     public SpawnerDataHolder getSpawnerDataHolder() {
-        return spawnerDataHolder;
+        return this.spawnerDataHolder;
     }
-
+    
     public StackingDataHolder getStackingData() {
-        return stackingData;
+        return this.stackingData;
     }
-
+    
     private void createBiomeInfoFile() {
-        File biomeInfoFile = new File(instance.getDataFolder(), "biomeInfo.txt");
-        if(!biomeInfoFile.exists()) {
+        final File biomeInfoFile = new File(CustomMobs.instance.getDataFolder(), "biomeInfo.txt");
+        if (!biomeInfoFile.exists()) {
             try {
-                if(!biomeInfoFile.createNewFile()) return;
-            } catch (IOException ignored) {}
-        } else {
-            return;
-        }
-        BufferedWriter writer = null;
-        try {
-            writer = new BufferedWriter(new FileWriter(biomeInfoFile));
-
-            writer.write("Biomes the plugin knows (version " + pluginYmlVersion + "):");
-            writer.newLine();
-
-            for(Biome b : Biome.values()) {
-                if(b == null) continue;
+                if (!biomeInfoFile.createNewFile()) {
+                    return;
+                }
+            }
+            catch (IOException ex) {}
+            BufferedWriter writer = null;
+            try {
+                writer = new BufferedWriter(new FileWriter(biomeInfoFile));
+                writer.write("Biomes the plugin knows (version " + CustomMobs.pluginYmlVersion + "):");
                 writer.newLine();
-                writer.write(b.name());
+                for (final Biome b : Biome.values()) {
+                    if (b != null) {
+                        writer.newLine();
+                        writer.write(b.name());
+                    }
+                }
             }
-
-        } catch (Exception ignored) {
-        } finally {
-            if(writer != null) {
-                try {
-                    writer.close();
-                } catch (IOException ignored) {}
+            catch (IOException ex2) {}
+            finally {
+                if (writer != null) {
+                    try {
+                        writer.close();
+                    }
+                    catch (IOException ex3) {}
+                }
             }
         }
     }
-
+    
     public File getMobDataFolder() {
-        if(mobFolder == null) {
-            mobFolder = new File(instance.getDataFolder(), "Mobs");
+        if (this.mobFolder == null) {
+            this.mobFolder = new File(CustomMobs.instance.getDataFolder(), "Mobs");
         }
-        if(!mobFolder.exists()) mobFolder.mkdirs();
-        return mobFolder;
+        if (!this.mobFolder.exists()) {
+            this.mobFolder.mkdirs();
+        }
+        return this.mobFolder;
     }
-
+    
     public File getLanguageFileFolder() {
-        if(langFileFolder == null) {
-            langFileFolder = new File(instance.getDataFolder(), "lang");
+        if (this.langFileFolder == null) {
+            this.langFileFolder = new File(CustomMobs.instance.getDataFolder(), "lang");
         }
-        if(!langFileFolder.exists()) langFileFolder.mkdirs();
-        return langFileFolder;
+        if (!this.langFileFolder.exists()) {
+            this.langFileFolder.mkdirs();
+        }
+        return this.langFileFolder;
     }
-
-
+    
     public File getFullControlDataFolder() {
-        if(fullControlFolder == null) {
-            fullControlFolder = new File(instance.getDataFolder(), "FullControl");
+        if (this.fullControlFolder == null) {
+            this.fullControlFolder = new File(CustomMobs.instance.getDataFolder(), "FullControl");
         }
-        if(!fullControlFolder.exists()) fullControlFolder.mkdirs();
-        return fullControlFolder;
+        if (!this.fullControlFolder.exists()) {
+            this.fullControlFolder.mkdirs();
+        }
+        return this.fullControlFolder;
     }
-
 }

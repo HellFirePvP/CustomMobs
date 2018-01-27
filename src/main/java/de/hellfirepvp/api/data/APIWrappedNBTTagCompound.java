@@ -1,32 +1,19 @@
 package de.hellfirepvp.api.data;
 
-import de.hellfirepvp.api.data.nbt.NBTTagType;
-import de.hellfirepvp.api.data.nbt.WrappedNBTTagCompound;
 import de.hellfirepvp.api.data.nbt.WrappedNBTTagList;
-import org.bukkit.entity.Entity;
-import org.bukkit.inventory.ItemStack;
-
+import de.hellfirepvp.api.data.nbt.NBTTagType;
 import javax.annotation.Nullable;
+import de.hellfirepvp.api.data.nbt.WrappedNBTTagCompound;
 
-/**
-* This class is part of the CustomMobs Plugin
-* The plugin can be found at: https://www.spigotmc.org/resources/custommobs.7339
-* Class: APIWrappedNBTTagCompound
-* Created by HellFirePvP
-* Date: 31.05.2016 / 13:24
-*/
-public interface APIWrappedNBTTagCompound extends WrappedNBTTagCompound {
-
+public interface APIWrappedNBTTagCompound extends WrappedNBTTagCompound
+{
     @Nullable
-    @Override
-    public APIWrappedNBTTagCompound getTagCompound(String key);
-
+    APIWrappedNBTTagCompound getTagCompound(final String p0);
+    
     @Nullable
-    @Override
-    public APIWrappedNBTTagList getTagList(String key, NBTTagType expectedListElements);
-
-    public APIWrappedNBTTagCompound createOrGetSubTag(String key);
-
-    public APIWrappedNBTTagList createOrGetSubList(String key, NBTTagType expectedElementType);
-
+    APIWrappedNBTTagList getTagList(final String p0, final NBTTagType p1);
+    
+    APIWrappedNBTTagCompound createOrGetSubTag(final String p0);
+    
+    APIWrappedNBTTagList createOrGetSubList(final String p0, final NBTTagType p1);
 }

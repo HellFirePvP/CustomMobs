@@ -1,119 +1,133 @@
 package de.hellfirepvp.api.data;
 
-import de.hellfirepvp.lang.LanguageHandler;
-import org.bukkit.entity.Player;
-import org.bukkit.inventory.EntityEquipment;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.PlayerInventory;
-
 import java.util.HashMap;
+import org.bukkit.inventory.EntityEquipment;
+import org.bukkit.inventory.PlayerInventory;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.entity.Player;
+import de.hellfirepvp.lang.LanguageHandler;
 import java.util.Map;
 
-/**
- * This class is part of the CustomMobs Plugin
- * The plugin can be found at: https://www.spigotmc.org/resources/custommobs.7339
- * Class: EquipmentSlot
- * Created by HellFirePvP
- * Date: 27.05.2016 / 01:23
- */
-public enum EquipmentSlot {
-
-    MAIN_HAND("main"),
-    OFF_HAND("off"),
-    HELMET("helmet"),
-    CHESTPLATE("chest"),
-    LEGGINGS("leggings"),
+public enum EquipmentSlot
+{
+    MAIN_HAND("main"), 
+    OFF_HAND("off"), 
+    HELMET("helmet"), 
+    CHESTPLATE("chest"), 
+    LEGGINGS("leggings"), 
     BOOTS("boots");
-
-    private static final Map<String, EquipmentSlot> BY_NAME = new HashMap<>();
-
+    
+    private static final Map<String, EquipmentSlot> BY_NAME;
     private final String subKey;
-
-    private EquipmentSlot(String subKey) {
+    
+    private EquipmentSlot(final String subKey) {
         this.subKey = subKey;
     }
-
+    
     public String getSubKey() {
-        return subKey;
+        return this.subKey;
     }
-
-    public static EquipmentSlot getByName(String name) {
-        return BY_NAME.get(name);
+    
+    public static EquipmentSlot getByName(final String name) {
+        return EquipmentSlot.BY_NAME.get(name);
     }
-
-    static {
-        for (EquipmentSlot es : values()) {
-            if(es == null) continue;
-            BY_NAME.put(es.getSubKey(), es);
-        }
-    }
-
+    
     public String getUnlocalizedRepresentation() {
-        return "equipment." + subKey;
+        return "equipment." + this.subKey;
     }
-
+    
     public String getLocalizedName() {
-        return LanguageHandler.translate(getUnlocalizedRepresentation());
+        return LanguageHandler.translate(this.getUnlocalizedRepresentation());
     }
-
-    public ItemStack getStackFromPlayer(Player player) {
-        PlayerInventory inv = player.getInventory();
+    
+    public ItemStack getStackFromPlayer(final Player player) {
+        final PlayerInventory inv = player.getInventory();
         switch (this) {
-            case MAIN_HAND:
+            case MAIN_HAND: {
                 return inv.getItemInMainHand();
-            case OFF_HAND:
+            }
+            case OFF_HAND: {
                 return inv.getItemInOffHand();
-            case HELMET:
+            }
+            case HELMET: {
                 return inv.getHelmet();
-            case CHESTPLATE:
+            }
+            case CHESTPLATE: {
                 return inv.getChestplate();
-            case LEGGINGS:
+            }
+            case LEGGINGS: {
                 return inv.getLeggings();
-            case BOOTS:
+            }
+            case BOOTS: {
                 return inv.getBoots();
+            }
+            default: {
+                return null;
+            }
         }
-        return null;
     }
-
-    public ItemStack getEquipment(EntityEquipment ee) {
+    
+    public ItemStack getEquipment(final EntityEquipment ee) {
         switch (this) {
-            case MAIN_HAND:
+            case MAIN_HAND: {
                 return ee.getItemInMainHand();
-            case OFF_HAND:
+            }
+            case OFF_HAND: {
                 return ee.getItemInOffHand();
-            case HELMET:
+            }
+            case HELMET: {
                 return ee.getHelmet();
-            case CHESTPLATE:
+            }
+            case CHESTPLATE: {
                 return ee.getChestplate();
-            case LEGGINGS:
+            }
+            case LEGGINGS: {
                 return ee.getLeggings();
-            case BOOTS:
+            }
+            case BOOTS: {
                 return ee.getBoots();
+            }
+            default: {
+                return null;
+            }
         }
-        return null;
     }
-
-    public void setEquipment(ItemStack item, EntityEquipment ee) {
+    
+    public void setEquipment(final ItemStack item, final EntityEquipment ee) {
         switch (this) {
-            case MAIN_HAND:
+            case MAIN_HAND: {
                 ee.setItemInMainHand(item);
                 break;
-            case OFF_HAND:
+            }
+            case OFF_HAND: {
                 ee.setItemInOffHand(item);
                 break;
-            case BOOTS:
+            }
+            case BOOTS: {
                 ee.setBoots(item);
                 break;
-            case LEGGINGS:
+            }
+            case LEGGINGS: {
                 ee.setLeggings(item);
                 break;
-            case CHESTPLATE:
+            }
+            case CHESTPLATE: {
                 ee.setChestplate(item);
                 break;
-            case HELMET:
+            }
+            case HELMET: {
                 ee.setHelmet(item);
                 break;
+            }
         }
     }
-
+    
+    static {
+        BY_NAME = new HashMap<String, EquipmentSlot>();
+        for (final EquipmentSlot es : values()) {
+            if (es != null) {
+                EquipmentSlot.BY_NAME.put(es.getSubKey(), es);
+            }
+        }
+    }
 }

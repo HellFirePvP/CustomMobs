@@ -1,34 +1,28 @@
 package de.hellfirepvp.nms;
 
-import java.util.List;
 import java.util.Map;
+import java.util.List;
 
-/**
- * This class is part of the CustomMobs Plugin
- * The plugin can be found at: https://www.spigotmc.org/resources/custommobs.7339
- * Class: BiomeMetaProvider
- * Created by HellFirePvP
- * Date: 24.05.2016 / 22:45
- */
-public interface BiomeMetaProvider {
-
-    public List getBiomes();
-
-    public Map<String, Map<String, List<NMSBiomeMetaLink>>> getSortedBiomeMeta();
-
-    public boolean applyBiomeData(Map<String, Map<String, List<NMSBiomeMetaLink>>> data);
-
-    public static class NMSBiomeMetaLink {
-
-        public final int weightedMobChance, minimumCount, maximumCount;
+public interface BiomeMetaProvider
+{
+    List getBiomes();
+    
+    Map<String, Map<String, List<NMSBiomeMetaLink>>> getSortedBiomeMeta();
+    
+    boolean applyBiomeData(final Map<String, Map<String, List<NMSBiomeMetaLink>>> p0);
+    
+    public static class NMSBiomeMetaLink
+    {
+        public final int weightedMobChance;
+        public final int minimumCount;
+        public final int maximumCount;
         public final String entityClassStr;
-
-        public NMSBiomeMetaLink(int weightedMobChance, int minimumCount, int maximumCount, String entityClassStr) {
+        
+        public NMSBiomeMetaLink(final int weightedMobChance, final int minimumCount, final int maximumCount, final String entityClassStr) {
             this.weightedMobChance = weightedMobChance;
             this.minimumCount = minimumCount;
             this.maximumCount = maximumCount;
             this.entityClassStr = entityClassStr;
         }
     }
-
 }

@@ -1,142 +1,139 @@
 package de.hellfirepvp.data;
 
-import de.hellfirepvp.api.data.ICustomMob;
-import de.hellfirepvp.api.data.ISpawnSettings;
-import de.hellfirepvp.api.data.ISpawnSettingsEditor;
-import de.hellfirepvp.api.data.callback.SpawnSettingsCallback;
-import de.hellfirepvp.file.write.SpawnSettingsWriter;
-import org.bukkit.block.Biome;
-
 import java.util.ArrayList;
+import org.bukkit.block.Biome;
 import java.util.List;
+import de.hellfirepvp.file.write.SpawnSettingsWriter;
+import de.hellfirepvp.api.data.callback.SpawnSettingsCallback;
+import de.hellfirepvp.api.data.ISpawnSettings;
+import de.hellfirepvp.api.data.ICustomMob;
+import de.hellfirepvp.api.data.ISpawnSettingsEditor;
 
-/**
- * This class is part of the CustomMobs Plugin
- * The plugin can be found at: https://www.spigotmc.org/resources/custommobs.7339
- * Class: SpawnSettingsEditor
- * Created by HellFirePvP
- * Date: 30.05.2016 / 09:34
- */
-public class SpawnSettingsEditor implements ISpawnSettingsEditor {
-
+public class SpawnSettingsEditor implements ISpawnSettingsEditor
+{
     @Override
-    public ISpawnSettingsEditor.ISpawnSettingsBuilder newSpawnSettingsBuilder() {
+    public ISpawnSettingsBuilder newSpawnSettingsBuilder() {
         return new SpawnSettingsBuilder();
     }
-
+    
     @Override
-    public SpawnSettingsCallback setSpawnRandomly(ICustomMob mob, ISpawnSettings spawnSettings) {
+    public SpawnSettingsCallback setSpawnRandomly(final ICustomMob mob, final ISpawnSettings spawnSettings) {
         return SpawnSettingsWriter.setSpawnSettings(mob.getName(), spawnSettings);
     }
-
+    
     @Override
-    public SpawnSettingsCallback resetSpawnRandomly(ICustomMob mob) {
+    public SpawnSettingsCallback resetSpawnRandomly(final ICustomMob mob) {
         return SpawnSettingsWriter.resetSpawnSettings(mob.getName());
     }
-
-    public static class SpawnSettingsBuilder implements ISpawnSettingsBuilder {
-
-        private boolean spawnInGroups = false;
-        private double spawnRate = 0.1;
-        private int averageGroupAmount = 1;
-        private boolean biomesSpecified = false;
-        private boolean worldsSpecified = false;
-        private boolean regionsSpecified = false;
-
-        private List<Biome> biomes = new ArrayList<>();
-        private List<String> worlds = new ArrayList<>();
-        private List<String> regions = new ArrayList<>();
-
+    
+    public static class SpawnSettingsBuilder implements ISpawnSettingsBuilder
+    {
+        private boolean spawnInGroups;
+        private double spawnRate;
+        private int averageGroupAmount;
+        private boolean biomesSpecified;
+        private boolean worldsSpecified;
+        private boolean regionsSpecified;
+        private List<Biome> biomes;
+        private List<String> worlds;
+        private List<String> regions;
+        
+        public SpawnSettingsBuilder() {
+            this.spawnInGroups = false;
+            this.spawnRate = 0.1;
+            this.averageGroupAmount = 1;
+            this.biomesSpecified = false;
+            this.worldsSpecified = false;
+            this.regionsSpecified = false;
+            this.biomes = new ArrayList<Biome>();
+            this.worlds = new ArrayList<String>();
+            this.regions = new ArrayList<String>();
+        }
+        
         @Override
-        public ISpawnSettingsEditor.ISpawnSettingsBuilder setSpawnInGroups(boolean spawnInGroups) {
+        public ISpawnSettingsBuilder setSpawnInGroups(final boolean spawnInGroups) {
             this.spawnInGroups = spawnInGroups;
             return this;
         }
-
+        
         @Override
-        public ISpawnSettingsEditor.ISpawnSettingsBuilder setSpawnRate(double spawnRate) {
+        public ISpawnSettingsBuilder setSpawnRate(final double spawnRate) {
             this.spawnRate = spawnRate;
             return this;
         }
-
+        
         @Override
-        public ISpawnSettingsEditor.ISpawnSettingsBuilder setAverageGroupAmount(int averageGroupAmount) {
+        public ISpawnSettingsBuilder setAverageGroupAmount(final int averageGroupAmount) {
             this.averageGroupAmount = averageGroupAmount;
             return this;
         }
-
+        
         @Override
-        public ISpawnSettingsEditor.ISpawnSettingsBuilderForcedBiome specifyBiomes() {
+        public ISpawnSettingsBuilderForcedBiome specifyBiomes() {
             this.biomesSpecified = true;
             return new ForcedBiomes(this);
         }
-
+        
         @Override
-        public ISpawnSettingsEditor.ISpawnSettingsBuilderForcedWorld specifyWorlds() {
+        public ISpawnSettingsBuilderForcedWorld specifyWorlds() {
             this.worldsSpecified = true;
             return new ForcedWorld(this);
         }
-
+        
         @Override
-        public ISpawnSettingsEditor.ISpawnSettingsBuilderForcedRegion specifyRegions() {
+        public ISpawnSettingsBuilderForcedRegion specifyRegions() {
             this.regionsSpecified = true;
             return new ForcedRegion(this);
         }
-
+        
         @Override
         public ISpawnSettings build() {
-            return new SpawnSettingsHolder.SpawnSettings(spawnInGroups, biomesSpecified, worldsSpecified, regionsSpecified,
-                    averageGroupAmount, biomes, worlds, regions, spawnRate);
+            return new SpawnSettingsHolder.SpawnSettings(this.spawnInGroups, this.biomesSpecified, this.worldsSpecified, this.regionsSpecified, this.averageGroupAmount, this.biomes, this.worlds, this.regions, this.spawnRate);
         }
-
-        public static class ForcedBiomes implements ISpawnSettingsEditor.ISpawnSettingsBuilderForcedBiome {
-
+        
+        public static class ForcedBiomes implements ISpawnSettingsBuilderForcedBiome
+        {
             private final SpawnSettingsBuilder builder;
-
-            private ForcedBiomes(SpawnSettingsBuilder builder) {
+            
+            private ForcedBiomes(final SpawnSettingsBuilder builder) {
                 this.builder = builder;
             }
-
+            
             @Override
-            public ISpawnSettingsEditor.ISpawnSettingsBuilder setBiomes(List<Biome> biomes) {
-                builder.biomes = biomes;
-                return builder;
+            public ISpawnSettingsBuilder setBiomes(final List<Biome> biomes) {
+                this.builder.biomes = biomes;
+                return this.builder;
             }
-
         }
-
-        public static class ForcedWorld implements ISpawnSettingsEditor.ISpawnSettingsBuilderForcedWorld {
-
+        
+        public static class ForcedWorld implements ISpawnSettingsBuilderForcedWorld
+        {
             private final SpawnSettingsBuilder builder;
-
-            private ForcedWorld(SpawnSettingsBuilder builder) {
+            
+            private ForcedWorld(final SpawnSettingsBuilder builder) {
                 this.builder = builder;
             }
-
+            
             @Override
-            public ISpawnSettingsEditor.ISpawnSettingsBuilder setWorlds(List<String> worlds) {
-                builder.worlds = worlds;
-                return builder;
+            public ISpawnSettingsBuilder setWorlds(final List<String> worlds) {
+                this.builder.worlds = worlds;
+                return this.builder;
             }
-
         }
-
-        public static class ForcedRegion implements ISpawnSettingsEditor.ISpawnSettingsBuilderForcedRegion {
-
+        
+        public static class ForcedRegion implements ISpawnSettingsBuilderForcedRegion
+        {
             private final SpawnSettingsBuilder builder;
-
-            private ForcedRegion(SpawnSettingsBuilder builder) {
+            
+            private ForcedRegion(final SpawnSettingsBuilder builder) {
                 this.builder = builder;
             }
-
+            
             @Override
-            public ISpawnSettingsEditor.ISpawnSettingsBuilder setRegions(List<String> regions) {
-                builder.regions = regions;
-                return builder;
+            public ISpawnSettingsBuilder setRegions(final List<String> regions) {
+                this.builder.regions = regions;
+                return this.builder;
             }
-
         }
-
     }
-
 }

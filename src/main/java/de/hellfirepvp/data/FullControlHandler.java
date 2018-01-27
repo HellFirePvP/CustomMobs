@@ -1,82 +1,67 @@
 package de.hellfirepvp.data;
 
-import de.hellfirepvp.CustomMobs;
 import de.hellfirepvp.file.read.FullControlBiomesReader;
-import de.hellfirepvp.nms.BiomeMetaProvider;
-import de.hellfirepvp.nms.NMSReflector;
+import de.hellfirepvp.CustomMobs;
 import org.bukkit.configuration.ConfigurationSection;
+import java.util.Iterator;
+import de.hellfirepvp.nms.NMSReflector;
 import org.bukkit.configuration.file.YamlConfiguration;
-
 import java.util.HashMap;
+import de.hellfirepvp.nms.BiomeMetaProvider;
 import java.util.List;
 import java.util.Map;
 
-import static de.hellfirepvp.lib.LibConstantKeys.*;
-
-/**
- * This class is part of the CustomMobs Plugin
- * The plugin can be found at: https://www.spigotmc.org/resources/custommobs.7339
- * Class: FullControlHandler
- * Created by HellFirePvP
- * Date: (Header change) 27.05.2016 / 4:04
- */
-public final class FullControlHandler {
-
-    private Map<String, Map<String, List<BiomeMetaProvider.NMSBiomeMetaLink>>> spawnBehavior = new HashMap<>();
-
-    private Map<String, Map<String, List<BiomeMetaProvider.NMSBiomeMetaLink>>> original = null;
-
-    public FullControlHandler() {}
-
-    public void pushDefaultData(YamlConfiguration out) {
-        //Getting sorted meta works because when normally executed, this contains the default metas...
-        if(original == null) {
-            original = NMSReflector.biomeMetaProvider.getSortedBiomeMeta();
+public final class FullControlHandler
+{
+    private Map<String, Map<String, List<BiomeMetaProvider.NMSBiomeMetaLink>>> spawnBehavior;
+    private Map<String, Map<String, List<BiomeMetaProvider.NMSBiomeMetaLink>>> original;
+    
+    public FullControlHandler() {
+        this.spawnBehavior = new HashMap<String, Map<String, List<BiomeMetaProvider.NMSBiomeMetaLink>>>();
+        this.original = null;
+    }
+    
+    public void pushDefaultData(final YamlConfiguration out) {
+        if (this.original == null) {
+            this.original = NMSReflector.biomeMetaProvider.getSortedBiomeMeta();
         }
-        Map<String, Map<String, List<BiomeMetaProvider.NMSBiomeMetaLink>>> sortedBiomeMeta = new HashMap<>(original);
-        for(String biomeName : sortedBiomeMeta.keySet()) {
-            ConfigurationSection biomeSection = out.createSection(biomeName);
-            Map<String, List<BiomeMetaProvider.NMSBiomeMetaLink>> typeMap = sortedBiomeMeta.get(biomeName);
-            for(String creatureType : typeMap.keySet()) {
-                ConfigurationSection sectionCType = biomeSection.createSection(creatureType);
-                List<BiomeMetaProvider.NMSBiomeMetaLink> biomeMetaLinks = typeMap.get(creatureType);
-                for(BiomeMetaProvider.NMSBiomeMetaLink link : biomeMetaLinks) {
-                    ConfigurationSection metaSection = sectionCType.createSection(link.entityClassStr);
-                    metaSection.set(FULLCONTROL_DATA_SPAWNCOUNT_MINIMUM, link.minimumCount);
-                    metaSection.set(FULLCONTROL_DATA_SPAWNCOUNT_MAXIMUM, link.maximumCount);
-                    metaSection.set(FULLCONTROL_DATA_WEIGHTEDRANDOM_CHANCE, link.weightedMobChance);
+        final Map<String, Map<String, List<BiomeMetaProvider.NMSBiomeMetaLink>>> sortedBiomeMeta = new HashMap<String, Map<String, List<BiomeMetaProvider.NMSBiomeMetaLink>>>(this.original);
+        for (final String biomeName : sortedBiomeMeta.keySet()) {
+            final ConfigurationSection biomeSection = out.createSection(biomeName);
+            final Map<String, List<BiomeMetaProvider.NMSBiomeMetaLink>> typeMap = sortedBiomeMeta.get(biomeName);
+            for (final String creatureType : typeMap.keySet()) {
+                final ConfigurationSection sectionCType = biomeSection.createSection(creatureType);
+                final List<BiomeMetaProvider.NMSBiomeMetaLink> biomeMetaLinks = typeMap.get(creatureType);
+                for (final BiomeMetaProvider.NMSBiomeMetaLink link : biomeMetaLinks) {
+                    final ConfigurationSection metaSection = sectionCType.createSection(link.entityClassStr);
+                    metaSection.set("spawnMinimum", (Object)link.minimumCount);
+                    metaSection.set("spawnMaximum", (Object)link.maximumCount);
+                    metaSection.set("weightedRandomChance", (Object)link.weightedMobChance);
                 }
             }
         }
     }
-
-
+    
     public void readAndPushData() {
-        if(CustomMobs.instance.getConfigHandler().useFullControl()) {
+        if (CustomMobs.instance.getConfigHandler().useFullControl()) {
             CustomMobs.logger.info("Loading Fullcontrol data...");
-
-            if(original == null) {
-                original = NMSReflector.biomeMetaProvider.getSortedBiomeMeta();
+            if (this.original == null) {
+                this.original = NMSReflector.biomeMetaProvider.getSortedBiomeMeta();
             }
-
-            spawnBehavior.clear();
+            this.spawnBehavior.clear();
             FullControlBiomesReader.readBiomes(this.spawnBehavior);
-
             NMSReflector.biomeMetaProvider.applyBiomeData(this.spawnBehavior);
             CustomMobs.logger.info("Applied biome settings to minecraft!");
         }
     }
-
+    
     public void restoreMCDefault() {
-        if(CustomMobs.instance.getConfigHandler().useFullControl()) {
-
-            if(original == null) {
+        if (CustomMobs.instance.getConfigHandler().useFullControl()) {
+            if (this.original == null) {
                 CustomMobs.logger.info("Fullcontrol was unable to clean up. Restarting your server fixxes the problem");
                 return;
             }
-
-            NMSReflector.biomeMetaProvider.applyBiomeData(original);
-
+            NMSReflector.biomeMetaProvider.applyBiomeData(this.original);
             CustomMobs.logger.info("Fullcontrol cleaned up.");
         }
     }

@@ -1,40 +1,41 @@
 package de.hellfirepvp.data.nbt.entries;
 
+import de.hellfirepvp.util.SupportedVersions;
+import de.hellfirepvp.CustomMobs;
 import de.hellfirepvp.data.nbt.NBTEntryParser;
 import de.hellfirepvp.data.nbt.NBTRegister;
 import de.hellfirepvp.data.nbt.entries.base.NBTEntryAgeable;
 
-/**
- * This class is part of the CustomMobs Plugin
- * The plugin can be found at: https://www.spigotmc.org/resources/custommobs.7339
- * Class: NBTEntryEntityHorse
- * Created by HellFirePvP
- * Date: 29.05.2016 / 15:05
- */
-public class NBTEntryEntityHorse extends NBTEntryAgeable {
-
-    public NBTEntryEntityHorse(NBTRegister.TypeRegister context) {
+public class NBTEntryEntityHorse extends NBTEntryAgeable
+{
+    public NBTEntryEntityHorse(final NBTRegister.TypeRegister context) {
         super(context);
     }
-
+    
     @Override
     public void registerEntries() {
         super.registerEntries();
-
-        offerEntry("Bred", NBTEntryParser.BOOLEAN_PARSER);
-        offerEntry("ChestedHorse", NBTEntryParser.BOOLEAN_PARSER);
-        offerEntry("EatingHaystack", NBTEntryParser.BOOLEAN_PARSER);
-        offerEntry("HasReproduced", NBTEntryParser.BOOLEAN_PARSER);
-        offerEntry("Tame", NBTEntryParser.BOOLEAN_PARSER);
-        offerEntry("Temper", NBTEntryParser.INT_PARSER);
-        offerEntry("Type", NBTEntryParser.INT_PARSER);
-        offerEntry("Variant", NBTEntryParser.INT_PARSER);
-        offerEntry("OwnerUUID", NBTEntryParser.STRING_PARSER);
-        offerEntry("Saddle", NBTEntryParser.BOOLEAN_PARSER);
-        offerEntry("SkeletonTrap", NBTEntryParser.BOOLEAN_PARSER);
-        offerEntry("SkeletonTrapTime", NBTEntryParser.INT_PARSER);
+        this.offerEntry("Bred", NBTEntryParser.BOOLEAN_PARSER);
+        this.offerEntry("EatingHaystack", NBTEntryParser.BOOLEAN_PARSER);
+        this.offerEntry("Tame", NBTEntryParser.BOOLEAN_PARSER);
+        this.offerEntry("Temper", NBTEntryParser.INT_PARSER);
+        this.offerEntry("Variant", NBTEntryParser.INT_PARSER);
+        this.offerEntry("OwnerUUID", NBTEntryParser.STRING_PARSER);
+        this.offerEntry("Saddle", NBTEntryParser.BOOLEAN_PARSER);
+        if (!CustomMobs.currentVersion.isThisAMoreRecentOrEqualVersionThan(SupportedVersions.V1_11_R1)) {
+            this.offerEntry("SkeletonTrap", NBTEntryParser.BOOLEAN_PARSER);
+            this.offerEntry("SkeletonTrapTime", NBTEntryParser.INT_PARSER);
+            this.offerEntry("ChestedHorse", NBTEntryParser.BOOLEAN_PARSER);
+            this.offerEntry("Type", NBTEntryParser.INT_PARSER);
+            this.offerEntry("HasReproduced", NBTEntryParser.BOOLEAN_PARSER);
+        }
     }
-
+    
+    @Override
+    public boolean isAvailable(final SupportedVersions mcVersion) {
+        return mcVersion.isThisAMoreRecentOrEqualVersionThan(SupportedVersions.V1_11_R1);
+    }
+    
     @Override
     public String getMobTypeName() {
         return "EntityHorse";

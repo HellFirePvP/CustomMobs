@@ -1,33 +1,24 @@
 package de.hellfirepvp.nms;
 
-import de.hellfirepvp.api.data.nbt.WrappedNBTTagCompound;
 import org.bukkit.Location;
-import org.bukkit.World;
+import de.hellfirepvp.api.data.nbt.WrappedNBTTagCompound;
 import org.bukkit.entity.LivingEntity;
-
+import org.bukkit.World;
 import java.util.List;
 
-/**
- * This class is part of the CustomMobs Plugin
- * The plugin can be found at: https://www.spigotmc.org/resources/custommobs.7339
- * Class: MobTypeProvider
- * Created by HellFirePvP
- * Date: 24.05.2016 / 14:37
- */
-public interface MobTypeProvider {
-
-    public void discoverMobTypes();
-
-    public List<String> getTypeNames();
-
-    public LivingEntity getEntityForName(World world, String typeName);
-
-    public LivingEntity createEntityShell(World world, WrappedNBTTagCompound data);
-
-    public LivingEntity spawnEntityFromSerializedData(Location at, WrappedNBTTagCompound data);
-
-    public WrappedNBTTagCompound getDataFromEntity(LivingEntity le);
-
-    public void mergeEntityDataInto(LivingEntity le, WrappedNBTTagCompound tag);
-
+public interface MobTypeProvider
+{
+    void discoverMobTypes();
+    
+    List<String> getTypeNames();
+    
+    LivingEntity getEntityForName(final World p0, final String p1);
+    
+    LivingEntity createEntityShell(final World p0, final WrappedNBTTagCompound p1);
+    
+    LivingEntity spawnEntityFromSerializedData(final Location p0, final WrappedNBTTagCompound p1);
+    
+    WrappedNBTTagCompound getDataFromEntity(final LivingEntity p0);
+    
+    void mergeEntityDataInto(final LivingEntity p0, final WrappedNBTTagCompound p1);
 }

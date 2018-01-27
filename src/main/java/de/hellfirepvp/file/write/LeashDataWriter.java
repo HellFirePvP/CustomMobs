@@ -1,43 +1,33 @@
 package de.hellfirepvp.file.write;
 
-import de.hellfirepvp.file.read.LeashDataReader;
-import de.hellfirepvp.leash.LeashManager;
-import de.hellfirepvp.lib.LibConfiguration;
 import org.bukkit.configuration.ConfigurationSection;
+import java.util.Iterator;
 import org.bukkit.configuration.file.YamlConfiguration;
-
 import java.io.IOException;
+import de.hellfirepvp.file.read.LeashDataReader;
 import java.util.ArrayList;
+import de.hellfirepvp.lib.LibConfiguration;
 import java.util.List;
-import java.util.Map;
+import de.hellfirepvp.leash.LeashManager;
 import java.util.UUID;
+import java.util.Map;
 
-/**
- * This class is part of the CustomMobs Plugin
- * The plugin can be found at: https://www.spigotmc.org/resources/custommobs.7339
- * Class: LeashDataWriter
- * Created by HellFirePvP
- * Date: (Header change) 27.05.2016 / 4:03
- */
-public class LeashDataWriter {
-
-    public static void writeToFile(Map<UUID, LeashManager.ActiveLeashInfo> leashMap, List<LeashManager.LeashInfo> mobsToLeash) {
-        YamlConfiguration cfg = LibConfiguration.getLeashDataConfiguration();
-
-        List<String> mobs = new ArrayList<>();
-        for (LeashManager.LeashInfo info : mobsToLeash) {
+public class LeashDataWriter
+{
+    public static void writeToFile(final Map<UUID, LeashManager.ActiveLeashInfo> leashMap, final List<LeashManager.LeashInfo> mobsToLeash) {
+        final YamlConfiguration cfg = LibConfiguration.getLeashDataConfiguration();
+        final List<String> mobs = new ArrayList<String>();
+        for (final LeashManager.LeashInfo info : mobsToLeash) {
             mobs.add(LeashDataReader.serializeInfo(info));
         }
-        cfg.set("mobsToLeash", mobs);
-
-        ConfigurationSection sec = cfg.createSection("activeLeashes");
-        for (Map.Entry<UUID, LeashManager.ActiveLeashInfo> entry : leashMap.entrySet()) {
-            sec.set(entry.getKey().toString(), LeashDataReader.serializeActive(entry.getValue()));
+        cfg.set("mobsToLeash", (Object)mobs);
+        final ConfigurationSection sec = cfg.createSection("activeLeashes");
+        for (final Map.Entry<UUID, LeashManager.ActiveLeashInfo> entry : leashMap.entrySet()) {
+            sec.set(entry.getKey().toString(), (Object)LeashDataReader.serializeActive(entry.getValue()));
         }
-
         try {
             cfg.save(LibConfiguration.getLeashDataFile());
-        } catch (IOException e) {}
+        }
+        catch (IOException ex) {}
     }
-
 }
